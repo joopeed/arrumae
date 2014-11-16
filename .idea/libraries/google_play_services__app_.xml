@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="google-play-services (3)">
+  <library name="google-play-services (app)">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/app/libs/google-play-services.jar!/" />
     </CLASSES>

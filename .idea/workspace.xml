@@ -27,13 +27,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f81bdec-103d-4514-8ebc-13517c910fb7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="DELETED" beforePath="C:\Users\Leticia\les-142\app\gen\ufcg\edu\app\BuildConfig.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Leticia\les-142\app\gen\ufcg\edu\app\Manifest.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Leticia\les-142\app\gen\ufcg\edu\app\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Leticia\les-142\app\src\ufcg\edu\app\Application.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Leticia\les-142\app\src\ufcg\edu\app\InitialActivity.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/AndroidManifest.xml" />
+      <change type="MOVED" beforePath="C:\Users\Leticia\les-142\.idea\libraries\Parse_1_7_1__2_.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Parse_1_7_1__app_.xml" />
+      <change type="MOVED" beforePath="C:\Users\Leticia\les-142\.idea\libraries\bolts_android_1_1_3__2_.xml" afterPath="$PROJECT_DIR$/.idea/libraries/bolts_android_1_1_3__app_.xml" />
+      <change type="MOVED" beforePath="C:\Users\Leticia\les-142\.idea\libraries\google_play_services__3_.xml" afterPath="$PROJECT_DIR$/.idea/libraries/google_play_services__app_.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="les-142.iws" />
@@ -93,8 +90,8 @@
       <file leaf-file-name="InitialActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/br/edu/ufcg/les142/InitialActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="422">
-              <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.52369666" vertical-offset="0" max-vertical-offset="422">
+              <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -744,12 +741,12 @@
       <workItem from="1416106545778" duration="5097000" />
       <workItem from="1416144151786" duration="440000" />
       <workItem from="1416144649327" duration="203000" />
-      <workItem from="1416144894777" duration="532000" />
+      <workItem from="1416144894777" duration="1470000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32900000" />
+    <option name="totallyTimeSpent" value="33838000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="776" extended-state="6" />
@@ -1114,8 +1111,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/br/edu/ufcg/les142/InitialActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="642">
-          <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.52369666" vertical-offset="0" max-vertical-offset="422">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1177,7 +1174,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
