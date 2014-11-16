@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/google_play_services_lib/google_play_services_lib.iml" filepath="$PROJECT_DIR$/google_play_services_lib/google_play_services_lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/les-142.iml" filepath="$PROJECT_DIR$/.idea/les-142.iml" />
       <module fileurl="file://$PROJECT_DIR$/parse/parse.iml" filepath="$PROJECT_DIR$/parse/parse.iml" />
     </modules>

@@ -1,14 +1,15 @@
 package ufcg.edu.app;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
-public class InitialActivity extends Activity {
-    /**
-     * Called when the activity is first created.
+public class InitialActivity extends FragmentActivity {
+
+    /*
+     * Initialize the Activity
      */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
     }
