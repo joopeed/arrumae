@@ -3,7 +3,7 @@ package br.edu.ufcg.les142.models;
 /**
  * Created by Rodrigo on 23/11/2014.
  */
-public class User {
+public class Usuario {
     private String id;
     private String email;
     private String name;
@@ -11,7 +11,7 @@ public class User {
     /*
      * Constructor for Users in the System.
      */
-    public User(String id,String cpf, String email, String name) {
+    public Usuario(String id, String cpf, String email, String name) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -60,7 +60,7 @@ public class User {
                 return false;
             if (getClass() != obj.getClass())
                 return false;
-            User other = (User) obj;
+            Usuario other = (Usuario) obj;
             if (id == null) {
                 if (other.id != null)
                     return false;

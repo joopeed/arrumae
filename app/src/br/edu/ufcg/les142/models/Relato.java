@@ -1,6 +1,5 @@
 package br.edu.ufcg.les142.models;
 
-import android.provider.ContactsContract;
 import com.parse.ParseObject;
 
 import java.io.File;
@@ -12,7 +11,7 @@ import java.util.Date;
  */
 public class Relato {
     private String id;
-    private User criador;
+    private Usuario criador;
 //    private Localizacao local;
     private Date data;
     private ArrayList<File> album;
@@ -20,7 +19,7 @@ public class Relato {
     /*
          * Constructor for Users in the System.
          */
-    public Relato(String id,User criador, Date data) { //*Localizacao local*//,
+    public Relato(String id,Usuario criador, Date data) { //*Localizacao local*//,
         this.id = id;
         this.criador = criador;
         //this.local = local;
@@ -32,7 +31,7 @@ public class Relato {
         relato.put("criador", criador.toString());
         //relato.put("local", local.toString());
         relato.put("data", data.toString());
-        relato.saveInBackground();
+        //relato.saveInBackground();
     }
 
     public String getId() {
@@ -43,11 +42,11 @@ public class Relato {
         this.id = id;
     }
 
-    public User getCriador() {
+    public Usuario getCriador() {
         return criador;
     }
 
-    public void setCriador(User criador) {
+    public void setCriador(Usuario criador) {
         this.criador = criador;
     }
 
