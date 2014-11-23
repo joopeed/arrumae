@@ -13,17 +13,17 @@ import java.util.Date;
 public class Relato {
     private String id;
     private User criador;
-    private Localizacao local;
+//    private Localizacao local;
     private Date data;
     private ArrayList<File> album;
 
     /*
          * Constructor for Users in the System.
          */
-    public Relato(String id,User criador, Localizacao local, Date data) {
+    public Relato(String id,User criador, Date data) { //*Localizacao local*//,
         this.id = id;
         this.criador = criador;
-        this.local = local;
+        //this.local = local;
         this.data = data;
     }
 
@@ -51,13 +51,13 @@ public class Relato {
         this.criador = criador;
     }
 
-    public Localizacao getLocal() {
+   /** public Localizacao getLocal() {
         return local;
     }
 
     public void setLocal(Localizacao local) {
         this.local = local;
-    }
+    }*/
 
     public Date getData() {
         return data;
@@ -67,11 +67,11 @@ public class Relato {
         this.data = data;
     }
 
-    public ArrayList<Photo> getAlbum() {
+    public ArrayList<File> getAlbum() {
         return album;
     }
 
-    public void setAlbum(ArrayList<Photo> album) {
+    public void setAlbum(ArrayList<File> album) {
         this.album = album;
     }
 }
