@@ -5,7 +5,9 @@
       <configuration />
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://C:/production/app" />
+    <output-test url="file:///test/app" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
@@ -27,6 +29,9 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="google-play-services" level="project" />
+    <orderEntry type="library" name="android-support-v4" level="project" />
+    <orderEntry type="library" name="google-play-services" level="project" />
+    <orderEntry type="library" name="Parse-1.7.1" level="project" />
   </component>
 </module>
 
