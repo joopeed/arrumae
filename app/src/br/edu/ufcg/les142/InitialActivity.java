@@ -72,7 +72,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     private LocationClient locationClient;
 
     // Fields for the map radius in feet
-    private float radius;
+    private float radius = 250.0f;
 
     // Map fragment
     private SupportMapFragment mapa;
@@ -84,7 +84,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        radius = Application.getSearchDistance();
+       // radius = Application.getSearchDistance();
         setContentView(R.layout.main);
 
 
@@ -112,12 +112,12 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             return;
         }
         lastLocation = location;
-//        LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-//        if (!hasSetUpInitialLocation) {
-//            // Zoom to the current location.
-//            updateZoom(myLatLng);
-//            hasSetUpInitialLocation = true;
-//        }
+        LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        if (!hasSetUpInitialLocation) {
+            // Zoom to the current location.
+            updateZoom(myLatLng);
+            hasSetUpInitialLocation = true;
+        }
     }
 
     /*
