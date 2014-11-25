@@ -19,7 +19,8 @@ public class Relato {
     /*
          * Constructor for Users in the System.
          */
-    public Relato(String id,Usuario criador, Date data) { //*Localizacao local*//,
+    public Relato(String id, Usuario criador, Date data) {
+    //*Localizacao local*//,
         this.id = id;
         this.criador = criador;
         //this.local = local;
