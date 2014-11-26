@@ -1,12 +1,28 @@
 package br.edu.ufcg.les142;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
+import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -103,6 +119,23 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         // Enable the current location "blue dot"
         mapa.getMap().setMyLocationEnabled(true);
 }
+    // Set up the handler for the post button click
+    Button relatoButton = (Button) findViewById(R.id.relatarButton);
+    relatoButton.setOnClickListener(new OnClickListener() {
+        public void onClick(View v) {
+            // Only allow posts if we have a location
+            Location myLoc = (currentLocation == null) ? lastLocation : currentLocation;
+            if (myLoc == null) {
+                Toast.makeText(InitialActivity.this,
+                        "Please try again after your location appears on the map.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            Intent intent = new Intent(InitialActivity.this, PostRelatoActivity.class);
+            intent.putExtra(Application.INTENT_EXTRA_LOCATION, myLoc);
+            startActivity(intent);
+        }
+    });
     @Override
     public void onLocationChanged(Location location) {
         currentLocation = location;
@@ -303,6 +336,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
         locationClient.connect();
     }
+
 
     @SuppressLint("NewApi")
     public static class ErrorDialogFragment extends DialogFragment {

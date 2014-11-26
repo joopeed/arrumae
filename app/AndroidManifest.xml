@@ -23,6 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".AddRelatoDialog"/>
+        <activity android:name=".PostRelatoActivity"/>
         <meta-data android:name="com.google.android.gms.version"
                    android:value="4452000" />
         <meta-data
