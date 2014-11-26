@@ -14,7 +14,7 @@ public class Relato {
     private Usuario criador;
 //    private Localizacao local;
     private Date data;
-    private ArrayList<File> album;
+    private ArrayList<ParseFile> album;
 
     /*
          * Constructor for Users in the System.
@@ -25,18 +25,26 @@ public class Relato {
         this.criador = criador;
         //this.local = local;
         this.data = data;
+        this.album = new ArrayList<ParseFile>();
     }
 
     public void save(){
         ParseObject relato = new ParseObject("relato");
+        relato.put("id", id);
         relato.put("criador", criador.toString());
         //relato.put("local", local.toString());
         relato.put("data", data.toString());
-        //relato.saveInBackground();
+        relato.put("album", album);
+        relato.saveInBackground();
     }
 
 
-    public static ArrayList<Relato> getAllFrom(Criador criador){
+    /**
+     * Assyncronous method. The list returned only will filled after the job in background.
+     * @param criador
+     * @return List of Relatos
+     */
+    public static ArrayList<Relato> getAllFrom(Usuario criador){
         ArrayList<Relato> relatos = new ArrayList<Relato>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("relato");
         query.whereEqualTo("criador", criador.toString());
