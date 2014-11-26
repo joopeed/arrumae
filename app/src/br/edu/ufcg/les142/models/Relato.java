@@ -35,6 +35,25 @@ public class Relato {
         //relato.saveInBackground();
     }
 
+
+    public static ArrayList<Relato> getAllFrom(Criador criador){
+        ArrayList<Relato> relatos = new ArrayList<Relato>();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("relato");
+        query.whereEqualTo("criador", criador.toString());
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> scoreList, ParseException e) {
+                if (e == null) {
+                    for(ParseObject obj: scoreList){
+                       relatos.add(new Relato(obj.get("id"), obj.get("criador"), obj.get("data")))
+                    }
+                    Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
+    }
+
     public String getId() {
         return id;
     }
