@@ -14,13 +14,25 @@
             android:id="@+id/post_edittext"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/post_button"
+            android:layout_above="@+id/attach_button"
             android:background="@null"
             android:hint="@string/prompt_post"
             android:inputType="textMultiLine"
             android:gravity="top" >
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/attach_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/attach"
+        android:layout_above="@+id/post_button"
+        />
 
     <Button
             android:id="@+id/post_button"
@@ -30,7 +42,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
             android:text="@string/post" />
 
 </RelativeLayout>

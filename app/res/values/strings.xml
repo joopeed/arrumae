@@ -4,6 +4,7 @@
     <string name="relato">Relatar</string>
     <string name="action_settings">Settings</string>
     <string name="post">Post</string>
+    <string name="attach">Take Photo</string>
     <string name ="prompt_post">Descreva o que está ocorrendo</string>
     <string name="login">login</string>
 </resources>
