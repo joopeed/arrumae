@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import br.edu.ufcg.les142.models.Relato;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -28,10 +29,12 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.*;
 import com.parse.*;
+
+import java.util.*;
 
 public class InitialActivity extends FragmentActivity implements LocationListener ,
         GooglePlayServicesClient.ConnectionCallbacks,
@@ -78,6 +81,10 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     private Location currentLocation;
     private Location lastLocation;
 
+    //Marcadores no mapa
+    private final Map<String, Marker> mapMarkers = new HashMap<String, Marker>();
+
+    private String selectedRelatoObjectId;
 
     // private SupportMapFragment mapa;
     private LocationRequest locationRequest;
@@ -88,6 +95,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     // Fields for the map radius in feet
     private float radius = 250.0f;
 
+    private static final int MAX_POST_SEARCH_DISTANCE = 100;
     // Map fragment
     private SupportMapFragment mapa;
 
@@ -113,6 +121,12 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
         // Enable the current location "blue dot"
         mapa.getMap().setMyLocationEnabled(true);
+
+        mapa.getMap().setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            public void onCameraChange(CameraPosition position) {
+                mostraRelatos();
+            }
+        });
         // Set up the handler for the post button click
         Button relatoButton = (Button) findViewById(R.id.relatarButton);
         relatoButton.setOnClickListener(new View.OnClickListener(){
@@ -132,6 +146,62 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         });
 
     }
+
+    private static final int MAX_POST_SEARCH_RESULTS = 100;
+
+    private void mostraRelatos() {
+        Location myLoc = (currentLocation == null) ? lastLocation : currentLocation;
+        if (myLoc == null) {
+            cleanUpMarkers(new HashSet<String>());
+            return;
+        }
+        final ParseGeoPoint myPoint = geoPointFromLocation(myLoc);
+        ParseQuery<Relato> mapQuery = Relato.getQuery();
+        mapQuery.whereWithinKilometers("location", myPoint, MAX_POST_SEARCH_DISTANCE);
+        mapQuery.include("user");
+        mapQuery.orderByDescending("createdAt");
+        mapQuery.setLimit(MAX_POST_SEARCH_RESULTS);
+        mapQuery.findInBackground(new FindCallback<Relato>() {
+            @Override
+            public void done(List<Relato> objects, ParseException e) {
+                if (e != null) {
+                    if (Application.APPDEBUG) {
+                        Log.d(Application.APPTAG, "An error occurred while querying for map posts.", e);
+                    }
+                    return;
+                }
+                Set<String> toKeep = new HashSet<String>();
+                for (Relato relato: objects) {
+                    toKeep.add(relato.getObjectId());
+                    Marker oldMarker = mapMarkers.get(relato.getObjectId());
+                    MarkerOptions markerOpts =
+                            new MarkerOptions().position(new LatLng(relato.getLocalizacao().getLatitude(),
+                                    relato.getLocalizacao().getLongitude()));
+                   markerOpts.title(relato.getDescricao()).snippet(relato.getUser().getUsername())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    Marker marker = mapa.getMap().addMarker(markerOpts);
+                    mapMarkers.put(relato.getObjectId(), marker);
+                    if (relato.getObjectId().equals(selectedRelatoObjectId)) {
+                        marker.showInfoWindow();
+                        selectedRelatoObjectId = null;
+                    }
+                }
+                cleanUpMarkers(toKeep);
+            }
+        });
+    }
+
+    private void cleanUpMarkers(Set<String> markersToKeep) {
+        for (String objId : new HashSet<String>(mapMarkers.keySet())) {
+            if (!markersToKeep.contains(objId)) {
+                Marker marker = mapMarkers.get(objId);
+                marker.remove();
+                mapMarkers.get(objId).remove();
+                mapMarkers.remove(objId);
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
