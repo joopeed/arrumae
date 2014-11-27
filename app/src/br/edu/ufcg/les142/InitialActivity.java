@@ -31,9 +31,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.parse.Parse;
-import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
+import com.parse.*;
 
 public class InitialActivity extends FragmentActivity implements LocationListener ,
         GooglePlayServicesClient.ConnectionCallbacks,
@@ -141,6 +139,32 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // toggle nav drawer on selecting action bar app icon/title
+        switch (item.getItemId()) {
+           case R.id.login:
+                login();
+                return true;
+            case R.id.action_settings:
+                //openSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    public void login(){
+        ParseUser user = new ParseUser();
+        user.setUsername("Rodrigo");
+        user.setPassword("123senha");
+        // Call the Parse signup method
+        user.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                // Handle the response
+            }
+        });
     }
 
     @Override
