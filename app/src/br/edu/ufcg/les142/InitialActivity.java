@@ -177,8 +177,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                     MarkerOptions markerOpts =
                             new MarkerOptions().position(new LatLng(relato.getLocalizacao().getLatitude(),
                                     relato.getLocalizacao().getLongitude()));
-                   markerOpts.title(relato.getDescricao()).snippet(relato.getUser().getUsername())
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    markerOpts.title(relato.getDescricao());
+                    markerOpts.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
                     Marker marker = mapa.getMap().addMarker(markerOpts);
                     mapMarkers.put(relato.getObjectId(), marker);
                     if (relato.getObjectId().equals(selectedRelatoObjectId)) {
