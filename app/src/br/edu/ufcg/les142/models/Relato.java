@@ -1,5 +1,6 @@
 package br.edu.ufcg.les142.models;
 
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
 import java.io.File;
@@ -9,10 +10,11 @@ import java.util.Date;
 /**
  * Created by Rodrigo on 23/11/2014.
  */
-public class Relato {
+public class Relato extends ParseObject {
     private String id;
     private Usuario criador;
-//    private Localizacao local;
+    private String descricao;
+    private ParseGeoPoint  localizacao;
     private Date data;
     private ArrayList<File> album;
 
@@ -26,13 +28,23 @@ public class Relato {
         //this.local = local;
         this.data = data;
     }
+    public Relato(){
 
-    public void save(){
-        ParseObject relato = new ParseObject("relato");
-        relato.put("criador", criador.toString());
-        //relato.put("local", local.toString());
-        relato.put("data", data.toString());
-        //relato.saveInBackground();
+    }
+    public ParseGeoPoint getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(ParseGeoPoint localizacao) {
+        this.localizacao = localizacao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getId() {
@@ -50,14 +62,6 @@ public class Relato {
     public void setCriador(Usuario criador) {
         this.criador = criador;
     }
-
-   /** public Localizacao getLocal() {
-        return local;
-    }
-
-    public void setLocal(Localizacao local) {
-        this.local = local;
-    }*/
 
     public Date getData() {
         return data;

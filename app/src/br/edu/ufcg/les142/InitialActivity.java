@@ -146,7 +146,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         currentLocation = location;
         if (lastLocation != null
                 && geoPointFromLocation(location)
-                .distanceInKilometersTo(geoPointFromLocation(lastLocation)) < 0.01) {
+                .distanceInKilometersTo(geoPointFromLocation(lastLocation)) < 0.0000001) {
             return;
         }
         lastLocation = location;
