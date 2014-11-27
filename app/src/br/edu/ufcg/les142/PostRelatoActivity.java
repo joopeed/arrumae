@@ -3,8 +3,10 @@ package br.edu.ufcg.les142;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -23,8 +25,10 @@ public class PostRelatoActivity extends Activity {
 
     // UI references.
     private EditText postEditText;
+    private Button attachButton;
     private Button postButton;
-
+    private Bitmap image;
+    private Relato post;
     private ParseGeoPoint geoPoint;
 
     @Override
@@ -36,16 +40,47 @@ public class PostRelatoActivity extends Activity {
         Location location = intent.getParcelableExtra(Application.INTENT_EXTRA_LOCATION);
         geoPoint = new ParseGeoPoint(location.getLatitude(), location.getLongitude());
         postEditText = (EditText) findViewById(R.id.post_edittext);
+        attachButton = (Button) findViewById(R.id.attach_button);
         postButton = (Button) findViewById(R.id.post_button);
+        post = new Relato();
         postButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 post();
             }
         });
+        attachButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+            }
+        });
+
 
   //      updatePostButtonState();
 
     }
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            image = (Bitmap) extras.get("data");
+            post.setImage(image);
+
+           // mImageView.setImageBitmap(imageBitmap);
+        }
+    }
+
+
+
     public void post(){
         String text = postEditText.getText().toString().trim();
 
@@ -54,15 +89,17 @@ public class PostRelatoActivity extends Activity {
         dialog.setMessage(getString(R.string.relato));
         dialog.show();
 */
+
+
         // Create a post.
-        Relato post = new Relato();
+
 
         // Set the location to the current user's location
         post.setLocalizacao(geoPoint);
         post.setDescricao(text);
         post.setUser(ParseUser.getCurrentUser());
-        ParseACL acl = new ParseACL();
 
+        ParseACL acl = new ParseACL();
         // Give public read access
         acl.setPublicReadAccess(true);
         post.setACL(acl);
@@ -74,6 +111,8 @@ public class PostRelatoActivity extends Activity {
                 finish();
             }
         });
+
+
     }
 
 
