@@ -47,4 +47,5 @@ public class Relato extends ParseObject {
     public static ParseQuery<Relato> getQuery() {
         return ParseQuery.getQuery(Relato.class);
     }
+
 }
