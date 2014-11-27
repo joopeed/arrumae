@@ -2,7 +2,11 @@ package br.edu.ufcg.les142.models;
 
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
-
+import com.parse.ParseClassName;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,72 +14,37 @@ import java.util.Date;
 /**
  * Created by Rodrigo on 23/11/2014.
  */
+/**
+ * Data model for a post.
+ */
+@ParseClassName("Relatos")
 public class Relato extends ParseObject {
-    private String id;
-    private Usuario criador;
-    private String descricao;
-    private ParseGeoPoint  localizacao;
-    private Date data;
-    private ArrayList<File> album;
-
-    /*
-         * Constructor for Users in the System.
-         */
-    public Relato(String id, Usuario criador, Date data) {
-    //*Localizacao local*//,
-        this.id = id;
-        this.criador = criador;
-        //this.local = local;
-        this.data = data;
-    }
-    public Relato(){
-
-    }
-    public ParseGeoPoint getLocalizacao() {
-        return localizacao;
-    }
-
-    public void setLocalizacao(ParseGeoPoint localizacao) {
-        this.localizacao = localizacao;
-    }
 
     public String getDescricao() {
-        return descricao;
+        return getString("descricao");
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricao(String value) {
+        put("descricao", value);
     }
 
-    public String getId() {
-        return id;
+    public ParseUser getUser() {
+        return getParseUser("user");
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUser(ParseUser value) {
+        put("user", value);
     }
 
-    public Usuario getCriador() {
-        return criador;
+    public ParseGeoPoint getLocalizacao() {
+        return getParseGeoPoint("location");
     }
 
-    public void setCriador(Usuario criador) {
-        this.criador = criador;
+    public void setLocalizacao(ParseGeoPoint value) {
+        put("location", value);
     }
 
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public ArrayList<File> getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(ArrayList<File> album) {
-        this.album = album;
+    public static ParseQuery<Relato> getQuery() {
+        return ParseQuery.getQuery(Relato.class);
     }
 }

@@ -64,7 +64,7 @@ public class PostRelatoActivity extends Activity {
         // Set the location to the current user's location
         post.setLocalizacao(geoPoint);
         post.setDescricao(text);
-        //post.setUser(ParseUser.getCurrentUser());
+        post.setUser(ParseUser.getCurrentUser());
         ParseACL acl = new ParseACL();
 
         // Give public read access
