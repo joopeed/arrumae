@@ -225,9 +225,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         }
     }
     public void login(){
-        ParseUser user = new ParseUser();
-        user.setUsername("Rodrigo");
-        user.setPassword("123senha");
+        ParseUser user = setupUser("Rodrigo", "123senha");
         // Call the Parse signup method
         user.signUpInBackground(new SignUpCallback() {
             @Override
@@ -235,6 +233,14 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 // Handle the response
             }
         });
+    }
+
+    public ParseUser setupUser(String name, String passwd){
+        ParseUser user = new ParseUser();
+        user.setUsername(name);
+        user.setPassword(passwd);
+
+        return user;
     }
 
     @Override
@@ -267,7 +273,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     /*
     * Helper method to calculate the bounds for map zooming
     */
-    LatLngBounds calculateBoundsWithCenter(LatLng myLatLng) {
+    private LatLngBounds calculateBoundsWithCenter(LatLng myLatLng) {
         // Create a bounds
         LatLngBounds.Builder builder = LatLngBounds.builder();
 
@@ -345,7 +351,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         locationClient.removeLocationUpdates(this);
     }
 
-    private Location getLocation() {
+    public Location getLocation() {
         if (servicesConnected()) {
             return locationClient.getLastLocation();
         } else {
@@ -419,6 +425,10 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             // Show the error dialog in the DialogFragment
             //errorFragment.show(getSupportFragmentManager(), Application.APPTAG);
         }
+    }
+
+    public LocationClient getLocationClient(){
+        return locationClient;
     }
 
     @Override
