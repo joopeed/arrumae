@@ -1,6 +1,5 @@
 package br.edu.ufcg.les142.models;
 
-import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
 import java.io.File;
@@ -10,11 +9,10 @@ import java.util.Date;
 /**
  * Created by Rodrigo on 23/11/2014.
  */
-public class Relato extends ParseObject {
+public class Relato {
     private String id;
     private Usuario criador;
-    private String descricao;
-    private ParseGeoPoint  localizacao;
+//    private Localizacao local;
     private Date data;
     private ArrayList<File> album;
 
@@ -28,23 +26,39 @@ public class Relato extends ParseObject {
         //this.local = local;
         this.data = data;
     }
-    public Relato(){
 
-    }
-    public ParseGeoPoint getLocalizacao() {
-        return localizacao;
-    }
-
-    public void setLocalizacao(ParseGeoPoint localizacao) {
-        this.localizacao = localizacao;
-    }
-
-    public String getDescricao() {
-        return descricao;
+    public void save(){
+        ParseObject relato = new ParseObject("relato");
+        relato.put("id", id);
+        relato.put("criador", criador.toString());
+        //relato.put("local", local.toString());
+        relato.put("data", data.toString());
+        relato.put("album", album);
+        relato.saveInBackground();
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+
+    /**
+     * Assyncronous method. The list returned only will filled after the job in background.
+     * @param criador
+     * @return List of Relatos
+     */
+    public static ArrayList<Relato> getAllFrom(Usuario criador){
+        ArrayList<Relato> relatos = new ArrayList<Relato>();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("relato");
+        query.whereEqualTo("criador", criador.toString());
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> scoreList, ParseException e) {
+                if (e == null) {
+                    for(ParseObject obj: scoreList){
+                       relatos.add(new Relato(obj.get("id"), obj.get("criador"), obj.get("data")))
+                    }
+                    Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 
     public String getId() {
@@ -62,6 +76,14 @@ public class Relato extends ParseObject {
     public void setCriador(Usuario criador) {
         this.criador = criador;
     }
+
+   /** public Localizacao getLocal() {
+        return local;
+    }
+
+    public void setLocal(Localizacao local) {
+        this.local = local;
+    }*/
 
     public Date getData() {
         return data;
