@@ -31,7 +31,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.parse.Parse;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
 
 public class InitialActivity extends FragmentActivity implements LocationListener ,
         GooglePlayServicesClient.ConnectionCallbacks,

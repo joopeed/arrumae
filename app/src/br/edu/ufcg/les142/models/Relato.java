@@ -3,21 +3,16 @@ package br.edu.ufcg.les142.models;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseClassName;
-import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Rodrigo on 23/11/2014.
  */
 /**
- * Data model for a post.
+ * Data model for a relato.
  */
-@ParseClassName("Relatos")
+@ParseClassName("Relato")
 public class Relato extends ParseObject {
 
     public String getDescricao() {

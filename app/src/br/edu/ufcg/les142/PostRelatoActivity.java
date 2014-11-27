@@ -14,11 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import br.edu.ufcg.les142.models.Relato;
-import com.parse.ParseACL;
-import com.parse.ParseException;
-import com.parse.ParseGeoPoint;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
+import com.parse.*;
 
 /**
  * Created by Rodr on 25/11/2014.
@@ -53,11 +49,11 @@ public class PostRelatoActivity extends Activity {
     public void post(){
         String text = postEditText.getText().toString().trim();
 
-        // Set up a progress dialog
+       /* // Set up a progress dialog
         final ProgressDialog dialog = new ProgressDialog(PostRelatoActivity.this);
         dialog.setMessage(getString(R.string.relato));
         dialog.show();
-
+*/
         // Create a post.
         Relato post = new Relato();
 
@@ -75,7 +71,6 @@ public class PostRelatoActivity extends Activity {
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                dialog.dismiss();
                 finish();
             }
         });
