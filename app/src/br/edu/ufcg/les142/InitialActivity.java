@@ -11,12 +11,10 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.*;
+import android.app.ActionBar;
 import android.view.MenuItem.OnMenuItemClickListener;
-import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -100,11 +98,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // radius = Application.getSearchDistance();
         setContentView(R.layout.main);
-
-
-
         // Create a new global location parameters object
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
@@ -116,26 +110,37 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
         // Set up the map fragment
         mapa = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
         // Enable the current location "blue dot"
         mapa.getMap().setMyLocationEnabled(true);
-}
-    // Set up the handler for the post button click
-    Button relatoButton = (Button) findViewById(R.id.relatarButton);
-    relatoButton.setOnClickListener(new OnClickListener() {
-        public void onClick(View v) {
-            // Only allow posts if we have a location
-            Location myLoc = (currentLocation == null) ? lastLocation : currentLocation;
-            if (myLoc == null) {
-                Toast.makeText(InitialActivity.this,
-                        "Please try again after your location appears on the map.", Toast.LENGTH_LONG).show();
-                return;
-            }
+        // Set up the handler for the post button click
+        Button relatoButton = (Button) findViewById(R.id.relatarButton);
+        relatoButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                // Only allow posts if we have a location
+                Location myLoc = (currentLocation == null) ? lastLocation : currentLocation;
+                if (myLoc == null) {
+                    Toast.makeText(InitialActivity.this,
+                            "Please try again after your location appears on the map.", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
-            Intent intent = new Intent(InitialActivity.this, PostRelatoActivity.class);
-            intent.putExtra(Application.INTENT_EXTRA_LOCATION, myLoc);
-            startActivity(intent);
-        }
-    });
+                Intent intent = new Intent(InitialActivity.this, PostRelatoActivity.class);
+                intent.putExtra(Application.INTENT_EXTRA_LOCATION, myLoc);
+                startActivity(intent);
+            }
+        });
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @Override
     public void onLocationChanged(Location location) {
         currentLocation = location;

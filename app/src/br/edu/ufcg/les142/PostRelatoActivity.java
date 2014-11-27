@@ -35,30 +35,10 @@ public class PostRelatoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_postrelato);
-
+        setContentView(R.layout.activitypostrelato);
         Intent intent = getIntent();
         Location location = intent.getParcelableExtra(Application.INTENT_EXTRA_LOCATION);
         geoPoint = new ParseGeoPoint(location.getLatitude(), location.getLongitude());
-
-        postEditText = (EditText) findViewById(R.id.post_edittext);
-        postEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                updatePostButtonState();
-                updateCharacterCountTextViewText();
-            }
-        });
-
-        characterCountTextView = (TextView) findViewById(R.id.character_count_textview);
 
         postButton = (Button) findViewById(R.id.post_button);
         postButton.setOnClickListener(new OnClickListener() {
@@ -67,49 +47,12 @@ public class PostRelatoActivity extends Activity {
             }
         });
 
-        updatePostButtonState();
-        updateCharacterCountTextViewText();
+  //      updatePostButtonState();
+
+    }
+    public void post(){
+
     }
 
-    private void post () {
-        String text = postEditText.getText().toString().trim();
-
-        // Set up a progress dialog
-        final ProgressDialog dialog = new ProgressDialog(PostActivity.this);
-        dialog.setMessage(getString(R.string.progress_post));
-        dialog.show();
-
-        // Create a post.
-        AnywallPost post = new AnywallPost();
-
-        // Set the location to the current user's location
-        post.setLocation(geoPoint);
-        post.setText(text);
-        post.setUser(ParseUser.getCurrentUser());
-        ParseACL acl = new ParseACL();
-
-        // Give public read access
-        acl.setPublicReadAccess(true);
-        post.setACL(acl);
-
-        // Save the post
-        post.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                dialog.dismiss();
-                finish();
-            }
-        });
-    }
-
-    private String getPostEditTextText () {
-        return postEditText.getText().toString().trim();
-    }
-
-    private void updatePostButtonState () {
-        int length = getPostEditTextText().length();
-        boolean enabled = true;
-        postButton.setEnabled(enabled);
-    }
 
 }
