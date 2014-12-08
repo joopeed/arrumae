@@ -15,24 +15,50 @@
     <uses-permission android:name="android.permission.LOCATION_HARDWARE" />
     <uses-feature android:name="android.hardware.camera" android:required="true" />
 
-    <application android:label="@string/app_name" android:name=".Application" android:icon="@drawable/ic_launcher">
+    <application
+            android:label="@string/app_name"
+            android:name=".Application"
+            android:icon="@drawable/ic_launcher">
+        <activity android:name=".DispatchActivity"
+                  android:screenOrientation="portrait"
+                  android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
         <activity android:name="InitialActivity"
-                  android:screenOrientation="portrait">
+                  android:screenOrientation="portrait"
+                  android:label="@string/initial_activity">
             <uses-library android:name="com.google.android.maps" />
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
+
         <activity android:name="PostRelatoActivity"
+                  android:label="@string/post_relato_activity"
                   android:screenOrientation="portrait"
                   android:parentActivityName="br.edu.ufcg.les142.InitialActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
+
+        <activity android:name=".WelcomeActivity"
+                  android:label="@string/app_name"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Light" >
+        </activity>
+
+        <activity android:name=".LoginActivity"
+                  android:label="@string/login"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Light" >
+        </activity>
+
+        <activity android:name=".SignUpActivity"
+                  android:label="@string/signup"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Light" >
+        </activity>
+
         <meta-data android:name="com.google.android.gms.version"
                    android:value="6171000" />
         <meta-data

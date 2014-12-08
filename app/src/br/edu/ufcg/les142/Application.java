@@ -22,14 +22,6 @@ public class Application extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        ParseObject.registerSubclass(Relato.class);
-        ParseUser.logInInBackground("Rodrigo","123senha", new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException e) {
-                // Handle the response
-            }
-        });
         Parse.initialize(this, "6RkiEquhut1FmiAGjZ7bINdRLI02r5GAFFxVdXdK", "RAQIhDUzSDYAIzNBMw6i5gLPyf3cuT3zEXSuS5a1");
 
         preferences = getSharedPreferences("com.parse.les142", Context.MODE_PRIVATE);

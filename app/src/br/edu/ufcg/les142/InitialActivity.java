@@ -214,25 +214,12 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     public boolean onOptionsItemSelected(MenuItem item) {
         // toggle nav drawer on selecting action bar app icon/title
         switch (item.getItemId()) {
-           case R.id.login:
-                login();
-                return true;
             case R.id.action_settings:
                 //openSettings();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-    public void login(){
-        ParseUser user = setupUser("Rodrigo", "123senha");
-        // Call the Parse signup method
-        user.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(ParseException e) {
-                // Handle the response
-            }
-        });
     }
 
     public ParseUser setupUser(String name, String passwd){

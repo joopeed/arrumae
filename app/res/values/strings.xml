@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">app</string>
+    <string name="app_name">ArrumaAê</string>
     <string name="relato">Relatar</string>
     <string name="action_settings">Settings</string>
     <string name="post">Post</string>
     <string name="attach">Take Photo</string>
     <string name ="prompt_post">Descreva o que está ocorrendo</string>
     <string name="login">login</string>
+    <string name="signup">Cadastrar</string>
+    <string name="powered_by">Powered by</string>
+    <string name="les142">les-142</string>
+    <string name="slogan">ArrumaAê</string>
+    <string name="post_relato_activity">Postar Relato</string>
+    <string name="initial_activity">Initial Activity</string>
+
+
+
+    <!--- String para login e cadastrar -->
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_signup">Cadastrar</string>
+    <string name="prompt_username">Usuario</string>
+    <string name="prompt_password">Senha</string>
+    <string name="prompt_password_again">Confirme a senha</string>
+    <string name="error_intro">"Por favor "</string>
+    <string name="error_blank_username">Digite um nome de usuário</string>
+    <string name="error_blank_password">Digite uma senha</string>
+    <string name="error_mismatched_passwords">Coloque as duas senhas novamente</string>
+    <string name="error_join">", and "</string>
+    <string name="error_end">.</string>
+    <string name="progress_login">Logging you in&#8230;</string>
+    <string name="progress_signup">Signing you up&#8230;</string>
 </resources>
