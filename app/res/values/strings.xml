@@ -30,4 +30,5 @@
     <string name="error_end">.</string>
     <string name="progress_login">Logging you in&#8230;</string>
     <string name="progress_signup">Signing you up&#8230;</string>
+    <string name="logout">logout</string>
 </resources>

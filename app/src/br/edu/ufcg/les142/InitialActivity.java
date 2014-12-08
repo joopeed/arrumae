@@ -217,6 +217,10 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             case R.id.action_settings:
                 //openSettings();
                 return true;
+            case R.id.logout_option:
+                logout();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -362,6 +366,15 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     public void onDisconnected() {
 
     }
+
+    public void logout(){
+        ParseUser.logOut();
+        Intent intent = new Intent(InitialActivity.this, DispatchActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
+    }
+
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
