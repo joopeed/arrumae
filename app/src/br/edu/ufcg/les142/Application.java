@@ -22,6 +22,7 @@ public class Application extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ParseObject.registerSubclass(Relato.class);
         Parse.initialize(this, "6RkiEquhut1FmiAGjZ7bINdRLI02r5GAFFxVdXdK", "RAQIhDUzSDYAIzNBMw6i5gLPyf3cuT3zEXSuS5a1");
 
         preferences = getSharedPreferences("com.parse.les142", Context.MODE_PRIVATE);
