@@ -6,7 +6,7 @@
     <string name="post">Post</string>
     <string name="attach">Take Photo</string>
     <string name ="prompt_post">Descreva o que está ocorrendo</string>
-    <string name="login">login</string>
+    <string name="login">Login</string>
     <string name="signup">Cadastrar</string>
     <string name="powered_by">Powered by</string>
     <string name="les142">les-142</string>
@@ -26,9 +26,11 @@
     <string name="error_blank_username">Digite um nome de usuário</string>
     <string name="error_blank_password">Digite uma senha</string>
     <string name="error_mismatched_passwords">Coloque as duas senhas novamente</string>
-    <string name="error_join">", and "</string>
+    <string name="error_join">", e "</string>
     <string name="error_end">.</string>
     <string name="progress_login">Logging you in&#8230;</string>
     <string name="progress_signup">Signing you up&#8230;</string>
     <string name="logout">logout</string>
+    <string name="prompt_cpf">CPF</string>
+    <string name="error_invalid_length_cpf">CPF precisa ter 11 dígitos.</string>
 </resources>

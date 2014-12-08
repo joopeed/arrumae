@@ -27,6 +27,7 @@ public class SignUpActivity extends Activity {
     private EditText usernameEditText;
     private EditText passwordEditText;
     private EditText passwordAgainEditText;
+    private EditText cpfEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class SignUpActivity extends Activity {
 
         passwordEditText = (EditText) findViewById(R.id.password_edit_text);
         passwordAgainEditText = (EditText) findViewById(R.id.password_again_edit_text);
+        cpfEditText = (EditText) findViewById(R.id.signup_cpf);
         passwordAgainEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -64,6 +66,7 @@ public class SignUpActivity extends Activity {
         String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
         String passwordAgain = passwordAgainEditText.getText().toString().trim();
+        String cpf = cpfEditText.getText().toString().trim();
 
         // Validate the sign up data
         boolean validationError = false;
@@ -71,6 +74,10 @@ public class SignUpActivity extends Activity {
         if (username.length() == 0) {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_username));
+        }
+        if(cpf.length()!= 10){
+            validationError = true;
+            validationErrorMessage.append(getString(R.string.error_invalid_length_cpf));
         }
         if (password.length() == 0) {
             if (validationError) {
@@ -104,6 +111,7 @@ public class SignUpActivity extends Activity {
         ParseUser user = new ParseUser();
         user.setUsername(username);
         user.setPassword(password);
+        user.put("CPF", cpf);
 
         // Call the Parse signup method
         user.signUpInBackground(new SignUpCallback() {
