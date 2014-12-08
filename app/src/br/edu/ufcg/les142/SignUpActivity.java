@@ -75,7 +75,7 @@ public class SignUpActivity extends Activity {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_username));
         }
-        if(cpf.length()!= 10){
+        if(cpf.length()!= 11){
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_invalid_length_cpf));
         }
