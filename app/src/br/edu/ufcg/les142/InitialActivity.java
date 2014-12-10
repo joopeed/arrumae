@@ -1,25 +1,19 @@
 package br.edu.ufcg.les142;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.*;
-import android.app.ActionBar;
-import android.view.MenuItem.OnMenuItemClickListener;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import br.edu.ufcg.les142.models.Relato;
 import com.google.android.gms.common.ConnectionResult;
@@ -36,11 +30,9 @@ import com.parse.*;
 
 import java.util.*;
 
-public class InitialActivity extends FragmentActivity implements LocationListener ,
+public class InitialActivity extends FragmentActivity implements LocationListener,
         GooglePlayServicesClient.ConnectionCallbacks,
-        GooglePlayServicesClient.OnConnectionFailedListener{
-
-
+        GooglePlayServicesClient.OnConnectionFailedListener {
     /*
     * Define a request code to send to Google Play services This code is returned in
     * Activity.onActivityResult
@@ -96,9 +88,11 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     private float radius = 250.0f;
 
     private static final int MAX_POST_SEARCH_DISTANCE = 100;
+
+    private static final int MAX_POST_SEARCH_RESULTS = 100;
+
     // Map fragment
     private SupportMapFragment mapa;
-
 
     /*
      * Initialize the Activity
@@ -129,7 +123,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         });
         // Set up the handler for the post button click
         Button relatoButton = (Button) findViewById(R.id.relatarButton);
-        relatoButton.setOnClickListener(new View.OnClickListener(){
+        relatoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Only allow posts if we have a location
                 Location myLoc = (currentLocation == null) ? lastLocation : currentLocation;
@@ -146,8 +140,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         });
 
     }
-
-    private static final int MAX_POST_SEARCH_RESULTS = 100;
 
     private void mostraRelatos() {
         Location myLoc = (currentLocation == null) ? lastLocation : currentLocation;
@@ -171,7 +163,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                     return;
                 }
                 Set<String> toKeep = new HashSet<String>();
-                for (Relato relato: objects) {
+                for (Relato relato : objects) {
                     toKeep.add(relato.getObjectId());
                     Marker oldMarker = mapMarkers.get(relato.getObjectId());
                     MarkerOptions markerOpts =
@@ -210,6 +202,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         inflater.inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // toggle nav drawer on selecting action bar app icon/title
@@ -226,7 +219,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         }
     }
 
-    public ParseUser setupUser(String name, String passwd){
+    public ParseUser setupUser(String name, String passwd) {
         ParseUser user = new ParseUser();
         user.setUsername(name);
         user.setPassword(passwd);
@@ -349,6 +342,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             return null;
         }
     }
+
     /*
  * Helper method to get the Parse GEO point representation of a location
  */
@@ -364,17 +358,15 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
     @Override
     public void onDisconnected() {
-
     }
 
-    public void logout(){
+    public void logout() {
         ParseUser.logOut();
         Intent intent = new Intent(InitialActivity.this, DispatchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 
     }
-
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -398,7 +390,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             if (dialog != null) {
                 ErrorDialogFragment errorFragment = new ErrorDialogFragment();
                 errorFragment.setDialog(dialog);
-               // errorFragment.show(getSupportFragmentManager(), Application.APPTAG);
+                // errorFragment.show(getSupportFragmentManager(), Application.APPTAG);
             }
             return false;
         }
@@ -427,7 +419,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         }
     }
 
-    public LocationClient getLocationClient(){
+    public LocationClient getLocationClient() {
         return locationClient;
     }
 

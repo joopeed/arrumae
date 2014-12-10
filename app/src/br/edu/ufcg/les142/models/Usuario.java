@@ -8,6 +8,7 @@ public class Usuario {
     private String email;
     private String name;
     private String cpf;
+
     /*
      * Constructor for Users in the System.
      */
@@ -17,24 +18,31 @@ public class Usuario {
         this.email = email;
         this.cpf = cpf;
     }
+
     public String getId() {
         return id;
     }
+
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
     public String getCpf() {
         return cpf;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -68,5 +76,4 @@ public class Usuario {
             return false;
         return true;
     }
-
 }

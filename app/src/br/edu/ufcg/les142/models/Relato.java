@@ -4,21 +4,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
-
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
-import com.parse.ParseClassName;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
+import com.parse.*;
 
 import java.io.ByteArrayOutputStream;
 
 /**
  * Created by Rodrigo on 23/11/2014.
  */
+
 /**
  * Data model for a relato.
  */
@@ -38,8 +31,8 @@ public class Relato extends ParseObject {
     }
 
     public void setUser(ParseUser value) {
-        if(value != null)
-        put("user", value);
+        if (value != null)
+            put("user", value);
     }
 
     public ParseGeoPoint getLocalizacao() {
@@ -51,9 +44,9 @@ public class Relato extends ParseObject {
         value.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         // get byte array here
         byte[] bytearray = stream.toByteArray();
-        if (bytearray != null){
+        if (bytearray != null) {
             //TODO
-            ParseFile file = new ParseFile("teste".toString()+".jpg", bytearray);
+            ParseFile file = new ParseFile("teste".toString() + ".jpg", bytearray);
             try {
                 file.save();
             } catch (ParseException e) {
@@ -63,9 +56,8 @@ public class Relato extends ParseObject {
         }
     }
 
-
     public void getImage(final ImageView iv) {
-        ParseFile fileObject =  getParseFile("image");
+        ParseFile fileObject = getParseFile("image");
         fileObject.getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, ParseException e) {
@@ -79,17 +71,13 @@ public class Relato extends ParseObject {
                 }
             }
         });
-
     }
 
     public void setLocalizacao(ParseGeoPoint value) {
         put("location", value);
     }
 
-
-
     public static ParseQuery<Relato> getQuery() {
         return ParseQuery.getQuery(Relato.class);
     }
-
 }

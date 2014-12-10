@@ -3,6 +3,7 @@ package br.edu.ufcg.les142;
 /**
  * Created by Rodrigo on 08/12/2014.
  */
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -75,7 +75,7 @@ public class SignUpActivity extends Activity {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_username));
         }
-        if(cpf.length()!= 11){
+        if (cpf.length() != 11) {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_invalid_length_cpf));
         }

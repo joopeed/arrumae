@@ -1,10 +1,8 @@
 package br.edu.ufcg.les142;
+
 import com.parse.ConfigCallback;
 import com.parse.ParseConfig;
 import com.parse.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Rodrigo on 27/11/2014.

@@ -3,9 +3,7 @@ package br.edu.ufcg.les142;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.parse.ParseUser;
-
 
 /**
  * Created by Rodrigo on 08/12/2014.
@@ -27,5 +25,4 @@ public class DispatchActivity extends Activity {
             startActivity(new Intent(this, WelcomeActivity.class));
         }
     }
-
 }

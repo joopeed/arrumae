@@ -1,20 +1,15 @@
 package br.edu.ufcg.les142;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import br.edu.ufcg.les142.models.Relato;
 import com.parse.*;
 
@@ -34,7 +29,6 @@ public class PostRelatoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activitypostrelato);
         Intent intent = getIntent();
         Location location = intent.getParcelableExtra(Application.INTENT_EXTRA_LOCATION);
@@ -53,10 +47,7 @@ public class PostRelatoActivity extends Activity {
                 dispatchTakePictureIntent();
             }
         });
-
-
-  //      updatePostButtonState();
-
+        //      updatePostButtonState();
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -67,7 +58,6 @@ public class PostRelatoActivity extends Activity {
 
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -75,25 +65,18 @@ public class PostRelatoActivity extends Activity {
             image = (Bitmap) extras.get("data");
             post.setImage(image);
 
-           // mImageView.setImageBitmap(imageBitmap);
+            // mImageView.setImageBitmap(imageBitmap);
         }
     }
 
-
-
-    public void post(){
+    public void post() {
         String text = postEditText.getText().toString().trim();
-
        /* // Set up a progress dialog
         final ProgressDialog dialog = new ProgressDialog(PostRelatoActivity.this);
         dialog.setMessage(getString(R.string.relato));
         dialog.show();
 */
-
-
         // Create a post.
-
-
         // Set the location to the current user's location
         post.setLocalizacao(geoPoint);
         post.setDescricao(text);
@@ -111,10 +94,5 @@ public class PostRelatoActivity extends Activity {
                 finish();
             }
         });
-
-
     }
-
-
-
 }
