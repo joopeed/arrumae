@@ -31,8 +31,9 @@ public class Relato extends ParseObject {
     }
 
     public void setUser(ParseUser value) {
-        if (value != null)
+        if (value != null) {
             put("user", value);
+        }
     }
 
     public ParseGeoPoint getLocalizacao() {
@@ -65,7 +66,6 @@ public class Relato extends ParseObject {
                     Log.d("test", "We've got data in data.");
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     iv.setImageBitmap(bitmap);
-
                 } else {
                     Log.d("test", "There was a problem downloading the data.");
                 }
