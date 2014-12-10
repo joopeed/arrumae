@@ -81,8 +81,7 @@ public class SignUpActivity extends Activity {
             }
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_invalid_length_cpf));
-        }
-        if (!validaCPF(cpf)) {
+        } else if (!validaCPF(cpf)) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
             }
@@ -149,9 +148,6 @@ public class SignUpActivity extends Activity {
      *      true se o CPF é válido, false caso contrário
      */
     private boolean validaCPF(String cpf) {
-        if (cpf.length() < 11) {
-            return false;
-        }
         int multiplicador = 10;
         int primeiroDigito = 0;
         int segundoDigito = 0;
