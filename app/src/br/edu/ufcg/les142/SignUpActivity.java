@@ -70,14 +70,24 @@ public class SignUpActivity extends Activity {
 
         // Validate the sign up data
         boolean validationError = false;
-        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        StringBuilder validationErrorMessage = new StringBuilder();
         if (username.length() == 0) {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_username));
         }
         if (cpf.length() != 11) {
+            if (validationError) {
+                validationErrorMessage.append(getString(R.string.error_join));
+            }
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_invalid_length_cpf));
+        }
+        if (!validaCPF(cpf)) {
+            if (validationError) {
+                validationErrorMessage.append(getString(R.string.error_join));
+            }
+            validationError = true;
+            validationErrorMessage.append(getString(R.string.error_invalid_cpf));
         }
         if (password.length() == 0) {
             if (validationError) {
@@ -129,5 +139,38 @@ public class SignUpActivity extends Activity {
                 }
             }
         });
+    }
+
+    /**
+     * Método que realiza a validação do CPF do usuário durante o cadastro
+     * @param cpf
+     *      CPF a ser validado
+     * @return
+     *      true se o CPF é válido, false caso contrário
+     */
+    private boolean validaCPF(String cpf) {
+        if (cpf.length() < 11) {
+            return false;
+        }
+        int multiplicador = 10;
+        int primeiroDigito = 0;
+        int segundoDigito = 0;
+        for (int i = 0; i < 9; i++) {
+            primeiroDigito += multiplicador * Integer.parseInt(cpf.substring(i, i + 1));
+            segundoDigito += (multiplicador + 1) * Integer.parseInt(cpf.substring(i, i + 1));
+            multiplicador--;
+        }
+        primeiroDigito = 11 - (primeiroDigito % 11);
+        if (primeiroDigito >= 10) {
+            primeiroDigito = 0;
+        }
+
+        segundoDigito += (multiplicador + 1) * primeiroDigito;
+        segundoDigito = 11 - (segundoDigito % 11);
+        if (segundoDigito >= 10) {
+            segundoDigito = 0;
+        }
+        return cpf.substring(9, 11).equals(
+                new Integer(primeiroDigito).toString() + new Integer(segundoDigito).toString());
     }
 }

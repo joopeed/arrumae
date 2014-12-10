@@ -139,7 +139,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 startActivity(intent);
             }
         });
-
     }
 
     private void mostraRelatos() {
@@ -278,8 +277,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     }
 
     /*
- * Helper method to calculate the offset for the bounds used in map zooming
- */
+     * Helper method to calculate the offset for the bounds used in map zooming
+    */
     private double calculateLatLngOffset(LatLng myLatLng, boolean bLatOffset) {
         // The return offset, initialized to the default difference
         double latLngOffset = OFFSET_CALCULATION_INIT_DIFF;
@@ -394,8 +393,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     }
 
     /*
- * Show a dialog returned by Google Play services for the connection error code
- */
+    * Show a dialog returned by Google Play services for the connection error code
+    */
     private void showErrorDialog(int errorCode) {
         // Get the error dialog from Google Play services
         Dialog errorDialog =
@@ -426,14 +425,12 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             stopPeriodicUpdates();
         }
         locationClient.disconnect();
-
         super.onStop();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
         locationClient.connect();
     }
 
