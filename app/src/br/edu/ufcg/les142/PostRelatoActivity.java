@@ -1,6 +1,7 @@
 package br.edu.ufcg.les142;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -78,6 +79,9 @@ public class PostRelatoActivity extends Activity {
 */
         // Create a post.
         // Set the location to the current user's location
+        final ProgressDialog dialog = new ProgressDialog(PostRelatoActivity.this);
+        dialog.setMessage(getString(R.string.progress_posting));
+        dialog.show();
         post.setLocalizacao(geoPoint);
         post.setDescricao(text);
         post.setUser(ParseUser.getCurrentUser());
