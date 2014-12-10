@@ -59,8 +59,16 @@
                   android:screenOrientation="portrait"
                   android:theme="@style/AppBaseTheme" >
         </activity>
+        <activity android:name=".DescRelatoActivity"
+                  android:label="DescRelatoActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppBaseTheme" >
 
-        <meta-data android:name="com.google.android.gms.version"
+        </activity>
+
+
+
+    <meta-data android:name="com.google.android.gms.version"
                    android:value="6171000" />
         <meta-data
                 android:name="com.google.android.maps.v2.API_KEY"
