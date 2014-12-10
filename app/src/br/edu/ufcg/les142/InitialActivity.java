@@ -43,8 +43,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     private static final int UPDATE_INTERVAL_IN_SECONDS = 5;
 
     /*
- * Constants for handling location results
- */
+    * Constants for handling location results
+    */
     // Conversion from feet to meters
     private static final float METERS_PER_FEET = 0.3048f;
 
@@ -71,6 +71,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     private boolean hasSetUpInitialLocation;
 
     private Location currentLocation;
+
     private Location lastLocation;
 
     //Marcadores no mapa
@@ -165,7 +166,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 Set<String> toKeep = new HashSet<String>();
                 for (Relato relato : objects) {
                     toKeep.add(relato.getObjectId());
-                    Marker oldMarker = mapMarkers.get(relato.getObjectId());
                     MarkerOptions markerOpts =
                             new MarkerOptions().position(new LatLng(relato.getLocalizacao().getLatitude(),
                                     relato.getLocalizacao().getLongitude()));
@@ -196,7 +196,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
@@ -213,7 +212,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             case R.id.logout_option:
                 logout();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -223,7 +221,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         ParseUser user = new ParseUser();
         user.setUsername(name);
         user.setPassword(passwd);
-
         return user;
     }
 
@@ -344,8 +341,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     }
 
     /*
- * Helper method to get the Parse GEO point representation of a location
- */
+    * Helper method to get the Parse GEO point representation of a location
+    */
     private ParseGeoPoint geoPointFromLocation(Location loc) {
         return new ParseGeoPoint(loc.getLatitude(), loc.getLongitude());
     }
@@ -439,7 +436,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
         locationClient.connect();
     }
-
 
     @SuppressLint("NewApi")
     public static class ErrorDialogFragment extends DialogFragment {
