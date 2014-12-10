@@ -180,17 +180,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 cleanUpMarkers(toKeep);
             }
         });
-        mapa.getMap().setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker arg0) {
-                for (String id : mapMarkers.keySet()) {
-                    if (mapMarkers.get(id).equals(arg0)) {
-                        selectedRelatoObjectId = id;
-                    }
-                }
-                return false;
-            }
-        });
     }
 
     private void cleanUpMarkers(Set<String> markersToKeep) {
