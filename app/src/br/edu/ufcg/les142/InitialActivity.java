@@ -157,9 +157,10 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                     Bundle bundle = new Bundle();
                                     bundle.putString("desc", relato.getDescricao());
                                     bundle.putString("author", "autor");
-                                    try {
+                                    if (relato.getImage() !=  null) {
                                         bundle.putByteArray("image", relato.getImage());
-                                    } catch (Exception e) {}
+
+                                    }
 
                                     //bundle.putString("photo", rel.getImage());
                                     intent.putExtras(bundle);
