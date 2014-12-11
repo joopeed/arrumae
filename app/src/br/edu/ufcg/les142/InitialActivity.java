@@ -103,6 +103,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     // Map fragment
     private SupportMapFragment mapa;
 
+    private Set<Relato> relatosList;
+
     /*
      * Initialize the Activity
      */
@@ -130,6 +132,40 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 mostraRelatos();
             }
         });
+
+        relatosList = new HashSet<Relato>();
+
+        mapa.getMap().setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                                   @Override public boolean onMarkerClick(Marker mark){
+                                                       Log.v("click", "test");
+
+                                                       ParseQuery<Relato> mapQuery = Relato.getQuery();
+                                                       Relato rel = new Relato();
+                                                       String rel_id = "";
+                                                       for(String key : mapMarkers.keySet()){
+                                                           if(mapMarkers.get(key).equals(mark)){
+                                                               rel_id = key;
+                                                           }
+                                                       }
+                                                       for(Relato relato : relatosList){
+                                                           if(relato.getObjectId().equals(rel_id)){
+                                                               rel = relato;
+                                                           }
+                                                       }
+
+
+                                                       Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
+                                                       Bundle bundle = new Bundle();
+                                                       bundle.putString("desc", rel.getDescricao());
+                                                       //bundle.putString("photo", rel.getImage());
+                                                       intent.putExtras(bundle);
+                                                       startActivity(intent);
+                                                       return true;
+                                                   }
+
+                                               }
+
+        );
         // Set up the handler for the post button click
         Button relatoButton = (Button) findViewById(R.id.relatarButton);
         relatoButton.setOnClickListener(new View.OnClickListener() {
@@ -164,6 +200,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             mapQuery.findInBackground(new FindCallback<Relato>() {
                 @Override
                 public void done(List<Relato> objects, ParseException e) {
+
                     if (e != null) {
                         if (Application.APPDEBUG) {
                             Log.d(Application.APPTAG, "An error occurred while querying for map posts.", e);
@@ -173,16 +210,22 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                     Set<String> toKeep = new HashSet<String>();
                     for (Relato relato : objects) {
                         if (getCityFromLocation(relato.getLocalizacao()).equals(currentCity)) {
+                    relatosList.add(relato);
                             toKeep.add(relato.getObjectId());
                             MarkerOptions markerOpts =
                                     new MarkerOptions().position(new LatLng(relato.getLocalizacao().getLatitude(),
                                             relato.getLocalizacao().getLongitude()));
                             markerOpts.title(relato.getDescricao());
                             markerOpts.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-                            Marker marker = mapa.getMap().addMarker(markerOpts);
+                    final Marker marker = mapa.getMap().addMarker(markerOpts);
+
                             mapMarkers.put(relato.getObjectId(), marker);
+
+                    //Log.v("Click", "test");
                             if (relato.getObjectId().equals(selectedRelatoObjectId)) {
-                                marker.showInfoWindow();
+                        //marker.showInfoWindow();
+                        //Log.v("Click", "test");
+
                                 selectedRelatoObjectId = null;
                             }
                         }
