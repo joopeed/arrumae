@@ -38,12 +38,6 @@
     </condition>
 
 
-    <target name="jar">
-        <jar destfile="test.jar">
-            <fileset dir="../parse/" includes="**/*.jar" />
-        </jar>
-    </target>
-
     <!-- The project.properties file is created and updated by the 'android'
          tool, as well as ADT.
 
@@ -95,5 +89,15 @@
     -->
     <!-- version-tag: 1 -->
     <import file="${sdk.dir}/tools/ant/build.xml"/>
+
+
+    <target name="-pre-compile">
+    <path id="project.all.jars.path">
+        <path path="${toString:project.all.jars.path}"/>
+        <fileset dir="${jar.libs.dir}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+</target>
 
 </project>
