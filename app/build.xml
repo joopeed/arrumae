@@ -101,7 +101,7 @@
 </target>
 
 <!-- Generates the R.java file for this project's resources. -->
- <target name="-resource-src" depends="-dirs">
+ <target name="-resource-src" >
  <echo>Generating R.java / Manifest.java from the resources for ${package.destination}</echo>
  <exec executable="${aapt}" failonerror="true">
  <arg value="package" />
