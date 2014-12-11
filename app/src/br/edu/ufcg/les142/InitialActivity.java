@@ -156,12 +156,17 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                     Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("desc", relato.getDescricao());
-                                    bundle.putString("author", "autor");
+                                    try {
+                                        ParseUser parseUser = relato.getUser().fetchIfNeeded();
+                                        bundle.putString("author", parseUser.getUsername());
+                                    } catch (ParseException e1) {
+                                        e1.printStackTrace();
+                                    }
+                                   
                                     if (relato.getImage() !=  null) {
                                         bundle.putByteArray("image", relato.getImage());
 
                                     }
-
                                     //bundle.putString("photo", rel.getImage());
                                     intent.putExtras(bundle);
                                     dialogShowRelato.hide();
