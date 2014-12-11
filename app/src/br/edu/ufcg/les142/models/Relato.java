@@ -26,6 +26,10 @@ public class Relato extends ParseObject {
         put("descricao", value);
     }
 
+    public ParseGeoPoint getLocalizacao() {
+        return getParseGeoPoint("location");
+    }
+
     public ParseUser getUser() {
         return getParseUser("user");
     }
@@ -34,10 +38,6 @@ public class Relato extends ParseObject {
         if (value != null) {
             put("user", value);
         }
-    }
-
-    public ParseGeoPoint getLocalizacao() {
-        return getParseGeoPoint("location");
     }
 
     public void setImage(Bitmap value) {

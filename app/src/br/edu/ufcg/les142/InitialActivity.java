@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -74,6 +76,14 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
     private Location lastLocation;
 
+    private String currentCity;
+
+    private String lastCity;
+
+    private Geocoder gcd;
+
+    private boolean relatoClick = false;
+
     //Marcadores no mapa
     private final Map<String, Marker> mapMarkers = new HashMap<String, Marker>();
 
@@ -123,41 +133,42 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             }
         });
 
-        relatosList = new HashSet<Relato>();
+        mapa.getMap().setOnMarkerClickListener(
+                new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker mark) {
+                        if (!relatoClick) {
+                            relatoClick = true;
+                            return false;
+                        }
+                        String rel_id = "";
+                        for (String key : mapMarkers.keySet()) {
+                            Log.v("debug, markers->", mapMarkers.get(key).toString());
+                            if(mapMarkers.get(key).getTitle().equals(mark.getTitle()) && mapMarkers.get(key).getPosition().equals(mark.getPosition())){
+                                rel_id = key;
+                            }
+                        }
+                        ParseQuery<Relato> query = Relato.getQuery();
 
-        mapa.getMap().setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                                                   @Override public boolean onMarkerClick(Marker mark){
-
-                                                       String rel_id = "";
-                                                       for(String key : mapMarkers.keySet()){
-                                                           Log.v("debug, markers->", mapMarkers.get(key).toString());
-                                                           if(mapMarkers.get(key).getTitle().equals(mark.getTitle()) && mapMarkers.get(key).getPosition().equals(mark.getPosition())){
-                                                               rel_id = key;
-                                                           }
-                                                       }
-                                                       ParseQuery<Relato> query = Relato.getQuery();
-
-
-                                                       query.getInBackground(rel_id, new GetCallback<Relato>() {
-                                                           @Override
-                                                           public void done(Relato relato, ParseException e) {
-                                                               if (e == null){
-                                                                   Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
-                                                                   Bundle bundle = new Bundle();
-                                                                   bundle.putString("desc", relato.getDescricao());
-                                                                   //bundle.putString("photo", rel.getImage());
-                                                                   intent.putExtras(bundle);
-                                                                   startActivity(intent);
-                                                               }
-                                                           }
-                                                       });
-
-                                                       return true;
-                                                   }
-
-                                               }
-
+                        query.getInBackground(rel_id, new GetCallback<Relato>() {
+                            @Override
+                            public void done(Relato relato, ParseException e) {
+                                if (e == null){
+                                    Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("desc", relato.getDescricao());
+                                    //bundle.putString("photo", rel.getImage());
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                }
+                            }
+                        });
+                        relatoClick = false;
+                        return true;
+                    }
+                }
         );
+
         // Set up the handler for the post button click
         Button relatoButton = (Button) findViewById(R.id.relatarButton);
         relatoButton.setOnClickListener(new View.OnClickListener() {
@@ -175,51 +186,50 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 startActivity(intent);
             }
         });
+        this.gcd = new Geocoder(this, Locale.getDefault());
     }
 
     private void mostraRelatos() {
         Location myLoc = (currentLocation == null) ? lastLocation : currentLocation;
-        if (myLoc == null) {
-            cleanUpMarkers(new HashSet<String>());
-            return;
-        }
         final ParseGeoPoint myPoint = geoPointFromLocation(myLoc);
-        ParseQuery<Relato> mapQuery = Relato.getQuery();
-        mapQuery.whereWithinKilometers("location", myPoint, MAX_POST_SEARCH_DISTANCE);
-        mapQuery.include("user");
-        mapQuery.orderByDescending("createdAt");
-        mapQuery.setLimit(MAX_POST_SEARCH_RESULTS);
-        mapQuery.findInBackground(new FindCallback<Relato>() {
-            @Override
-            public void done(List<Relato> objects, ParseException e) {
+        if (this.currentCity == null) {
+            this.currentCity = getCityFromLocation(myPoint);
+        }
+        if (!this.currentCity.equals(this.lastCity)) {
+            ParseQuery<Relato> mapQuery = Relato.getQuery();
+            mapQuery.include("user");
+            mapQuery.orderByDescending("createdAt");
+            mapQuery.setLimit(MAX_POST_SEARCH_RESULTS);
+            mapQuery.findInBackground(new FindCallback<Relato>() {
+                @Override
+                public void done(List<Relato> objects, ParseException e) {
 
-                if (e != null) {
-                    if (Application.APPDEBUG) {
-                        Log.d(Application.APPTAG, "An error occurred while querying for map posts.", e);
+                    if (e != null) {
+                        if (Application.APPDEBUG) {
+                            Log.d(Application.APPTAG, "An error occurred while querying for map posts.", e);
+                        }
+                        return;
                     }
-                    return;
-                }
-                Set<String> toKeep = new HashSet<String>();
-                for (Relato relato : objects) {
-                    toKeep.add(relato.getObjectId());
-                    MarkerOptions markerOpts =
-                            new MarkerOptions().position(new LatLng(relato.getLocalizacao().getLatitude(),
-                                    relato.getLocalizacao().getLongitude()));
-                    markerOpts.title(relato.getDescricao());
-                    markerOpts.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                    Set<String> toKeep = new HashSet<String>();
+                    for (Relato relato : objects) {
+                        if (getCityFromLocation(relato.getLocalizacao()).equals(currentCity)) {
+                            toKeep.add(relato.getObjectId());
+                            MarkerOptions markerOpts =
+                                    new MarkerOptions().position(new LatLng(relato.getLocalizacao().getLatitude(),
+                                            relato.getLocalizacao().getLongitude()));
+                            markerOpts.title(relato.getDescricao());
+                            markerOpts.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
                     final Marker marker = mapa.getMap().addMarker(markerOpts);
-
-                    mapMarkers.put(relato.getObjectId(), marker);
-
-                    if (relato.getObjectId().equals(selectedRelatoObjectId)) {
-                        marker.showInfoWindow();
-
-                        selectedRelatoObjectId = null;
+                            mapMarkers.put(relato.getObjectId(), marker);
+                            if (relato.getObjectId().equals(selectedRelatoObjectId)) {
+                                selectedRelatoObjectId = null;
+                            }
+                        }
                     }
+                    cleanUpMarkers(toKeep);
                 }
-                cleanUpMarkers(toKeep);
-            }
-        });
+            });
+        }
     }
 
     private void cleanUpMarkers(Set<String> markersToKeep) {
@@ -231,6 +241,16 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 mapMarkers.remove(objId);
             }
         }
+    }
+
+    private String getCityFromLocation(ParseGeoPoint location){
+        try{
+            List<Address> addresses = this.gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (addresses.size() > 0)
+                return addresses.get(0).getSubAdminArea();
+        } catch (Exception e) {
+        }
+        return "";
     }
 
     @Override
@@ -263,11 +283,26 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         return user;
     }
 
+    private void setCities(ParseGeoPoint location) {
+        String city = getCityFromLocation(location);
+        if (!city.equals(this.currentCity)) {
+            this.lastCity = this.currentCity;
+            this.currentCity = city;
+        } else {
+            this.lastCity = this.currentCity;
+        }
+        if (this.lastCity == null) {
+            this.lastCity = this.currentCity;
+        }
+    }
+
     @Override
     public void onLocationChanged(Location location) {
         currentLocation = location;
+        ParseGeoPoint parseLocation = geoPointFromLocation(location);
+        setCities(parseLocation);
         if (lastLocation != null
-                && geoPointFromLocation(location)
+                && parseLocation
                 .distanceInKilometersTo(geoPointFromLocation(lastLocation)) < 0.01) {
             return;
         }
