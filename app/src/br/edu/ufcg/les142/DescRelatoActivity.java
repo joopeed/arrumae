@@ -25,12 +25,13 @@ public class DescRelatoActivity extends Activity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        descricao = bundle.getString("desc");
-        author = bundle.getString("author");
+        descricao = "Descrição: " + bundle.getString("desc");
+        author = "Autor: " + bundle.getString("author");
 
         descTextView = (TextView) findViewById(R.id.descTextView);
         authorTextView = (TextView) findViewById(R.id.authorTextView);
 
         descTextView.setText(descricao);
+        authorTextView.setText(author);
     }
 }
