@@ -79,6 +79,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
     private boolean relatoClick = false;
 
+    private Marker markerClicked;
+
     //Marcadores no mapa
     private final Map<String, Marker> mapMarkers = new HashMap<String, Marker>();
 
@@ -137,6 +139,12 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                     public boolean onMarkerClick(Marker mark) {
                         if (!relatoClick) {
                             relatoClick = true;
+                            markerClicked = mark;
+                            return false;
+                        } else if (relatoClick && mark.equals(markerClicked)) {
+                            relatoClick = false;
+                        }else if (relatoClick && !mark.equals(markerClicked)) {
+                            markerClicked = mark;
                             return false;
                         }
                         String rel_id = "";
@@ -156,9 +164,17 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                     Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("desc", relato.getDescricao());
-                                    bundle.putString("author", "autor");
-                                    bundle.putByteArray("image", relato.getImage());
+                                    try {
+                                        ParseUser parseUser = relato.getUser().fetchIfNeeded();
+                                        bundle.putString("author", parseUser.getUsername());
+                                    } catch (ParseException e1) {
+                                        e1.printStackTrace();
+                                    }
+                                   
+                                    if (relato.getImage() !=  null) {
+                                        bundle.putByteArray("image", relato.getImage());
 
+                                    }
                                     //bundle.putString("photo", rel.getImage());
                                     intent.putExtras(bundle);
                                     dialogShowRelato.hide();
@@ -166,7 +182,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                 }
                             }
                         });
-                        relatoClick = false;
                         return true;
                     }
                 }

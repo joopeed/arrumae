@@ -55,11 +55,11 @@ public class Relato extends ParseObject {
     }
 
     public byte[] getImage() {
-        byte[] data = new byte[0];
+        byte[] data = null;
         ParseFile fileObject = getParseFile("image");
         try {
              data = fileObject.getData();
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } /*
         fileObject.getDataInBackground(new GetDataCallback() {
