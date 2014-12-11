@@ -133,8 +133,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             }
         });
 
-        relatosList = new HashSet<Relato>();
-
         mapa.getMap().setOnMarkerClickListener(
                 new GoogleMap.OnMarkerClickListener() {
                     @Override
@@ -145,34 +143,32 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                         }
                         String rel_id = "";
                         for (String key : mapMarkers.keySet()) {
-                                                           Log.v("debug, markers->", mapMarkers.get(key).toString());
-                                                           if(mapMarkers.get(key).getTitle().equals(mark.getTitle()) && mapMarkers.get(key).getPosition().equals(mark.getPosition())){
+                            Log.v("debug, markers->", mapMarkers.get(key).toString());
+                            if(mapMarkers.get(key).getTitle().equals(mark.getTitle()) && mapMarkers.get(key).getPosition().equals(mark.getPosition())){
                                 rel_id = key;
                             }
                         }
-                                                       ParseQuery<Relato> query = Relato.getQuery();
+                        ParseQuery<Relato> query = Relato.getQuery();
 
-
-                                                       query.getInBackground(rel_id, new GetCallback<Relato>() {
-                                                           @Override
-                                                           public void done(Relato relato, ParseException e) {
-                                                               if (e == null){
-                                                                   Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
-                                                                   Bundle bundle = new Bundle();
-                                                                   bundle.putString("desc", relato.getDescricao());
-                                                                   //bundle.putString("photo", rel.getImage());
-                                                                   intent.putExtras(bundle);
-                                                                   startActivity(intent);
-                                                               }
-                                                           }
-                                                       });
-
+                        query.getInBackground(rel_id, new GetCallback<Relato>() {
+                            @Override
+                            public void done(Relato relato, ParseException e) {
+                                if (e == null){
+                                    Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("desc", relato.getDescricao());
+                                    //bundle.putString("photo", rel.getImage());
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                }
+                            }
+                        });
+                        relatoClick = false;
                         return true;
                     }
-
                 }
-
         );
+
         // Set up the handler for the post button click
         Button relatoButton = (Button) findViewById(R.id.relatarButton);
         relatoButton.setOnClickListener(new View.OnClickListener() {
