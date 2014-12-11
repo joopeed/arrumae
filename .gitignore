@@ -15,5 +15,5 @@ hs_err_pid*
 # directories
 out/
 .idea/
-app/app.iml
-google_play_services_lib/google_play_services_lib.iml
+*app/app.iml
+*google_play_services_lib/google_play_services_lib.iml
