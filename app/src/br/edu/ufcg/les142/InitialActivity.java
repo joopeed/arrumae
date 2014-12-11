@@ -79,6 +79,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
     private boolean relatoClick = false;
 
+    private Marker markerClicked;
+
     //Marcadores no mapa
     private final Map<String, Marker> mapMarkers = new HashMap<String, Marker>();
 
@@ -137,6 +139,12 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                     public boolean onMarkerClick(Marker mark) {
                         if (!relatoClick) {
                             relatoClick = true;
+                            markerClicked = mark;
+                            return false;
+                        } else if (relatoClick && mark.equals(markerClicked)) {
+                            relatoClick = false;
+                        }else if (relatoClick && !mark.equals(markerClicked)) {
+                            markerClicked = mark;
                             return false;
                         }
                         String rel_id = "";
@@ -174,7 +182,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                 }
                             }
                         });
-                        relatoClick = false;
                         return true;
                     }
                 }
