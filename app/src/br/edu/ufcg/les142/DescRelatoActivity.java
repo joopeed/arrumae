@@ -30,8 +30,8 @@ public class DescRelatoActivity extends Activity {
         Bundle bundle = intent.getExtras();
         descricao = "Descrição: " + bundle.getString("desc");
         author = "Autor: " + bundle.getString("author");
-        byte[] bytes = bundle.getByteArray("image");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+
 
 
         descTextView = (TextView) findViewById(R.id.descTextView);
@@ -40,6 +40,13 @@ public class DescRelatoActivity extends Activity {
 
         descTextView.setText(descricao);
         authorTextView.setText(author);
-        imageView.setImageBitmap(bitmap);
+
+        try {
+            byte[] bytes = bundle.getByteArray("image");
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            imageView.setImageBitmap(bitmap);
+        } catch (Exception e) {
+
+        }
     }
 }
