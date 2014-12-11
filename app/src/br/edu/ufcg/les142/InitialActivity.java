@@ -199,6 +199,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         }
         if (!this.currentCity.equals(this.lastCity)) {
             ParseQuery<Relato> mapQuery = Relato.getQuery();
+            mapQuery.whereWithinKilometers("location", myPoint, MAX_POST_SEARCH_DISTANCE);
             mapQuery.include("user");
             mapQuery.orderByDescending("createdAt");
             mapQuery.setLimit(MAX_POST_SEARCH_RESULTS);
@@ -247,8 +248,9 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     private String getCityFromLocation(ParseGeoPoint location){
         try{
             List<Address> addresses = this.gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            if (addresses.size() > 0)
+            if (addresses.size() > 0) {
                 return addresses.get(0).getSubAdminArea();
+            }
         } catch (Exception e) {
         }
         return "";
