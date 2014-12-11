@@ -80,8 +80,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
     private String lastCity;
 
-    private Geocoder gcd;
-
     private boolean relatoClick = false;
 
     //Marcadores no mapa
@@ -101,6 +99,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     private static final int MAX_POST_SEARCH_DISTANCE = 100;
 
     private static final int MAX_POST_SEARCH_RESULTS = 100;
+
+    private static Geocoder gcd;
 
     // Map fragment
     private SupportMapFragment mapa;
@@ -186,7 +186,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 startActivity(intent);
             }
         });
-        this.gcd = new Geocoder(this, Locale.getDefault());
+        this.gcd = new Geocoder(getBaseContext(), Locale.getDefault());
     }
 
     private void mostraRelatos() {
@@ -203,7 +203,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             mapQuery.findInBackground(new FindCallback<Relato>() {
                 @Override
                 public void done(List<Relato> objects, ParseException e) {
-
                     if (e != null) {
                         if (Application.APPDEBUG) {
                             Log.d(Application.APPTAG, "An error occurred while querying for map posts.", e);
@@ -219,7 +218,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                             relato.getLocalizacao().getLongitude()));
                             markerOpts.title(relato.getDescricao());
                             markerOpts.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-                    final Marker marker = mapa.getMap().addMarker(markerOpts);
+                            final Marker marker = mapa.getMap().addMarker(markerOpts);
                             mapMarkers.put(relato.getObjectId(), marker);
                             if (relato.getObjectId().equals(selectedRelatoObjectId)) {
                                 selectedRelatoObjectId = null;
