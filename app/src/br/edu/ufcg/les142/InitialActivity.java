@@ -157,7 +157,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                     Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("desc", relato.getDescricao());
-                                    bundle.putString("author", "autor");
+
                                     //bundle.putString("photo", rel.getImage());
                                     intent.putExtras(bundle);
                                     startActivity(intent);
@@ -220,7 +220,11 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                             relato.getLocalizacao().getLongitude()));
                             markerOpts.title(relato.getDescricao());
                             markerOpts.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+<<<<<<< HEAD
                             final Marker marker = mapa.getMap().addMarker(markerOpts);
+=======
+                    final Marker marker = mapa.getMap().addMarker(markerOpts);
+>>>>>>> 8aa6d1873a77deabb1ec4f0512bb640ac7c5af24
                             mapMarkers.put(relato.getObjectId(), marker);
                             if (relato.getObjectId().equals(selectedRelatoObjectId)) {
                                 selectedRelatoObjectId = null;
