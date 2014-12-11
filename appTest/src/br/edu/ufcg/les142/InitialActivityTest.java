@@ -1,21 +1,9 @@
-package br.edu.ufcg.les142.test;
+package br.edu.ufcg.les142;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.test.suitebuilder.annotation.SmallTest;
-import br.edu.ufcg.les142.*;
-import com.parse.ParseUser;
 
-/**
- * This is a simple framework for a test of an Application.  See
- * {@link android.test.ApplicationTestCase ApplicationTestCase} for more information on
- * how to write and extend Application tests.
- * <p/>
- * To run this test, you can type:
- * adb shell am instrument -w \
- * -e class br.edu.ufcg.les142.InitialActivityTest \
- * br.edu.ufcg.les142.tests/android.test.InstrumentationTestRunner
- */
 public class InitialActivityTest extends ActivityInstrumentationTestCase2<InitialActivity> {
 
     private InitialActivity mActivity;
@@ -34,19 +22,6 @@ public class InitialActivityTest extends ActivityInstrumentationTestCase2<Initia
     @SmallTest
     public void testShouldCreateAnUser(){
         assertTrue(mActivity.setupUser("Lucas", "qwerty123").getUsername().equals("Lucas"));
-    }
-
-    @SmallTest
-    public void testShouldLoginUser(){
-        new Runnable() {
-            @Override
-            public void run() {
-                ParseUser hominho =  mActivity.setupUser("Rodrigo", "123senha");
-                mActivity.login();
-
-                assertTrue(hominho.isAuthenticated());
-            }
-        };
     }
 
     @SmallTest
@@ -81,4 +56,5 @@ public class InitialActivityTest extends ActivityInstrumentationTestCase2<Initia
             }
         };
     }
+
 }

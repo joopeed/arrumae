@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- package name must be unique so suffix with "tests" so package loader doesn't ignore us -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="br.edu.ufcg.les142"
+          package="br.edu.ufcg.les142.tests"
           android:versionCode="1"
           android:versionName="1.0">
-    <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="21" />
-
+    <uses-sdk android:minSdkVersion="19"
+            />
     <!-- We add an application tag here just so that we can indicate that
          this package needs to link against the android.test library,
          which is needed when building test cases. -->
     <application>
+
         <uses-library android:name="android.test.runner"/>
     </application>
     <!--
@@ -23,4 +22,3 @@
                      android:targetPackage="br.edu.ufcg.les142"
                      android:label="Tests for br.edu.ufcg.les142"/>
 </manifest>
-
