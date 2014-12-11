@@ -1,9 +1,6 @@
 package br.edu.ufcg.les142.models;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
-import android.widget.ImageView;
 import com.parse.*;
 
 import java.io.ByteArrayOutputStream;
@@ -57,8 +54,14 @@ public class Relato extends ParseObject {
         }
     }
 
-    public void getImage(final ImageView iv) {
+    public byte[] getImage() {
+        byte[] data = new byte[0];
         ParseFile fileObject = getParseFile("image");
+        try {
+             data = fileObject.getData();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } /*
         fileObject.getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, ParseException e) {
@@ -70,7 +73,8 @@ public class Relato extends ParseObject {
                     Log.d("test", "There was a problem downloading the data.");
                 }
             }
-        });
+        });*/
+        return data;
     }
 
     public void setLocalizacao(ParseGeoPoint value) {
