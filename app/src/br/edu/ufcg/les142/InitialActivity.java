@@ -105,8 +105,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     // Map fragment
     private SupportMapFragment mapa;
 
-    private Set<Relato> relatosList;
-
     /*
      * Initialize the Activity
      */
@@ -145,28 +143,30 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                             relatoClick = true;
                             return false;
                         }
-                        ParseQuery<Relato> mapQuery = Relato.getQuery();
-                        Relato rel = new Relato();
                         String rel_id = "";
                         for (String key : mapMarkers.keySet()) {
-                            if (mapMarkers.get(key).equals(mark)) {
+                                                           Log.v("debug, markers->", mapMarkers.get(key).toString());
+                                                           if(mapMarkers.get(key).getTitle().equals(mark.getTitle()) && mapMarkers.get(key).getPosition().equals(mark.getPosition())){
                                 rel_id = key;
                             }
                         }
-                        for (Relato relato : relatosList) {
-                            if (relato.getObjectId().equals(rel_id)) {
-                                rel = relato;
-                            }
-                        }
+                                                       ParseQuery<Relato> query = Relato.getQuery();
 
 
-                        Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("desc", rel.getDescricao());
-                        //bundle.putString("photo", rel.getImage());
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        relatoClick = false;
+                                                       query.getInBackground(rel_id, new GetCallback<Relato>() {
+                                                           @Override
+                                                           public void done(Relato relato, ParseException e) {
+                                                               if (e == null){
+                                                                   Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
+                                                                   Bundle bundle = new Bundle();
+                                                                   bundle.putString("desc", relato.getDescricao());
+                                                                   //bundle.putString("photo", rel.getImage());
+                                                                   intent.putExtras(bundle);
+                                                                   startActivity(intent);
+                                                               }
+                                                           }
+                                                       });
+
                         return true;
                     }
 
@@ -217,7 +217,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                     Set<String> toKeep = new HashSet<String>();
                     for (Relato relato : objects) {
                         if (getCityFromLocation(relato.getLocalizacao()).equals(currentCity)) {
-                            relatosList.add(relato);
                             toKeep.add(relato.getObjectId());
                             MarkerOptions markerOpts =
                                     new MarkerOptions().position(new LatLng(relato.getLocalizacao().getLatitude(),
