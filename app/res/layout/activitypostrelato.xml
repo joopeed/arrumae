@@ -14,11 +14,11 @@
             android:id="@+id/post_edittext"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/attach_button"
             android:background="@null"
             android:hint="@string/prompt_post"
             android:inputType="textMultiLine"
-            android:gravity="top" >
+            android:gravity="top" android:layout_above="@+id/attach_button" android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
         <requestFocus />
     </EditText>
 
