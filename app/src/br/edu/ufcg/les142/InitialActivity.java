@@ -2,6 +2,7 @@ package br.edu.ufcg.les142;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Address;
@@ -132,6 +133,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 mostraRelatos();
             }
         });
+        final ProgressDialog dialogShowRelato = new ProgressDialog(InitialActivity.this);
+        dialogShowRelato.setMessage(getString(R.string.openning_relate));
 
         mapa.getMap().setOnMarkerClickListener(
                 new GoogleMap.OnMarkerClickListener() {
@@ -148,6 +151,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                 rel_id = key;
                             }
                         }
+                        dialogShowRelato.show();
                         ParseQuery<Relato> query = Relato.getQuery();
 
                         query.getInBackground(rel_id, new GetCallback<Relato>() {
@@ -161,6 +165,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
                                     //bundle.putString("photo", rel.getImage());
                                     intent.putExtras(bundle);
+                                    dialogShowRelato.hide();
                                     startActivity(intent);
                                 }
                             }

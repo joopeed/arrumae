@@ -35,4 +35,5 @@
     <string name="error_invalid_length_cpf">CPF precisa ter 11 dígitos</string>
     <string name="error_invalid_cpf">CPF inválido</string>
     <string name="progress_posting">Obrigado por ajudar! Estamos postando seu relato</string>
+    <string name="openning_relate">Carregando Relato</string>
 </resources>
