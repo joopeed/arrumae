@@ -59,7 +59,7 @@ public class Relato extends ParseObject {
         ParseFile fileObject = getParseFile("image");
         try {
              data = fileObject.getData();
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } /*
         fileObject.getDataInBackground(new GetDataCallback() {
