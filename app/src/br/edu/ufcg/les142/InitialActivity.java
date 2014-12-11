@@ -82,6 +82,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
     private Geocoder gcd;
 
+    private boolean relatoClick = false;
+
     //Marcadores no mapa
     private final Map<String, Marker> mapMarkers = new HashMap<String, Marker>();
 
@@ -135,35 +137,40 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
         relatosList = new HashSet<Relato>();
 
-        mapa.getMap().setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                                                   @Override public boolean onMarkerClick(Marker mark){
-                                                       Log.v("click", "test");
+        mapa.getMap().setOnMarkerClickListener(
+                new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker mark) {
+                        if (!relatoClick) {
+                            relatoClick = true;
+                            return false;
+                        }
+                        ParseQuery<Relato> mapQuery = Relato.getQuery();
+                        Relato rel = new Relato();
+                        String rel_id = "";
+                        for (String key : mapMarkers.keySet()) {
+                            if (mapMarkers.get(key).equals(mark)) {
+                                rel_id = key;
+                            }
+                        }
+                        for (Relato relato : relatosList) {
+                            if (relato.getObjectId().equals(rel_id)) {
+                                rel = relato;
+                            }
+                        }
 
-                                                       ParseQuery<Relato> mapQuery = Relato.getQuery();
-                                                       Relato rel = new Relato();
-                                                       String rel_id = "";
-                                                       for(String key : mapMarkers.keySet()){
-                                                           if(mapMarkers.get(key).equals(mark)){
-                                                               rel_id = key;
-                                                           }
-                                                       }
-                                                       for(Relato relato : relatosList){
-                                                           if(relato.getObjectId().equals(rel_id)){
-                                                               rel = relato;
-                                                           }
-                                                       }
 
+                        Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("desc", rel.getDescricao());
+                        //bundle.putString("photo", rel.getImage());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        relatoClick = false;
+                        return true;
+                    }
 
-                                                       Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
-                                                       Bundle bundle = new Bundle();
-                                                       bundle.putString("desc", rel.getDescricao());
-                                                       //bundle.putString("photo", rel.getImage());
-                                                       intent.putExtras(bundle);
-                                                       startActivity(intent);
-                                                       return true;
-                                                   }
-
-                                               }
+                }
 
         );
         // Set up the handler for the post button click
@@ -210,7 +217,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                     Set<String> toKeep = new HashSet<String>();
                     for (Relato relato : objects) {
                         if (getCityFromLocation(relato.getLocalizacao()).equals(currentCity)) {
-                    relatosList.add(relato);
+                            relatosList.add(relato);
                             toKeep.add(relato.getObjectId());
                             MarkerOptions markerOpts =
                                     new MarkerOptions().position(new LatLng(relato.getLocalizacao().getLatitude(),
@@ -218,14 +225,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                             markerOpts.title(relato.getDescricao());
                             markerOpts.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
                     final Marker marker = mapa.getMap().addMarker(markerOpts);
-
                             mapMarkers.put(relato.getObjectId(), marker);
-
-                    //Log.v("Click", "test");
                             if (relato.getObjectId().equals(selectedRelatoObjectId)) {
-                        //marker.showInfoWindow();
-                        //Log.v("Click", "test");
-
                                 selectedRelatoObjectId = null;
                             }
                         }
