@@ -123,14 +123,13 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             }
         });
 
-        relatosList = new HashSet<Relato>();
+
 
         mapa.getMap().setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                                    @Override public boolean onMarkerClick(Marker mark){
 
                                                        String rel_id = "";
                                                        for(String key : mapMarkers.keySet()){
-                                                           Log.v("debug, markers->", mapMarkers.get(key).toString());
                                                            if(mapMarkers.get(key).getTitle().equals(mark.getTitle()) && mapMarkers.get(key).getPosition().equals(mark.getPosition())){
                                                                rel_id = key;
                                                            }
@@ -145,6 +144,11 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                                                    Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
                                                                    Bundle bundle = new Bundle();
                                                                    bundle.putString("desc", relato.getDescricao());
+                                                                   try {
+                                                                       bundle.putString("author", "author:");
+                                                                   } catch (ParseException e1) {
+                                                                       e1.printStackTrace();
+                                                                   }
                                                                    //bundle.putString("photo", rel.getImage());
                                                                    intent.putExtras(bundle);
                                                                    startActivity(intent);
