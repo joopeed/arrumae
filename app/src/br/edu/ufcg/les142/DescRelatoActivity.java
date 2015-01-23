@@ -33,7 +33,7 @@ public class DescRelatoActivity extends Activity {
         descricao = "Descrição: " + bundle.getString("desc");
         author = "Autor: " + bundle.getString("author");
         status = "Status: " + bundle.getString("status");
-        System.out.print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$ " + status);
+
         descTextView = (TextView) findViewById(R.id.descTextView);
         statusTextView = (TextView) findViewById(R.id.statusTextView);
         authorTextView = (TextView) findViewById(R.id.authorTextView);
