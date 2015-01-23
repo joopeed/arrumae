@@ -4,6 +4,7 @@ package br.edu.ufcg.les142.models;
  * Created by Rodrigo on 23/11/2014.
  */
 public class Usuario {
+
     private String id;
     private String email;
     private String name;

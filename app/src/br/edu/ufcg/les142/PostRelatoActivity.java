@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import br.edu.ufcg.les142.models.Relato;
+import br.edu.ufcg.les142.models.StatusRelato;
 import com.parse.*;
 
 /**
@@ -84,6 +85,7 @@ public class PostRelatoActivity extends Activity {
         dialog.show();
         post.setLocalizacao(geoPoint);
         post.setDescricao(text);
+        post.setStatusRelato(StatusRelato.ABERTO);
         post.setUser(ParseUser.getCurrentUser());
 
         ParseACL acl = new ParseACL();

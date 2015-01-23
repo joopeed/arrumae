@@ -164,6 +164,13 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                     Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("desc", relato.getDescricao());
+
+                                    if (relato.getStatusRelato() != null) {
+                                        bundle.putString("status", relato.getStatusRelato().toString());
+                                    } else {
+                                        bundle.putString("status", "");
+                                    }
+
                                     try {
                                         ParseUser parseUser = relato.getUser().fetchIfNeeded();
                                         bundle.putString("author", parseUser.getUsername());

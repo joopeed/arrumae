@@ -14,8 +14,10 @@ import android.widget.TextView;
 public class DescRelatoActivity extends Activity {
     private String descricao;
     private String author;
+    private String status;
     private TextView descTextView;
     private TextView authorTextView;
+    private TextView statusTextView;
     private ImageView imageView;
 
     @Override
@@ -30,16 +32,16 @@ public class DescRelatoActivity extends Activity {
         Bundle bundle = intent.getExtras();
         descricao = "Descrição: " + bundle.getString("desc");
         author = "Autor: " + bundle.getString("author");
-
-
-
-
+        status = "Status: " + bundle.getString("status");
+        System.out.print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$ " + status);
         descTextView = (TextView) findViewById(R.id.descTextView);
+        statusTextView = (TextView) findViewById(R.id.statusTextView);
         authorTextView = (TextView) findViewById(R.id.authorTextView);
         imageView = (ImageView) findViewById(R.id.imageView);
 
         descTextView.setText(descricao);
         authorTextView.setText(author);
+        statusTextView.setText(status);
 
         try {
             byte[] bytes = bundle.getByteArray("image");

@@ -15,28 +15,6 @@ import java.io.ByteArrayOutputStream;
 @ParseClassName("Relato")
 public class Relato extends ParseObject {
 
-    public String getDescricao() {
-        return getString("descricao");
-    }
-
-    public void setDescricao(String value) {
-        put("descricao", value);
-    }
-
-    public ParseGeoPoint getLocalizacao() {
-        return getParseGeoPoint("location");
-    }
-
-    public ParseUser getUser() {
-        return getParseUser("user");
-    }
-
-    public void setUser(ParseUser value) {
-        if (value != null) {
-            put("user", value);
-        }
-    }
-
     public void setImage(Bitmap value) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         value.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -77,8 +55,38 @@ public class Relato extends ParseObject {
         return data;
     }
 
+    public String getDescricao() {
+        return getString("descricao");
+    }
+
+    public void setDescricao(String value) {
+        put("descricao", value);
+    }
+
+    public StatusRelato getStatusRelato() {
+        return StatusRelato.parse(getString("status"));
+    }
+
+    public void setStatusRelato(StatusRelato status) {
+        put("status", status.toString());
+    }
+
     public void setLocalizacao(ParseGeoPoint value) {
         put("location", value);
+    }
+
+    public ParseGeoPoint getLocalizacao() {
+        return getParseGeoPoint("location");
+    }
+
+    public ParseUser getUser() {
+        return getParseUser("user");
+    }
+
+    public void setUser(ParseUser value) {
+        if (value != null) {
+            put("user", value);
+        }
     }
 
     public static ParseQuery<Relato> getQuery() {
