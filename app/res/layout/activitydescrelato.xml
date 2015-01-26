@@ -38,4 +38,10 @@
             android:text="Data: "
             android:id="@+id/dataTextView" android:layout_below="@+id/imageView" android:layout_alignLeft="@+id/imageView"
             android:layout_alignStart="@+id/imageView" android:layout_marginTop="46dp"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comentarios"
+            android:id="@+id/commentButton"
+            android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
 </RelativeLayout>
