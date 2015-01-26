@@ -41,8 +41,7 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comentar"
+            android:text="Comentarios"
             android:id="@+id/commentButton"
-            android:layout_alignParentBottom="true" android:layout_alignRight="@+id/imageView"
-            android:layout_alignEnd="@+id/imageView"/>
+            android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
 </RelativeLayout>

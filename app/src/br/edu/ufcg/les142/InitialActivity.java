@@ -149,7 +149,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                         }
                         String rel_id = "";
                         for (String key : mapMarkers.keySet()) {
-                            Log.v("debug, markers->", mapMarkers.get(key).toString());
                             if(mapMarkers.get(key).getTitle().equals(mark.getTitle()) && mapMarkers.get(key).getPosition().equals(mark.getPosition())){
                                 rel_id = key;
                             }
@@ -182,7 +181,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                         bundle.putByteArray("image", relato.getImage());
 
                                     }
-                                    //bundle.putString("photo", rel.getImage());
+
                                     intent.putExtras(bundle);
                                     dialogShowRelato.hide();
                                     startActivity(intent);
