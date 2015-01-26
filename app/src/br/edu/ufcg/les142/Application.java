@@ -2,6 +2,7 @@ package br.edu.ufcg.les142;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -23,6 +24,7 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         ParseObject.registerSubclass(Relato.class);
+        ParseObject.registerSubclass(Comentario.class);
         Parse.initialize(this, "6RkiEquhut1FmiAGjZ7bINdRLI02r5GAFFxVdXdK", "RAQIhDUzSDYAIzNBMw6i5gLPyf3cuT3zEXSuS5a1");
         preferences = getSharedPreferences("com.parse.les142", Context.MODE_PRIVATE);
         configHelper = new ConfigHelper();

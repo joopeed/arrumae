@@ -11,9 +11,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import br.edu.ufcg.les142.models.StatusRelato;
 import com.parse.*;
+
+import java.util.ArrayList;
 
 /**
  * Created by Rodr on 25/11/2014.
@@ -87,6 +90,7 @@ public class PostRelatoActivity extends Activity {
         post.setDescricao(text);
         post.setStatusRelato(StatusRelato.ABERTO);
         post.setUser(ParseUser.getCurrentUser());
+        post.setComentarios(new ArrayList< Comentario>());
 
         ParseACL acl = new ParseACL();
         // Give public read access

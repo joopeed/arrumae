@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import com.parse.*;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Rodrigo on 23/11/2014.
@@ -69,6 +71,23 @@ public class Relato extends ParseObject {
 
     public void setStatusRelato(StatusRelato status) {
         put("status", status.toString());
+    }
+
+    public List<Comentario> getComentarios() {
+        return getList("comentarios");
+    }
+
+    public void setComentarios(List<Comentario> value) {
+        put("comentarios", value);
+    }
+
+    public void addComentario(Comentario c){
+        List<Comentario> comentarios = getComentarios();
+        if(comentarios == null){
+            setComentarios(new ArrayList<Comentario>());
+        }
+        comentarios.add(c);
+
     }
 
     public void setLocalizacao(ParseGeoPoint value) {
