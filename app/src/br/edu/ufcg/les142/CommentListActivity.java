@@ -59,7 +59,10 @@ public class CommentListActivity extends Activity {
                 if (e == null) {
                     relato = rel;
 
+                    loadRelatos();
+
                     listView.setAdapter(adapter);
+
 
 
                 }
@@ -88,6 +91,12 @@ public class CommentListActivity extends Activity {
 
     }
 
+    private void loadRelatos() {
+        for (Comentario co : relato.getComentarios()) {
+            comentarios.add(co.getText());
+        }
+    }
+
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private void dispatchTakePictureIntent() {
@@ -110,16 +119,12 @@ public class CommentListActivity extends Activity {
 
         comentario.setText(text);
 
-        for (Comentario co : relato.getComentarios()) {
-            comentarios.add(co.getText());
-        }
-
-
         relato.addComentario(comentario);
 
 
         // Save the post
         relato.saveInBackground();
+        recreate();
 
 
     }
