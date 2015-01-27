@@ -58,28 +58,17 @@ public class CommentListActivity extends Activity {
             public void done(Relato rel, ParseException e) {
                 if (e == null) {
                     relato = rel;
-
                     loadRelatos();
-
                     listView.setAdapter(adapter);
-
-
-
                 }
             }
         });
-
-
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, comentarios);
-
-
-
         commentButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 comment();
             }
         });
-
         commentPhotoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dispatchTakePictureIntent();
@@ -115,16 +104,20 @@ public class CommentListActivity extends Activity {
     }
 
     private void comment() {
+        final ProgressDialog dialog = new ProgressDialog(CommentListActivity.this);
+        dialog.setMessage(getString(R.string.progress_posting));
+        dialog.show();
         String text = commentTextView.getText().toString().trim();
 
         comentario.setText(text);
-
+        comentario.setUser(ParseUser.getCurrentUser());
         relato.addComentario(comentario);
 
 
         // Save the post
         relato.saveInBackground();
         recreate();
+        dialog.cancel();
 
 
     }

@@ -56,6 +56,12 @@ public class Comentario extends ParseObject{
         put("text", value);
     }
 
+    public void setUser(ParseUser value) {
+        if (value != null) {
+            put("user", value);
+        }
+    }
+
     public static ParseQuery<Comentario> getQuery() {
         return ParseQuery.getQuery(Comentario.class);
     }
