@@ -6,6 +6,8 @@ import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseInstallation;
+import com.parse.PushService;
 
 public class Application extends android.app.Application {
     public static final String APPTAG = "les142";
@@ -20,6 +22,7 @@ public class Application extends android.app.Application {
 
     private static ConfigHelper configHelper;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -29,6 +32,7 @@ public class Application extends android.app.Application {
         preferences = getSharedPreferences("com.parse.les142", Context.MODE_PRIVATE);
         configHelper = new ConfigHelper();
         configHelper.fetchConfigIfNeeded();
+        PushService.setDefaultPushCallback(this, InitialActivity.class);
     }
 
     public static ConfigHelper getConfigHelper() {
