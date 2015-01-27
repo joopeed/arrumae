@@ -15,6 +15,12 @@ import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import br.edu.ufcg.les142.models.StatusRelato;
 import com.parse.*;
+import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParseObject;
+import com.parse.RefreshCallback;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 

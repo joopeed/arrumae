@@ -33,6 +33,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.*;
 import com.parse.*;
 
+import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParseObject;
+import com.parse.RefreshCallback;
+import com.parse.SaveCallback;
 
 import java.util.*;
 
