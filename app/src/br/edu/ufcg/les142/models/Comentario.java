@@ -11,14 +11,8 @@ import java.io.ByteArrayOutputStream;
  * Created by lucasmc on 26/01/15.
  */
 @ParseClassName("Comentario")
-public class Comentario extends ParseObject implements Parcelable {
+public class Comentario extends ParseObject{
 
-    public Comentario(){
-    }
-
-    public Comentario(Parcel in){
-        readFromParcel(in);
-    }
 
 //    public void setImage(Bitmap value) {
 //        ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -49,7 +43,13 @@ public class Comentario extends ParseObject implements Parcelable {
 //    }
 
     public String getText() {
-        return getString("text");
+        try {
+            return fetchIfNeeded().getString("text");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "erro";
     }
 
     public void setText(String value) {
@@ -60,28 +60,8 @@ public class Comentario extends ParseObject implements Parcelable {
         return ParseQuery.getQuery(Comentario.class);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(getText());
-    }
 
-    private void readFromParcel(Parcel in) {
-        setText(in.readString());
-    }
-
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        public Comentario createFromParcel(Parcel in) {
-            return new Comentario(in);
-        }
-        public Comentario[] newArray(int size) {
-            return new Comentario[size];
-        }
-    };
 
 
 }

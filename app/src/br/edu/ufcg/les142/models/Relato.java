@@ -1,6 +1,8 @@
 package br.edu.ufcg.les142.models;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.parse.*;
 
 import java.io.ByteArrayOutputStream;
@@ -15,7 +17,8 @@ import java.util.List;
  * Data model for a relato.
  */
 @ParseClassName("Relato")
-public class Relato extends ParseObject {
+public class Relato extends ParseObject{
+
 
     public void setImage(Bitmap value) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -33,6 +36,7 @@ public class Relato extends ParseObject {
             put("image", file);
         }
     }
+
 
     public byte[] getImage() {
         byte[] data = null;
@@ -91,8 +95,10 @@ public class Relato extends ParseObject {
     }
 
     public void setLocalizacao(ParseGeoPoint value) {
+
         put("location", value);
     }
+
 
     public ParseGeoPoint getLocalizacao() {
         return getParseGeoPoint("location");
@@ -111,4 +117,5 @@ public class Relato extends ParseObject {
     public static ParseQuery<Relato> getQuery() {
         return ParseQuery.getQuery(Relato.class);
     }
+
 }

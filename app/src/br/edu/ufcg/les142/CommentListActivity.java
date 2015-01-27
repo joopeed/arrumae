@@ -11,9 +11,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import br.edu.ufcg.les142.models.Comentario;
-import com.parse.ParseACL;
-import com.parse.ParseException;
-import com.parse.SaveCallback;
+import br.edu.ufcg.les142.models.Relato;
+import com.parse.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +22,14 @@ import java.util.List;
  */
 public class CommentListActivity extends Activity {
 
-    private ArrayList<Comentario> comentarios;
+    private Relato relato;
     private ListView listView;
     private Button commentButton;
     private TextView commentTextView;
-    private Comentario comentario;
+    private String rel_id;
+    private List<String > comentarios;
+
+    ArrayAdapter<String> adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,10 +42,28 @@ public class CommentListActivity extends Activity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        comentarios = bundle.getParcelableArrayList("comentarios");
+        rel_id = bundle.getString("rel_id");
+        ParseQuery<Relato> query = Relato.getQuery();
+        comentarios = new ArrayList<String>();
+
+        query.getInBackground(rel_id, new GetCallback<Relato>() {
+            @Override
+            public void done(Relato rel, ParseException e) {
+                if (e == null) {
+                    relato = rel;
+
+                    listView.setAdapter(adapter);
 
 
-        comentario = new Comentario();
+                }
+            }
+        });
+
+
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, comentarios);
+
+
+
         commentButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 comment();
@@ -52,31 +72,25 @@ public class CommentListActivity extends Activity {
 
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, (List) comentarios);
-        listView.setAdapter(adapter);
+
     }
 
     private void comment() {
         String text = commentTextView.getText().toString().trim();
+        Comentario c = new Comentario();
+        c.setText(text);
 
-        final ProgressDialog dialog = new ProgressDialog(CommentListActivity.this);
-        dialog.setMessage(getString(R.string.progress_posting));
-        dialog.show();
-        comentario.setText(text);
-        comentarios.add(comentario);
+        for (Comentario co : relato.getComentarios()) {
+            comentarios.add(co.getText());
+        }
 
-        ParseACL acl = new ParseACL();
-        // Give public read access
-        acl.setPublicReadAccess(true);
-        comentario.setACL(acl);
 
-        // Save the comment
-        comentario.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                finish();
-            }
-        });
+        relato.addComentario(c);
+
+
+        // Save the post
+        relato.saveInBackground();
+        
 
     }
 

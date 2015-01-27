@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.edu.ufcg.les142.models.Comentario;
+import br.edu.ufcg.les142.models.Relato;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,11 @@ import java.util.ArrayList;
  */
 public class DescRelatoActivity extends Activity {
     private String descricao;
+    private String rel_id;
+    private Double hash;
+
     private ArrayList<Comentario> comentarios;
+    private Relato relato;
     private String author;
     private String status;
     private TextView descTextView;
@@ -43,7 +48,9 @@ public class DescRelatoActivity extends Activity {
         descricao = "Descrição: " + bundle.getString("desc");
         author = "Autor: " + bundle.getString("author");
         status = "Status: " + bundle.getString("status");
-        comentarios = bundle.getParcelableArrayList("comentarios");
+
+        rel_id = bundle.getString("rel_id");
+
 
         descTextView = (TextView) findViewById(R.id.descTextView);
         statusTextView = (TextView) findViewById(R.id.statusTextView);
@@ -68,7 +75,7 @@ public class DescRelatoActivity extends Activity {
             public void onClick(View view) {
                 Intent commentIntent = new Intent(DescRelatoActivity.this, CommentListActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("comentarios", comentarios);
+                bundle.putString("rel_id", rel_id);
 
                 commentIntent.putExtras(bundle);
                 startActivity(commentIntent);

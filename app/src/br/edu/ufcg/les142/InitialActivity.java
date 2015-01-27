@@ -103,6 +103,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
     private static Geocoder gcd;
 
+    private String id;
+
     // Map fragment
     private SupportMapFragment mapa;
 
@@ -153,12 +155,14 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                         for (String key : mapMarkers.keySet()) {
                             if(mapMarkers.get(key).getTitle().equals(mark.getTitle()) && mapMarkers.get(key).getPosition().equals(mark.getPosition())){
                                 rel_id = key;
+                                id = rel_id;
                             }
                         }
                         dialogShowRelato.show();
                         ParseQuery<Relato> query = Relato.getQuery();
 
                         query.getInBackground(rel_id, new GetCallback<Relato>() {
+
                             @Override
                             public void done(Relato relato, ParseException e) {
                                 if (e == null){
@@ -166,7 +170,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                     Bundle bundle = new Bundle();
                                     bundle.putString("desc", relato.getDescricao());
 
-                                    bundle.putParcelableArrayList("comentarios", (ArrayList<Comentario>) relato.getComentarios());
+                                    bundle.putString("rel_id", id);
+
 
                                     if (relato.getStatusRelato() != null) {
                                         bundle.putString("status", relato.getStatusRelato().toString());
