@@ -190,7 +190,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                         bundle.putByteArray("image", relato.getImage());
 
                                     }
-
                                     intent.putExtras(bundle);
                                     dialogShowRelato.hide();
                                     startActivity(intent);
