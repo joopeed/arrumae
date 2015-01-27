@@ -88,6 +88,7 @@
                 android:value="AIzaSyC8eH0P9tUfuK_3PalQBliclwN-nKnCLlc" />
 
         <service android:name="com.parse.PushService" />
+        <service android:name="com.parse.PushService" />
         <receiver android:name="com.parse.ParseBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -99,10 +100,18 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="br.edu.ufcg.les142" />
+                 <category android:name="br.edu.ufcg.les142" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.parse.ParsePushBroadcastReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="com.parse.push.intent.RECEIVE" />
+                <action android:name="com.parse.push.intent.DELETE" />
+                <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
 
-</application>
+
+    </application>
 
 </manifest>

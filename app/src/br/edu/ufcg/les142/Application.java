@@ -2,11 +2,14 @@ package br.edu.ufcg.les142;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import com.parse.Parse;
+import com.parse.ParsePush;
+import com.parse.SaveCallback;
 import com.parse.ParseObject;
-import com.parse.ParseInstallation;
+import com.parse.*;
 import com.parse.PushService;
 
 public class Application extends android.app.Application {
@@ -33,6 +36,16 @@ public class Application extends android.app.Application {
         configHelper = new ConfigHelper();
         configHelper.fetchConfigIfNeeded();
         PushService.setDefaultPushCallback(this, InitialActivity.class);
+        ParsePush.subscribeInBackground("", new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Log.d("com.parse.push", "successfully subscribed to the broadcast channel.");
+                } else {
+                    Log.e("com.parse.push", "failed to subscribe for push", e);
+                }
+            }
+        });
     }
 
     public static ConfigHelper getConfigHelper() {
