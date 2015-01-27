@@ -14,33 +14,33 @@ import java.io.ByteArrayOutputStream;
 public class Comentario extends ParseObject{
 
 
-//    public void setImage(Bitmap value) {
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        value.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//        // get byte array here
-//        byte[] bytearray = stream.toByteArray();
-//        if (bytearray != null) {
-//            //TODO
-//            ParseFile file = new ParseFile("teste".toString() + ".jpg", bytearray);
-//            try {
-//                file.save();
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//            put("image", file);
-//        }
-//    }
-//
-//    public byte[] getImage() {
-//        byte[] data = null;
-//        ParseFile fileObject = getParseFile("image");
-//        try {
-//            data = fileObject.getData();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return data;
-//    }
+    public void setImage(Bitmap value) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        value.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        // get byte array here
+        byte[] bytearray = stream.toByteArray();
+        if (bytearray != null) {
+            //TODO
+            ParseFile file = new ParseFile("teste".toString() + ".jpg", bytearray);
+            try {
+                file.save();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            put("image", file);
+        }
+    }
+
+    public byte[] getImage() {
+        byte[] data = null;
+        ParseFile fileObject = getParseFile("image");
+        try {
+            data = fileObject.getData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
 
     public String getText() {
         try {

@@ -94,6 +94,7 @@ public class PostRelatoActivity extends Activity {
 
         ParseACL acl = new ParseACL();
         // Give public read access
+        acl.setPublicWriteAccess(true);
         acl.setPublicReadAccess(true);
         post.setACL(acl);
 
