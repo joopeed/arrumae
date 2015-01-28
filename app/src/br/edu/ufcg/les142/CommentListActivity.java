@@ -99,7 +99,6 @@ public class CommentListActivity extends Activity {
             Bundle extras = data.getExtras();
             image = (Bitmap) extras.get("data");
             comentario.setImage(image);
-
         }
     }
 
