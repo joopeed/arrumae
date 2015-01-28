@@ -6,11 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 
@@ -32,9 +31,6 @@ public class DescRelatoActivity extends Activity {
     private ImageView imageView;
     private Button commentsButton;
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -47,7 +43,17 @@ public class DescRelatoActivity extends Activity {
         Bundle bundle = intent.getExtras();
         descricao = "Descrição: " + bundle.getString("desc");
         author = "Autor: " + bundle.getString("author");
-        status = "Status: " + bundle.getString("status");
+        status = "Status: ";
+
+        Spinner spinner = (Spinner) findViewById(R.id.status_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.status_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        int spinnerPosition = adapter.getPosition(bundle.getString("status"));
+        spinner.setSelection(spinnerPosition);
+        boolean ehResponsavel = bundle.getString("author").equals(ParseUser.getCurrentUser().getUsername());
+        spinner.setEnabled(ehResponsavel);
+        spinner.setAdapter(adapter);
 
         rel_id = bundle.getString("rel_id");
 

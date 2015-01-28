@@ -36,4 +36,13 @@
     <string name="error_invalid_cpf">CPF inválido</string>
     <string name="progress_posting">Obrigado por ajudar! Estamos postando seu relato</string>
     <string name="openning_relate">Carregando Relato</string>
+
+
+    <string-array name="status_array">
+       <item>Aberto</item>
+       <item>Reaberto</item>
+       <item>Em processo de resolução</item>
+       <item>Resolvido</item>
+    </string-array>
 </resources>
+

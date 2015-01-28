@@ -5,6 +5,7 @@ package br.edu.ufcg.les142.models;
  */
 public enum StatusRelato {
     ABERTO ("Aberto"),
+    REABERTO("Reaberto"),
     EM_PROCESSO("Em processo de resolução"),
     RESOlVIDO ("Resolvido");
 
