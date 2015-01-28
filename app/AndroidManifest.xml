@@ -26,6 +26,7 @@
                 android:protectionLevel="signature" />
     <uses-permission android:name="br.edu.ufcg.les142.permission.C2D_MESSAGE" />
 
+
     <application
             android:label="@string/app_name"
             android:name=".Application"
@@ -111,6 +112,9 @@
             </intent-filter>
         </receiver>
 
+
+        <meta-data android:name="com.parse.push.gcm_sender_id"
+                   android:value="id:1076345567071" />;
 
     </application>
 
