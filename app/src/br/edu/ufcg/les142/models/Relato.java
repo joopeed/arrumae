@@ -1,8 +1,6 @@
 package br.edu.ufcg.les142.models;
 
 import android.graphics.Bitmap;
-import android.os.Parcel;
-import android.os.Parcelable;
 import com.parse.*;
 
 import java.io.ByteArrayOutputStream;
@@ -91,6 +89,23 @@ public class Relato extends ParseObject{
             setComentarios(new ArrayList<Comentario>());
         }
         comentarios.add(c);
+
+    }
+
+    public List<Usuario> getApoios() {
+        return getList("apoios");
+    }
+
+    public void setApoios(List<Usuario> value) {
+        put("apoios", value);
+    }
+
+    public void addApoio(Usuario apoiador){
+        List<Usuario> apoios = getApoios();
+        if(apoios == null){
+            setApoios(new ArrayList<Usuario>());
+        }
+        apoios.add(apoiador);
 
     }
 
