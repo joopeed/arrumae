@@ -35,7 +35,7 @@ public class Application extends android.app.Application {
         preferences = getSharedPreferences("com.parse.les142", Context.MODE_PRIVATE);
         configHelper = new ConfigHelper();
         configHelper.fetchConfigIfNeeded();
-        PushService.setDefaultPushCallback(this, InitialActivity.class);
+
         ParsePush.subscribeInBackground("", new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -46,6 +46,8 @@ public class Application extends android.app.Application {
                 }
             }
         });
+        
+
     }
 
     public static ConfigHelper getConfigHelper() {

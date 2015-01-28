@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+import com.parse.ParseInstallation;
 
 /**
  * Activity which displays a login screen to the user.
@@ -134,6 +135,7 @@ public class SignUpActivity extends Activity {
                     // Start an intent for the dispatch activity
                     Intent intent = new Intent(SignUpActivity.this, DispatchActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    ParseInstallation.getCurrentInstallation().put("user", ParseUser.getCurrentUser());
                     startActivity(intent);
                 }
             }

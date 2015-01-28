@@ -122,6 +122,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        PushService.setDefaultPushCallback(this, InitialActivity.class);
         // Create a new global location parameters object
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
