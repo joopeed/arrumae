@@ -49,9 +49,9 @@ public class DescRelatoActivity extends Activity {
         rel_id = bundle.getString("rel_id");
         descricao = "Descrição: " + bundle.getString("desc");
         author = "Autor: " + bundle.getString("author");
-        status = "Status: ";
         apoiosList = bundle.getStringArrayList("apoios");
         apoio = apoiosList.size()>0 ? apoiosList.size() + " apoiadores": null;
+        status = "Estado: ";
 
         spinner = (Spinner) findViewById(R.id.status_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
