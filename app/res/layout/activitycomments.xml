@@ -6,14 +6,14 @@
               android:layout_height="match_parent">
 
     <Button
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comment"
+            android:text="@string/comment_post"
             android:id="@+id/commentButton"
-            android:layout_alignParentBottom="true" android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
-    <ListView
+            <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/list"
@@ -26,12 +26,17 @@
             android:layout_height="wrap_content"
             android:id="@+id/commentTextView" android:layout_above="@+id/commentButton"
             android:layout_centerHorizontal="true" android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true" android:height="100dp"/>
+            android:layout_alignParentRight="true" android:height="80dp"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Take Photo"
+            android:text="@string/take_photo"
             android:id="@+id/CommentPhotobutton"
             android:layout_toStartOf="@+id/commentButton" android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/commentButton"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 </RelativeLayout>
