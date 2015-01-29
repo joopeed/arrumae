@@ -9,7 +9,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -19,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -32,13 +30,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.*;
 import com.parse.*;
-
-import com.parse.ParseAnalytics;
-import com.parse.ParseException;
-import com.parse.ParseInstallation;
-import com.parse.ParseObject;
-import com.parse.RefreshCallback;
-import com.parse.SaveCallback;
 
 import java.util.*;
 
@@ -177,9 +168,19 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                     Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("desc", relato.getDescricao());
+                                    ArrayList<String> apoios = new ArrayList<String>();
+                                    for(ParseUser user: relato.getApoios()) {
+                                        try {
+                                            user.fetchIfNeeded();
+                                            apoios.add(user.getUsername());
+                                        } catch (ParseException e1) {
+                                            e1.printStackTrace();
+                                        }
 
+
+                                    }
+                                    bundle.putStringArrayList("apoios", apoios);
                                     bundle.putString("rel_id", id);
-
 
                                     if (relato.getStatusRelato() != null) {
                                         bundle.putString("status", relato.getStatusRelato().toString());

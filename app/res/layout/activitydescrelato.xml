@@ -19,6 +19,7 @@
             android:id="@+id/authorTextView"
             android:layout_below="@+id/descTextView" android:layout_alignLeft="@+id/descTextView"
             android:layout_alignStart="@+id/descTextView"/>
+
      <Spinner
             android:id="@+id/status_spinner"
             android:layout_width="wrap_content"
@@ -46,13 +47,27 @@
             android:text="Data: "
             android:id="@+id/dataTextView" android:layout_below="@+id/imageView" android:layout_alignLeft="@+id/imageView"
             android:layout_alignStart="@+id/imageView" android:layout_marginTop="46dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Nenhum apoiador"
+            android:id="@+id/apoiadoresTextView"
+            android:layout_below="@+id/dataTextView" android:layout_alignLeft="@+id/dataTextView"
+            android:layout_alignStart="@+id/dataTextView"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Comentários"
             android:id="@+id/commentsButton"
             android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
-        <TextView
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apoiar"
+            android:id="@+id/apoiarButton"
+            android:layout_centerHorizontal="true"/>
+     <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"

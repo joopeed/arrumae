@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
-import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import br.edu.ufcg.les142.models.StatusRelato;
 import com.parse.GetCallback;
@@ -32,6 +31,10 @@ public class DescRelatoActivity extends Activity {
     private TextView statusTextView;
     private ImageView imageView;
     private Button commentsButton;
+    private TextView apoiosTextView;
+    private ArrayList<String> apoiosList;
+    private String apoio;
+    private Button apoiarButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class DescRelatoActivity extends Activity {
         descricao = "Descrição: " + bundle.getString("desc");
         author = "Autor: " + bundle.getString("author");
         status = "Status: ";
+        apoiosList = bundle.getStringArrayList("apoios");
+        apoio = apoiosList.size()>0 ? apoiosList.size() + " apoiadores": null;
 
         spinner = (Spinner) findViewById(R.id.status_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -86,12 +91,15 @@ public class DescRelatoActivity extends Activity {
         descTextView = (TextView) findViewById(R.id.descTextView);
         statusTextView = (TextView) findViewById(R.id.statusTextView);
         authorTextView = (TextView) findViewById(R.id.authorTextView);
+        apoiosTextView = (TextView) findViewById(R.id.apoiadoresTextView);
         imageView = (ImageView) findViewById(R.id.imageView);
         commentsButton = (Button) findViewById(R.id.commentsButton);
+        apoiarButton = (Button) findViewById(R.id.apoiarButton);
 
         descTextView.setText(descricao);
         authorTextView.setText(author);
         statusTextView.setText(status);
+        if(apoio != null)  apoiosTextView.setText(apoio);
 
         try {
             byte[] bytes = bundle.getByteArray("image");
@@ -112,5 +120,54 @@ public class DescRelatoActivity extends Activity {
                 startActivity(commentIntent);
             }
         });
+        if(apoiosList.contains(ParseUser.getCurrentUser().getUsername())){
+            apoiarButton.setText("Desfazer apoio");
+        }else {
+            apoiarButton.setText("Apoiar");
+        }
+        apoiarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseQuery<Relato> query = Relato.getQuery();
+
+                query.getInBackground(rel_id, new GetCallback<Relato>() {
+                    @Override
+                    public void done(Relato rel, ParseException e) {
+                        if (e == null) {
+                            relato = rel;
+                            try {
+                                ParseUser user = ParseUser.getCurrentUser();
+                                if(relato.isApoiador(user)){
+                                    relato.removerApoio(user);
+                                }
+                                else{
+                                    relato.addApoio(user);
+                                }
+                                relato.save();
+
+                                apoiosList = new ArrayList<String>();
+                                for (ParseUser usu : relato.getApoios()) {
+                                    usu.fetchIfNeeded();
+                                    apoiosList.add(usu.getUsername());
+                                }
+                                apoio = apoiosList.size() > 0 ? apoiosList.size() + " apoiadores" : "Nenhum apoiador";
+                                apoiosTextView.setText(apoio);
+                                if(!relato.isApoiador(user)){
+                                    apoiarButton.setText("Apoiar");
+                                }
+                                else{
+                                    apoiarButton.setText("Desfazer apoio");
+                                }
+
+                            } catch (ParseException e1) {
+                                Toast.makeText(DescRelatoActivity.this,
+                                        "Não foi possível apoiar esse relato. Tente de novo", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
     }
 }

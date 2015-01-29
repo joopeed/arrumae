@@ -92,20 +92,34 @@ public class Relato extends ParseObject{
 
     }
 
-    public List<Usuario> getApoios() {
-        return getList("apoios");
+    public List<ParseUser> getApoios() {
+        if (getList("apoios") == null) return new ArrayList<ParseUser>();
+        else return getList("apoios");
     }
 
-    public void setApoios(List<Usuario> value) {
+    public void setApoios(List<ParseUser> value) {
         put("apoios", value);
     }
 
-    public void addApoio(Usuario apoiador){
-        List<Usuario> apoios = getApoios();
-        if(apoios == null){
-            setApoios(new ArrayList<Usuario>());
+    public boolean isApoiador(ParseUser apoiador){
+       for(ParseUser user: getApoios()){
+           if(apoiador.equals(user)) return true;
+       }
+        return false;
+    }
+
+    public void addApoio(ParseUser apoiador){
+        List<ParseUser> apoios = getApoios();
+        if(!isApoiador(apoiador)) {
+            apoios.add(apoiador);
+            setApoios(apoios);
         }
-        apoios.add(apoiador);
+
+    }
+    public void removerApoio(ParseUser apoiador){
+        List<ParseUser> apoios = getApoios();
+        apoios.remove(apoiador);
+        setApoios(apoios);
 
     }
 
