@@ -52,7 +52,7 @@ public class CommentListActivity extends Activity {
         rel_id = bundle.getString("rel_id");
         ParseQuery<Relato> query = Relato.getQuery();
         comentarios = new ArrayList<String>();
-
+        query.fromLocalDatastore();
         query.getInBackground(rel_id, new GetCallback<Relato>() {
             @Override
             public void done(Relato rel, ParseException e) {
@@ -74,10 +74,6 @@ public class CommentListActivity extends Activity {
                 dispatchTakePictureIntent();
             }
         });
-
-
-
-
     }
 
     private void loadRelatos() {

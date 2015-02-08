@@ -64,6 +64,7 @@ public class DescRelatoActivity extends Activity {
         spinner.setSelection(spinnerPosition, true);
 
         ParseQuery<Relato> query = Relato.getQuery();
+        query.fromLocalDatastore();
         query.getInBackground(rel_id, new GetCallback<Relato>() {
             @Override
             public void done(Relato rel, ParseException e) {
@@ -129,7 +130,7 @@ public class DescRelatoActivity extends Activity {
             @Override
             public void onClick(View view) {
                 ParseQuery<Relato> query = Relato.getQuery();
-
+                query.fromLocalDatastore();
                 query.getInBackground(rel_id, new GetCallback<Relato>() {
                     @Override
                     public void done(Relato rel, ParseException e) {

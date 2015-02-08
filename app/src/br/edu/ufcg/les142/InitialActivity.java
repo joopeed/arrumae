@@ -159,12 +159,12 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                         }
                         dialogShowRelato.show();
                         ParseQuery<Relato> query = Relato.getQuery();
-
                         query.getInBackground(rel_id, new GetCallback<Relato>() {
 
                             @Override
                             public void done(Relato relato, ParseException e) {
                                 if (e == null){
+                                    relato.pinInBackground();
                                     Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("desc", relato.getDescricao());
