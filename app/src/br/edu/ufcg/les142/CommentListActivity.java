@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -32,14 +33,20 @@ public class CommentListActivity extends Activity {
     private TextView commentTextView;
     private String rel_id;
     private List<String > comentarios;
+    private List<Bitmap > bitmaps;
     private Bitmap image;
+    private LazyAdapter adapter;
 
-    ArrayAdapter<String> adapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitycomments);
+        comentarios = new ArrayList<String>();
+        bitmaps = new ArrayList<Bitmap>();
+
+
 
         listView = (ListView) findViewById(R.id.list);
         commentButton = (Button) findViewById(R.id.commentButton);
@@ -51,7 +58,6 @@ public class CommentListActivity extends Activity {
         Bundle bundle = intent.getExtras();
         rel_id = bundle.getString("rel_id");
         ParseQuery<Relato> query = Relato.getQuery();
-        comentarios = new ArrayList<String>();
         query.fromLocalDatastore();
         query.getInBackground(rel_id, new GetCallback<Relato>() {
             @Override
@@ -63,7 +69,9 @@ public class CommentListActivity extends Activity {
                 }
             }
         });
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, comentarios);
+
+        adapter = new LazyAdapter(CommentListActivity.this, comentarios, bitmaps);
+
         commentButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 comment();
@@ -78,7 +86,11 @@ public class CommentListActivity extends Activity {
 
     private void loadRelatos() {
         for (Comentario co : relato.getComentarios()) {
-            comentarios.add(co.getText());
+            comentarios.add(ParseUser.getCurrentUser().getUsername() + ": "  + co.getText());
+            try{byte[] bytes = co.getImage();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            bitmaps.add(bitmap);}
+            catch(Exception e) {}
         }
     }
 

@@ -39,15 +39,15 @@
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView" android:layout_below="@+id/authorTextView"
+            android:id="@+id/descImageView" android:layout_below="@+id/authorTextView"
             android:layout_alignLeft="@+id/authorTextView" android:layout_alignStart="@+id/authorTextView"
             android:layout_marginTop="57dp" android:minWidth="200dp" android:minHeight="200dp"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Data: "
-            android:id="@+id/dataTextView" android:layout_below="@+id/imageView" android:layout_alignLeft="@+id/imageView"
-            android:layout_alignStart="@+id/imageView" android:layout_marginTop="46dp"/>
+            android:id="@+id/dataTextView" android:layout_below="@+id/descImageView" android:layout_alignLeft="@+id/descImageView"
+            android:layout_alignStart="@+id/descImageView" android:layout_marginTop="46dp"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -93,7 +93,7 @@ public class DescRelatoActivity extends Activity {
         statusTextView = (TextView) findViewById(R.id.statusTextView);
         authorTextView = (TextView) findViewById(R.id.authorTextView);
         apoiosTextView = (TextView) findViewById(R.id.apoiadoresTextView);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.descImageView);
         commentsButton = (Button) findViewById(R.id.commentsButton);
         apoiarButton = (Button) findViewById(R.id.apoiarButton);
 
