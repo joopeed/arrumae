@@ -53,5 +53,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="google-play-services" level="project" />
+    <orderEntry type="library" name="Parse-1.8.2" level="project" />
+    <orderEntry type="library" name="bolts-android-1.1.4" level="project" />
   </component>
 </module>
