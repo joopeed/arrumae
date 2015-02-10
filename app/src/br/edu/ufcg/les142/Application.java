@@ -31,6 +31,7 @@ public class Application extends android.app.Application {
         super.onCreate();
         ParseObject.registerSubclass(Relato.class);
         ParseObject.registerSubclass(Comentario.class);
+        Parse.enableLocalDatastore(this);
         Parse.initialize(this, "6RkiEquhut1FmiAGjZ7bINdRLI02r5GAFFxVdXdK", "RAQIhDUzSDYAIzNBMw6i5gLPyf3cuT3zEXSuS5a1");
         preferences = getSharedPreferences("com.parse.les142", Context.MODE_PRIVATE);
         configHelper = new ConfigHelper();

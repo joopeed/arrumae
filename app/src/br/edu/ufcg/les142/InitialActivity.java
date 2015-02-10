@@ -113,6 +113,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
         PushService.setDefaultPushCallback(this, InitialActivity.class);
         // Create a new global location parameters object
         locationRequest = LocationRequest.create();
@@ -159,12 +160,12 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                         }
                         dialogShowRelato.show();
                         ParseQuery<Relato> query = Relato.getQuery();
-
                         query.getInBackground(rel_id, new GetCallback<Relato>() {
 
                             @Override
                             public void done(Relato relato, ParseException e) {
                                 if (e == null){
+                                    relato.pinInBackground();
                                     Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("desc", relato.getDescricao());

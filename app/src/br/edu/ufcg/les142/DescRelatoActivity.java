@@ -64,6 +64,7 @@ public class DescRelatoActivity extends Activity {
         spinner.setSelection(spinnerPosition, true);
 
         ParseQuery<Relato> query = Relato.getQuery();
+        query.fromLocalDatastore();
         query.getInBackground(rel_id, new GetCallback<Relato>() {
             @Override
             public void done(Relato rel, ParseException e) {
@@ -92,7 +93,7 @@ public class DescRelatoActivity extends Activity {
         statusTextView = (TextView) findViewById(R.id.statusTextView);
         authorTextView = (TextView) findViewById(R.id.authorTextView);
         apoiosTextView = (TextView) findViewById(R.id.apoiadoresTextView);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.descImageView);
         commentsButton = (Button) findViewById(R.id.commentsButton);
         apoiarButton = (Button) findViewById(R.id.apoiarButton);
 
@@ -129,7 +130,7 @@ public class DescRelatoActivity extends Activity {
             @Override
             public void onClick(View view) {
                 ParseQuery<Relato> query = Relato.getQuery();
-
+                query.fromLocalDatastore();
                 query.getInBackground(rel_id, new GetCallback<Relato>() {
                     @Override
                     public void done(Relato rel, ParseException e) {

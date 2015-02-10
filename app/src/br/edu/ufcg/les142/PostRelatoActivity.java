@@ -103,6 +103,7 @@ public class PostRelatoActivity extends Activity {
         acl.setPublicWriteAccess(true);
         acl.setPublicReadAccess(true);
         post.setACL(acl);
+        post.pinInBackground();
 
         // Save the post
         post.saveInBackground(new SaveCallback() {
