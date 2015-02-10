@@ -7,6 +7,9 @@
 *.war
 *.ear
 
+*.iml
+
+BuildConfig.java
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -14,5 +17,12 @@ hs_err_pid*
 # directories
 out/
 .idea/
-*app/app.iml
-*google_play_services_lib/google_play_services_lib.iml
+appTest/gen/br/edu/ufcg/les142/tests/BuildConfig.java
+app/app.iml
+appTest/appTest.iml
+appTest/gen/br/edu/ufcg/les142/tests/BuildConfig.java
+google_play_services_lib/google_play_services_lib.iml
+appTest/appTest.iml
+app/gen/br/edu/ufcg/les142/BuildConfig.java
+google_play_services_lib/gen/com/google/android/gms/BuildConfig.java
+app/app.iml
