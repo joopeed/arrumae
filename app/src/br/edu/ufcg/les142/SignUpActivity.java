@@ -29,7 +29,7 @@ public class SignUpActivity extends Activity {
     private EditText passwordEditText;
     private EditText passwordAgainEditText;
     private EditText cpfEditText;
-
+    private Installation pInst;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,9 +133,12 @@ public class SignUpActivity extends Activity {
                     Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
                     // Start an intent for the dispatch activity
+
                     Intent intent = new Intent(SignUpActivity.this, DispatchActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    ParseInstallation.getCurrentInstallation().put("user", ParseUser.getCurrentUser());
+                    pInst = new Installation();
+                    pInst.install();
+
                     startActivity(intent);
                 }
             }

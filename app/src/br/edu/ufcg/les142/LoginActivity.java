@@ -32,6 +32,7 @@ public class LoginActivity extends Activity {
     // UI references.
     private EditText usernameEditText;
     private EditText passwordEditText;
+    Installation pInst;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +107,8 @@ public class LoginActivity extends Activity {
                     // Start an intent for the dispatch activity
                     Intent intent = new Intent(LoginActivity.this, DispatchActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    ParseInstallation.getCurrentInstallation().put("user", ParseUser.getCurrentUser());
+                    pInst = new Installation();
+                    pInst.install();
 
                     startActivity(intent);
                 }
