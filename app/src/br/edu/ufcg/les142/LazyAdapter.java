@@ -38,7 +38,8 @@ public class LazyAdapter extends ArrayAdapter {
         TextView txtTitle = (TextView) rowView.findViewById(R.id.title);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.list_image);
         txtTitle.setText(comentarios.get(position));
-        imageView.setImageBitmap(bitmaps.get(position));
+        try{ imageView.setImageBitmap(bitmaps.get(position));}
+        catch (Exception e){}
         return rowView;
     }
 }
