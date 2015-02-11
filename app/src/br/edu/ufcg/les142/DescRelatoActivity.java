@@ -35,10 +35,10 @@ public class DescRelatoActivity extends Activity {
     private ArrayList<String> apoiosList;
     private String apoio;
     private Button apoiarButton;
-
+    private Installation myInst;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
+        myInst = new Installation();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitydescrelato);
 
@@ -140,9 +140,13 @@ public class DescRelatoActivity extends Activity {
                                 ParseUser user = ParseUser.getCurrentUser();
                                 if(relato.isApoiador(user)){
                                     relato.removerApoio(user);
+                                    rel.fetchIfNeeded();
+                                    myInst.unsubscribe(rel.getObjectId());
                                 }
                                 else{
                                     relato.addApoio(user);
+                                    rel.fetchIfNeeded();
+                                    myInst.subscribe(rel.getObjectId());
                                 }
                                 relato.save();
 
@@ -152,6 +156,7 @@ public class DescRelatoActivity extends Activity {
                                     apoiosList.add(usu.getUsername());
                                 }
                                 apoio = apoiosList.size() > 0 ? apoiosList.size() + " apoiadores" : "Nenhum apoiador";
+                                if(apoiosList.size()> 1) myInst.sendApoioPush(rel.getObjectId());
                                 apoiosTextView.setText(apoio);
                                 if(!relato.isApoiador(user)){
                                     apoiarButton.setText("Apoiar");
