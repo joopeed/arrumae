@@ -26,6 +26,13 @@ public class Installation {
 
     }
 
+    public void sendCommentPush(String channel) {
+        ParsePush push = new ParsePush();
+        push.setChannel(channel);
+        push.setMessage("Um relato que você apoia/criou foi comentado");
+        push.sendInBackground();
+    }
+
     public void subscribe(String channel){
         ParsePush.subscribeInBackground(channel);
 
@@ -36,10 +43,5 @@ public class Installation {
 
     }
 
-    public void sendCommentPush(String channel) {
-        ParsePush push = new ParsePush();
-        push.setChannel(channel);
-        push.setMessage("Um relato que você apoia/criou foi comentado");
-        push.sendInBackground();
-    }
+
 }

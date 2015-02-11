@@ -8,11 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import com.parse.*;
@@ -40,6 +38,7 @@ public class CommentListActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        myInst = new Installation();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitycomments);
         comentarios = new ArrayList<String>();
@@ -117,12 +116,22 @@ public class CommentListActivity extends Activity {
 
         comentario.setText(text);
         comentario.setUser(ParseUser.getCurrentUser());
+
         relato.addComentario(comentario);
-        myInst.sendCommentPush(relato.getObjectId());
+
 
 
         // Save the post
         relato.saveInBackground();
+        try{
+            myInst.sendCommentPush(rel_id);
+        }catch(Exception e){
+            Log.d(Application.APPTAG, e.getMessage());
+            Toast.makeText(CommentListActivity.this,
+                    "Erro ao enviar notificação.", Toast.LENGTH_LONG).show();
+        }
+
+
         recreate();
         dialog.cancel();
 

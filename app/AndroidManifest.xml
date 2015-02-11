@@ -115,7 +115,7 @@
 
         <meta-data android:name="com.parse.push.gcm_sender_id"
                    android:value="id:1076345567071" />;
-
+        <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/icone_arrumae"/>
     </application>
 
 </manifest>
