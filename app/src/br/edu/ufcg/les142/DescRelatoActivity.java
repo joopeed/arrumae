@@ -156,7 +156,7 @@ public class DescRelatoActivity extends Activity {
                                     apoiosList.add(usu.getUsername());
                                 }
                                 apoio = apoiosList.size() > 0 ? apoiosList.size() + " apoiadores" : "Nenhum apoiador";
-                                if(apoiosList.size()> 1) myInst.sendApoioPush(rel.getObjectId());
+                                if(apoiosList.size()>= 1) myInst.sendApoioPush(rel.getObjectId());
                                 apoiosTextView.setText(apoio);
                                 if(!relato.isApoiador(user)){
                                     apoiarButton.setText("Apoiar");
