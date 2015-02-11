@@ -36,8 +36,7 @@ public class CommentListActivity extends Activity {
     private List<Bitmap > bitmaps;
     private Bitmap image;
     private LazyAdapter adapter;
-
-
+    private Installation myInst;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,6 +118,7 @@ public class CommentListActivity extends Activity {
         comentario.setText(text);
         comentario.setUser(ParseUser.getCurrentUser());
         relato.addComentario(comentario);
+        myInst.sendCommentPush(relato.getObjectId());
 
 
         // Save the post

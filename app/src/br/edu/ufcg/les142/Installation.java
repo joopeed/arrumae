@@ -35,4 +35,11 @@ public class Installation {
         ParsePush.unsubscribeInBackground(channel);
 
     }
+
+    public void sendCommentPush(String channel) {
+        ParsePush push = new ParsePush();
+        push.setChannel(channel);
+        push.setMessage("Um relato que você apoia/criou foi comentado");
+        push.sendInBackground();
+    }
 }
