@@ -31,6 +31,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.*;
 import com.parse.*;
 
+import java.io.Console;
 import java.util.*;
 
 public class InitialActivity extends FragmentActivity implements LocationListener,
@@ -147,13 +148,13 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                             return false;
                         } else if (relatoClick && mark.equals(markerClicked)) {
                             relatoClick = false;
-                        }else if (relatoClick && !mark.equals(markerClicked)) {
+                        } else if (relatoClick && !mark.equals(markerClicked)) {
                             markerClicked = mark;
                             return false;
                         }
                         String rel_id = "";
                         for (String key : mapMarkers.keySet()) {
-                            if(mapMarkers.get(key).getTitle().equals(mark.getTitle()) && mapMarkers.get(key).getPosition().equals(mark.getPosition())){
+                            if (mapMarkers.get(key).getTitle().equals(mark.getTitle()) && mapMarkers.get(key).getPosition().equals(mark.getPosition())) {
                                 rel_id = key;
                                 id = rel_id;
                             }
@@ -164,13 +165,13 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
                             @Override
                             public void done(Relato relato, ParseException e) {
-                                if (e == null){
+                                if (e == null) {
                                     relato.pinInBackground();
                                     Intent intent = new Intent(InitialActivity.this, DescRelatoActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("desc", relato.getDescricao());
                                     ArrayList<String> apoios = new ArrayList<String>();
-                                    for(ParseUser user: relato.getApoios()) {
+                                    for (ParseUser user : relato.getApoios()) {
                                         try {
                                             user.fetchIfNeeded();
                                             apoios.add(user.getUsername());
@@ -195,8 +196,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                     } catch (ParseException e1) {
                                         e1.printStackTrace();
                                     }
-                                   
-                                    if (relato.getImage() !=  null) {
+
+                                    if (relato.getImage() != null) {
                                         bundle.putByteArray("image", relato.getImage());
 
                                     }
@@ -259,7 +260,8 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                             new MarkerOptions().position(new LatLng(relato.getLocalizacao().getLatitude(),
                                     relato.getLocalizacao().getLongitude()));
                     markerOpts.title(relato.getDescricao());
-                    markerOpts.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                    int icon = iconMakers(relato);
+                    markerOpts.icon(BitmapDescriptorFactory.fromResource(icon));
                     final Marker marker = mapa.getMap().addMarker(markerOpts);
                     mapMarkers.put(relato.getObjectId(), marker);
                     if (relato.getObjectId().equals(selectedRelatoObjectId)) {
@@ -269,6 +271,66 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 cleanUpMarkers(toKeep);
             }
         });
+    }
+
+    private int iconMakers(Relato relato) {
+        if(relato.getStatusRelato().toString().equals("Aberto")) {
+            if (relato.getImage() == null) {
+                if (relato.getComentarios().size() != 0) {
+                    return R.drawable.abertocoment;
+                } else {
+                    return R.drawable.aberto;
+                }
+            } else {
+                if (relato.getComentarios().size() != 0) {
+                    return R.drawable.abertoboth;
+                } else {
+                    return R.drawable.abertofoto;
+                }
+            }
+        } else if(relato.getStatusRelato().toString().equals("REABERTO")) {
+            if (relato.getImage() == null) {
+                if (relato.getComentarios().size() != 0) {
+                    return R.drawable.reabertocoment;
+                } else {
+                    return R.drawable.reaberto;
+                }
+            } else {
+                if (relato.getComentarios().size() != 0) {
+                    return R.drawable.reabertoboth;
+                } else {
+                    return R.drawable.reabertofoto;
+                }
+            }
+        } else if(relato.getStatusRelato().toString().equals("RESOLVIDO")) {
+            if (relato.getImage() == null) {
+                if (relato.getComentarios().size() != 0) {
+                    return R.drawable.resolvidocoment;
+                } else {
+                    return R.drawable.resolvido;
+                }
+            } else {
+                if (relato.getComentarios().size() != 0) {
+                    return R.drawable.resolvidoboth;
+                } else {
+                    return R.drawable.resolvidofoto;
+                }
+            }
+        } else {
+            if (relato.getImage() == null) {
+                if (relato.getComentarios().size() != 0) {
+                    return R.drawable.em_processocoment;
+                } else {
+                    return R.drawable.em_processo;
+                }
+            } else {
+                if (relato.getComentarios().size() != 0) {
+                    return R.drawable.em_processoboth;
+                } else {
+                    return R.drawable.em_processofoto;
+                }
+            }
+        }
     }
 
     private void cleanUpMarkers(Set<String> markersToKeep) {
