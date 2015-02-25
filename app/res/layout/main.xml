@@ -2,11 +2,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
               android:layout_height="fill_parent"
+
         >
     <LinearLayout android:orientation="vertical"
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent">
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                   android:id="@+id/map"
                   android:name="com.google.android.gms.maps.SupportMapFragment"
                   android:layout_width="fill_parent"
@@ -20,8 +21,9 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="15dp"
-            android:layout_gravity="top|left"
+            android:layout_gravity="bottom|right"
             android:text="@string/relato"/>
+
 
 
 </FrameLayout>

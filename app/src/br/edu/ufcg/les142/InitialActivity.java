@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import br.edu.ufcg.les142.models.Relato;
 import com.google.android.gms.common.ConnectionResult;
@@ -31,7 +33,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.*;
 import com.parse.*;
 
-import java.io.Console;
 import java.util.*;
 
 public class InitialActivity extends FragmentActivity implements LocationListener,
@@ -211,6 +212,25 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                     }
                 }
         );
+
+        View zoomControls;
+        zoomControls = mapa.getView().findViewById(1); //FIXME: Para funcionar tem que desativar os warnings
+        if (zoomControls != null && zoomControls.getLayoutParams() instanceof RelativeLayout.LayoutParams) {
+            // ZoomControl is inside of RelativeLayout
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) zoomControls.getLayoutParams();
+
+            // Align it to - parent top|left
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+
+            // Update margins, set to 10dp
+            final int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10,
+                    getResources().getDisplayMetrics());
+            params.setMargins(margin, margin, margin, margin);
+        }
+
+
+
 
         // Set up the handler for the post button click
         Button relatoButton = (Button) findViewById(R.id.relatarButton);
