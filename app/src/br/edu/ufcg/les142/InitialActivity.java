@@ -17,7 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import br.edu.ufcg.les142.models.Relato;
@@ -235,7 +235,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
 
         // Set up the handler for the post button click
-        Button relatoButton = (Button) findViewById(R.id.relatarButton);
+        ImageButton relatoButton = (ImageButton) findViewById(R.id.relatarButton);
         relatoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Only allow posts if we have a location
