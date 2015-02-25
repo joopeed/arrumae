@@ -47,9 +47,7 @@ public class Application extends android.app.Application {
                 }
             }
         });
-        PushService.setDefaultPushCallback(this, InitialActivity.class);
 
-        
 
     }
 
