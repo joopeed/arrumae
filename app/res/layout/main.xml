@@ -13,7 +13,7 @@
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent" tools:layout="@layout/main"/>
     </LinearLayout>
-    <Button
+    <ImageButton
             android:id="@+id/relatarButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,8 +22,8 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="15dp"
             android:layout_gravity="bottom|right"
-            android:text="@string/relato"/>
-
+            android:background="@drawable/new_relato"
+            android:src="@drawable/new_relato"/>
 
 
 </FrameLayout>
