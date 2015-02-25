@@ -46,7 +46,7 @@ public class ArrumaeBroadcastReceiver extends ParseBroadcastReceiver{
                 .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         mBuilder = new NotificationCompat.Builder(context);
-        mBuilder.setSmallIcon(R.drawable.ic_launcher); //You can change your icon
+        mBuilder.setSmallIcon(R.drawable.notify_icone_arrumae); //You can change your icon
         mBuilder.setContentText(alert);
         mBuilder.setContentTitle("ArrumAê");
         mBuilder.setSound(notifySound);
