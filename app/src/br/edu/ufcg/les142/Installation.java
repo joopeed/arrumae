@@ -10,11 +10,18 @@ import org.json.JSONObject;
  * Created by Rodrigo on 10/02/2015.
  */
 public class Installation {
-    ParseQuery pushQuery;
 
     public Installation(){
-        pushQuery = ParseInstallation.getQuery();
-        pushQuery.whereEqualTo("relato", true);
+        ParsePush.subscribeInBackground("", new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Log.d("com.parse.push", "successfully subscribed to the broadcast channel.");
+                } else {
+                    Log.e("com.parse.push", "failed to subscribe for push", e);
+                }
+            }
+        });
     }
 
     public void install(){
@@ -31,7 +38,6 @@ public class Installation {
             Log.d("JsonException", e.toString());
         }
         ParsePush push = new ParsePush();
-        push.setQuery(pushQuery);
         push.setChannel(channel);
         push.setData(data);
         push.sendInBackground();
@@ -47,19 +53,18 @@ public class Installation {
         }catch(JSONException e){
             Log.d("JsonException", e.toString());
         }ParsePush push = new ParsePush();
-        push.setQuery(pushQuery);
         push.setChannel(channel);
         push.setData(data);
         push.sendInBackground();
     }
 
     public void subscribe(String channel){
-        ParsePush.subscribeInBackground(channel);
+        ParsePush.subscribeInBackground(channel.trim().replace(" ", "_").replace("/", "_"));
 
 
     }
     public void unsubscribe(String channel){
-        ParsePush.unsubscribeInBackground(channel);
+        ParsePush.unsubscribeInBackground(channel.trim().replace(" ", "_").replace("/", "_"));
 
     }
 

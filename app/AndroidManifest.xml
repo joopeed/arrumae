@@ -89,10 +89,16 @@
                 android:value="AIzaSyC8eH0P9tUfuK_3PalQBliclwN-nKnCLlc" />
 
         <service android:name="com.parse.PushService" />
-        <receiver android:name="com.parse.ParseBroadcastReceiver">
+        <receiver android:name="com.parse.ParseBroadcastReceiver" android:enabled="true" android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="com.parse.push.intent.RECEIVE" />
+                <action android:name="com.parse.push.intent.DELETE" />
+                <action android:name="com.parse.push.intent.OPEN" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".ArrumaeBroadcastReceiver" android:exported="false" android:enabled="true">
+            <intent-filter>
+                <action android:name="br.edu.ufcg.les142.CUSTOM_NOTIFICATION" ></action>
             </intent-filter>
         </receiver>
         <receiver android:name="com.parse.GcmBroadcastReceiver"
@@ -103,11 +109,7 @@
                  <category android:name="br.edu.ufcg.les142" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".ArrumaeBroadcastReceiver" android:exported="false">
-        <intent-filter>
-            <action android:name="br.edu.ufcg.les142.CUSTOM_NOTIFICATION" ></action>
-        </intent-filter>
-        </receiver>
+
 
 
         <meta-data android:name="com.parse.push.gcm_sender_id"

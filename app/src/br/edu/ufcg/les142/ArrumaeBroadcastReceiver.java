@@ -2,6 +2,7 @@ package br.edu.ufcg.les142;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -9,6 +10,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import br.edu.ufcg.les142.InitialActivity;
+import br.edu.ufcg.les142.DescRelatoActivity;
+import com.parse.ParsePush;
 import br.edu.ufcg.les142.models.Relato;
 import com.parse.*;
 import org.json.JSONException;
@@ -19,7 +23,7 @@ import java.util.ArrayList;
 /**
  * Created by Rodrigo on 24/02/2015.
  */
-public class ArrumaeBroadcastReceiver extends ParseBroadcastReceiver{
+public class ArrumaeBroadcastReceiver extends BroadcastReceiver {
     NotificationCompat.Builder mBuilder;
     Intent resultIntent;
     int mNotificationId = 001;
@@ -27,6 +31,7 @@ public class ArrumaeBroadcastReceiver extends ParseBroadcastReceiver{
 
     String alert; // This is the message string that send from push console
     String channel;
+
     @Override
     public void onReceive(final Context context, Intent intent) {
 
@@ -55,7 +60,6 @@ public class ArrumaeBroadcastReceiver extends ParseBroadcastReceiver{
 // this is the activity that we will send the user, change this to anything you want
         ParseQuery<Relato> query = Relato.getQuery();
         query.getInBackground(channel, new GetCallback<Relato>() {
-
             @Override
             public void done(Relato relato, ParseException e) {
                 if (e == null) {
