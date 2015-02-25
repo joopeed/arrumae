@@ -104,8 +104,11 @@
                  <category android:name="br.edu.ufcg.les142" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver" android:exported="false">
+        <receiver android:name="ArrumaeBroadcastReceiver"
+            android:exported="false"
+            android:enabled="true">
             <intent-filter>
+                <action android:name="com.example.package.MESSAGE" />
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
                 <action android:name="com.parse.push.intent.OPEN" />
@@ -116,6 +119,7 @@
         <meta-data android:name="com.parse.push.gcm_sender_id"
                    android:value="id:1076345567071" />;
         <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/icone_arrumae"/>
+
     </application>
 
 </manifest>

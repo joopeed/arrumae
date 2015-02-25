@@ -13,6 +13,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -168,6 +169,8 @@ public class DescRelatoActivity extends Activity {
                             } catch (ParseException e1) {
                                 Toast.makeText(DescRelatoActivity.this,
                                         "Não foi possível apoiar esse relato. Tente de novo", Toast.LENGTH_LONG).show();
+                            } catch (JSONException e1) {
+                                e1.printStackTrace();
                             }
                         }
                     }

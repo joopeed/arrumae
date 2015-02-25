@@ -115,7 +115,9 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        ParseInstallation installation =  ParseInstallation.getCurrentInstallation();
+        installation.put("Relato", true);
+        installation.saveInBackground();
         PushService.setDefaultPushCallback(this, InitialActivity.class);
         // Create a new global location parameters object
         locationRequest = LocationRequest.create();

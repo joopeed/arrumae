@@ -25,9 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
-            android:layout_below="@+id/statusTextView" android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" android:layout_alignLeft="@+id/statusTextView"
-            android:layout_alignStart="@+id/statusTextView"/>
+            android:layout_toEndOf="@+id/statusTextView"
+            android:layout_below="@+id/authorTextView" android:layout_toRightOf="@+id/statusTextView"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,23 +38,16 @@
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/descImageView" android:layout_below="@+id/authorTextView"
-            android:layout_alignLeft="@+id/authorTextView" android:layout_alignStart="@+id/authorTextView"
-            android:layout_marginTop="57dp" android:minWidth="200dp" android:minHeight="200dp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Data: "
-            android:id="@+id/dataTextView" android:layout_below="@+id/descImageView" android:layout_alignLeft="@+id/descImageView"
-            android:layout_alignStart="@+id/descImageView" android:layout_marginTop="46dp"/>
+            android:id="@+id/descImageView"
+            android:minWidth="250dp" android:minHeight="325dp" android:layout_above="@+id/commentsButton"
+            android:layout_alignLeft="@+id/statusTextView" android:layout_alignStart="@+id/statusTextView"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Nenhum apoiador"
             android:id="@+id/apoiadoresTextView"
-            android:layout_below="@+id/dataTextView" android:layout_alignLeft="@+id/dataTextView"
-            android:layout_alignStart="@+id/dataTextView"/>
+            android:layout_below="@+id/descImageView" android:layout_alignLeft="@+id/descImageView"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,7 +61,8 @@
             android:layout_height="wrap_content"
             android:text="Apoiar"
             android:id="@+id/apoiarButton"
-            android:layout_centerHorizontal="true"/>
+            android:layout_toStartOf="@+id/commentsButton" android:layout_alignTop="@+id/commentsButton"
+            android:layout_toLeftOf="@+id/commentsButton"/>
      <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
