@@ -1,35 +1,53 @@
 package br.edu.ufcg.les142;
 
-import com.parse.ParsePush;
-import com.parse.ParseUser;
-import com.parse.SignUpCallback;
-import com.parse.ParseInstallation;
+import android.util.Log;
+import com.parse.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
  * Created by Rodrigo on 10/02/2015.
  */
 public class Installation {
+    ParseQuery pushQuery;
 
     public Installation(){
+        pushQuery = ParseInstallation.getQuery();
+        pushQuery.whereEqualTo("relato", true);
     }
 
     public void install(){
         ParseInstallation.getCurrentInstallation().put("user", ParseUser.getCurrentUser());
     }
 
-    public void sendApoioPush(String channel){
+    public void sendApoioPush(String channel) throws JSONException {
+        JSONObject data = new JSONObject();
+        try{
+           data = new JSONObject("{\"alert\": \"Um relato que você apoia/criou foi apoiado!\"," +
+                    " \"relato\": \"".concat(channel.concat("\"}")));
+        }catch(JSONException e){
+            Log.d("JsonException", e.toString());
+        }
         ParsePush push = new ParsePush();
+        push.setQuery(pushQuery);
         push.setChannel(channel);
-        push.setMessage("Um relato que você apoia/criou foi apoiado");
+        push.setData(data);
         push.sendInBackground();
 
     }
 
-    public void sendCommentPush(String channel) {
-        ParsePush push = new ParsePush();
+    public void sendCommentPush(String channel) throws JSONException {
+        JSONObject data = new JSONObject();
+        try{
+            data = new JSONObject("{\"alert\": \"Um relato que você apoia/criou foi comentado!\"," +
+                    " \"relato\": \"".concat(channel.concat("\"}")));
+        }catch(JSONException e){
+            Log.d("JsonException", e.toString());
+        }ParsePush push = new ParsePush();
+        push.setQuery(pushQuery);
         push.setChannel(channel);
-        push.setMessage("Um relato que você apoia/criou foi comentado");
+        push.setData(data);
         push.sendInBackground();
     }
 
