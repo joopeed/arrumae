@@ -42,6 +42,7 @@
 
         <activity android:name="InitialActivity"
                   android:screenOrientation="portrait"
+                  android:theme="@style/AppBaseTheme"
                   android:label="@string/initial_activity">
             <uses-library android:name="com.google.android.maps" />
 

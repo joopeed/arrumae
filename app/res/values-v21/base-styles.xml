@@ -6,7 +6,17 @@
         by AppBaseTheme from res/values-vXX/base-styles.xml on newer devices.
     -->
 
-
+    <style name="AppBaseTheme" parent="android:Theme.Material.Light">
+        <!-- Main theme colors -->
+        <!--   your app branding color for the app bar -->
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:textColorPrimary">@color/textprimary</item>
+        <item name="android:windowBackground">@color/back</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="android:colorAccent">@color/accent</item>
+    </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
@@ -19,7 +29,9 @@
         <item name="android:padding">16dp</item>
     </style>
 
-    <color name="primary">#ffc1aa0c</color>
-    <color name="primary_dark">#ffc1aa0c</color>
-    <color name="accent">#ffc1aa0c</color>
+    <color name="back">#fffdd5</color>
+    <color name="textprimary">#FFFFFF</color>
+    <color name="primary">#FFBB33</color>
+    <color name="primary_dark">#FF8800</color>
+    <color name="accent">#FF8800</color>
 </resources>
