@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import br.edu.ufcg.les142.models.Relato;
@@ -47,6 +48,7 @@ public class DescRelatoActivity extends Activity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        Log.d("DescRelatoActivity: ", String.valueOf(bundle.size()));
         rel_id = bundle.getString("rel_id");
         descricao = "Descrição: " + bundle.getString("desc");
         author = "Autor: " + bundle.getString("author");

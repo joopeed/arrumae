@@ -42,8 +42,7 @@ public class Application extends android.app.Application {
         defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
 
-        //Enable to receive push
-        PushService.setDefaultPushCallback(this, InitialActivity.class);
+
         ParseInstallation pi = ParseInstallation.getCurrentInstallation();
 
 

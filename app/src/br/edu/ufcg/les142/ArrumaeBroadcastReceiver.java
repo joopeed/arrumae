@@ -37,6 +37,7 @@ public class ArrumaeBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = "ArrumAêBroadcastReceiver";
     String alert; // This is the message string that send from push console
     String channel;
+    Intent mIntent;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -66,12 +67,12 @@ public class ArrumaeBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private void notify(Context ctx, Intent i, JSONObject dataObject)
+    private void notify(final Context ctx, Intent i, JSONObject dataObject)
             throws JSONException
     {
         notifySound = RingtoneManager
                 .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
+        alert = dataObject.getString("alet");
         mBuilder = new NotificationCompat.Builder(ctx);
         mBuilder.setSmallIcon(R.drawable.icone_arrumae); //You can change your icon
         mBuilder.setContentText(alert);
@@ -81,7 +82,7 @@ public class ArrumaeBroadcastReceiver extends BroadcastReceiver {
         channel = dataObject.getString("relato");
 
         //Let the intent invoke the respond activity
-        final Intent mIntent = new Intent(ctx, DescRelatoActivity.class);
+        mIntent = new Intent(ctx, DescRelatoActivity.class);
         ParseQuery<Relato> query = Relato.getQuery();
         query.getInBackground(channel, new GetCallback<Relato>() {
             @Override
@@ -121,23 +122,25 @@ public class ArrumaeBroadcastReceiver extends BroadcastReceiver {
                         bundle.putByteArray("image", relato.getImage());
 
                     }
+                    Log.d(TAG, String.valueOf(bundle.size()));
+                    Log.d(TAG, String.valueOf(bundle.get("rel_id")));
                     mIntent.putExtras(bundle);
+                    PendingIntent resultPendingIntent = PendingIntent.getActivity(ctx,
+                            0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    mBuilder.setContentIntent(resultPendingIntent);
+
+                    NotificationManager notificationManager = (NotificationManager) ctx
+                            .getSystemService(Context.NOTIFICATION_SERVICE);
+
+                    notificationManager.notify(mNotificationId, mBuilder.build());
                 }
             }
         });
 
-        resultIntent = mIntent;
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(ctx,
-                0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        PendingIntent pi = PendingIntent.getActivity(ctx, 0, mIntent, 0);
-        mBuilder.setContentIntent(resultPendingIntent);
 
-        NotificationManager notificationManager = (NotificationManager) ctx
-                .getSystemService(ctx.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(mNotificationId, mBuilder.build());
 
     }
 }
