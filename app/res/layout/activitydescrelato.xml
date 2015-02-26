@@ -35,13 +35,30 @@
             android:layout_below="@+id/authorTextView"
             android:layout_alignLeft="@+id/authorTextView"
             android:layout_alignStart="@+id/authorTextView"/>
+    <Spinner
+            android:id="@+id/tipo_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:layout_toEndOf="@+id/tipoTextView"
+            android:layout_below="@+id/statusTextView"
+            android:layout_toRightOf="@+id/tipoTextView"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tipo_report"
+            android:id="@+id/tipoTextView"
+            android:layout_below="@+id/statusTextView"
+            android:layout_alignLeft="@+id/statusTextView"
+            android:layout_alignStart="@+id/statusTextView"/>
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/descImageView"
             android:minWidth="200dp" android:minHeight="200dp"
-            android:layout_below="@+id/status_spinner" android:layout_alignLeft="@+id/statusTextView"
-            android:layout_alignStart="@+id/statusTextView"/>
+            android:layout_below="@+id/tipo_spinner"
+            android:layout_alignLeft="@+id/tipoTextView"
+            android:layout_alignStart="@+id/tipoTextView"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.*;
 import br.edu.ufcg.les142.models.Relato;
 import br.edu.ufcg.les142.models.StatusRelato;
+import br.edu.ufcg.les142.models.TipoRelato;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -25,12 +26,15 @@ public class DescRelatoActivity extends Activity {
     private String descricao;
     private String rel_id;
     private Relato relato;
-    private Spinner spinner;
+    private Spinner spinner_status;
+    private Spinner spinner_tipo;
     private String author;
     private String status;
+    private String tipo;
     private TextView descTextView;
     private TextView authorTextView;
     private TextView statusTextView;
+    private TextView tipoTextView;
     private ImageView imageView;
     private Button commentsButton;
     private TextView apoiosTextView;
@@ -55,16 +59,26 @@ public class DescRelatoActivity extends Activity {
         apoiosList = bundle.getStringArrayList("apoios");
         apoio = apoiosList.size()>0 ? apoiosList.size() + " apoiadores": null;
         status = "Estado: ";
+        tipo = "Tipo: ";
 
-        spinner = (Spinner) findViewById(R.id.status_spinner);
+        spinner_status = (Spinner) findViewById(R.id.status_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.status_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         int spinnerPosition = adapter.getPosition(bundle.getString("status"));
         boolean ehResponsavel = bundle.getString("author").equals(ParseUser.getCurrentUser().getUsername());
-        spinner.setEnabled(ehResponsavel);
-        spinner.setAdapter(adapter);
-        spinner.setSelection(spinnerPosition, true);
+        spinner_status.setEnabled(ehResponsavel);
+        spinner_status.setAdapter(adapter);
+        spinner_status.setSelection(spinnerPosition, true);
+
+        spinner_tipo = (Spinner) findViewById(R.id.tipo_spinner);
+        ArrayAdapter<CharSequence> adapter_tipo = ArrayAdapter.createFromResource(this,
+                R.array.tipo_array, android.R.layout.simple_spinner_item);
+        adapter_tipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        int spinnerTipoPosition = adapter_tipo.getPosition(bundle.getString("tipo"));
+        spinner_tipo.setEnabled(ehResponsavel);
+        spinner_tipo.setAdapter(adapter_tipo);
+        spinner_tipo.setSelection(spinnerTipoPosition, true);
 
         ParseQuery<Relato> query = Relato.getQuery();
         query.fromLocalDatastore();
@@ -73,13 +87,28 @@ public class DescRelatoActivity extends Activity {
             public void done(Relato rel, ParseException e) {
                 if (e == null) {
                     relato = rel;
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    spinner_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
                             String novo = (String) adapterView.getItemAtPosition(pos);
                             if (novo != null) {
                                 StatusRelato novoStatus = StatusRelato.parse(novo);
                                 relato.setStatusRelato(novoStatus);
+                                relato.saveInBackground();
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                    spinner_tipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                            String novo = (String) adapterView.getItemAtPosition(pos);
+                            if (novo != null) {
+                                TipoRelato novoTipo = TipoRelato.parse(novo);
+                                relato.setTipoRelato(novoTipo);
                                 relato.saveInBackground();
                             }
                         }

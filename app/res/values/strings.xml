@@ -41,6 +41,7 @@
     <string name="description_report">Descrição</string>
     <string name="author_report">Autor</string>
     <string name="status_report">Estado</string>
+    <string name="tipo_report">Tipo</string>
     <string name="comments_report">Comentários</string>
 
     <!--- String para activitycomments -->
@@ -52,6 +53,13 @@
        <item>Reaberto</item>
        <item>Em processo de resolução</item>
        <item>Resolvido</item>
+    </string-array>
+
+    <string-array name="tipo_array">
+        <item>Luz</item>
+        <item>Agua</item>
+        <item>Estrada</item>
+        <item>Geral</item>
     </string-array>
 </resources>
 

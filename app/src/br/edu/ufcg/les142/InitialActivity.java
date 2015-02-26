@@ -194,6 +194,12 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                                         bundle.putString("status", "");
                                     }
 
+                                    if (relato.getTipoRelato() != null) {
+                                        bundle.putString("tipo", relato.getTipoRelato().toString());
+                                    } else {
+                                        bundle.putString("tipo", "");
+                                    }
+
                                     try {
                                         ParseUser parseUser = relato.getUser().fetchIfNeeded();
                                         bundle.putString("author", parseUser.getUsername());
@@ -297,60 +303,60 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     }
 
     private int iconMakers(Relato relato) {
-        if(relato.getStatusRelato().toString().equals("Aberto")) {
+        if(relato.getTipoRelato().toString().equals("Luz")) {
             if (relato.getImage() == null) {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.abertocoment;
+                    return R.drawable.luzcoment;
                 } else {
-                    return R.drawable.aberto;
+                    return R.drawable.luz;
                 }
             } else {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.abertoboth;
+                    return R.drawable.luzboth;
                 } else {
-                    return R.drawable.abertofoto;
+                    return R.drawable.luzfoto;
                 }
             }
-        } else if(relato.getStatusRelato().toString().equals("REABERTO")) {
+        } else if(relato.getTipoRelato().toString().equals("Agua")) {
             if (relato.getImage() == null) {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.reabertocoment;
+                    return R.drawable.aguacoment;
                 } else {
-                    return R.drawable.reaberto;
+                    return R.drawable.agua;
                 }
             } else {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.reabertoboth;
+                    return R.drawable.aguaboth;
                 } else {
-                    return R.drawable.reabertofoto;
+                    return R.drawable.aguafoto;
                 }
             }
-        } else if(relato.getStatusRelato().toString().equals("RESOLVIDO")) {
+        } else if(relato.getTipoRelato().toString().equals("Estrada")) {
             if (relato.getImage() == null) {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.resolvidocoment;
+                    return R.drawable.estradacoment;
                 } else {
-                    return R.drawable.resolvido;
+                    return R.drawable.estrada;
                 }
             } else {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.resolvidoboth;
+                    return R.drawable.estradaboth;
                 } else {
-                    return R.drawable.resolvidofoto;
+                    return R.drawable.estradafoto;
                 }
             }
         } else {
             if (relato.getImage() == null) {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.em_processocoment;
+                    return R.drawable.martelocoment;
                 } else {
-                    return R.drawable.em_processo;
+                    return R.drawable.martelo;
                 }
             } else {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.em_processoboth;
+                    return R.drawable.marteloboth;
                 } else {
-                    return R.drawable.em_processofoto;
+                    return R.drawable.martelofoto;
                 }
             }
         }

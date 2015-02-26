@@ -75,6 +75,14 @@ public class Relato extends ParseObject{
         put("status", status.toString());
     }
 
+    public TipoRelato getTipoRelato() {
+        return TipoRelato.parse(getString("tipo"));
+    }
+
+    public void setTipoRelato(TipoRelato tipo) {
+        put("tipo", tipo.toString());
+    }
+
     public List<Comentario> getComentarios() {
         return getList("comentarios");
     }
