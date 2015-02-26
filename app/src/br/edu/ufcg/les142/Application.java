@@ -36,7 +36,15 @@ public class Application extends android.app.Application {
         preferences = getSharedPreferences("com.parse.les142", Context.MODE_PRIVATE);
         configHelper = new ConfigHelper();
         configHelper.fetchConfigIfNeeded();
+        //Security of data
+        ParseACL defaultACL = new ParseACL();
+        // If you would like objects to be private by default, remove this line.
+        defaultACL.setPublicReadAccess(true);
+        ParseACL.setDefaultACL(defaultACL, true);
 
+        //Enable to receive push
+        PushService.setDefaultPushCallback(this, InitialActivity.class);
+        ParseInstallation pi = ParseInstallation.getCurrentInstallation();
 
 
 

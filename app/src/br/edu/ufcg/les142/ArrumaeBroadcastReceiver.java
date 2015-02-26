@@ -1,5 +1,6 @@
 package br.edu.ufcg.les142;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -19,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Rodrigo on 24/02/2015.
@@ -28,43 +30,64 @@ public class ArrumaeBroadcastReceiver extends BroadcastReceiver {
     Intent resultIntent;
     int mNotificationId = 001;
     Uri notifySound;
-
+    public static final String ACTION="br.edu.ufcg.les142.CUSTOM_NOTIFICATION";
+    public static final String PARSE_EXTRA_DATA_KEY="com.parse.Data";
+    public static final String PARSE_JSON_ALERT_KEY="alert";
+    public static final String PARSE_JSON_CHANNELS_KEY="com.parse.Channel";
+    private static final String TAG = "ArrumAêBroadcastReceiver";
     String alert; // This is the message string that send from push console
     String channel;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
 
-//Get JSON data and put them into variables
         try {
+            String action = intent.getAction();
 
-            JSONObject json = new JSONObject(intent.getExtras().getString("com.parse.Data"));
-            alert = json.getString("alert").toString();
-            channel = json.getString("relato").toString();
+            //"com.parse.Channel"
+            String channel =
+                    intent.getExtras()
+                            .getString(PARSE_JSON_CHANNELS_KEY);
 
+            JSONObject json =
+                    new JSONObject(
+                            intent.getExtras()
+                                    .getString(PARSE_EXTRA_DATA_KEY));
+
+            Log.d(TAG, "got action " + action + " on channel " + channel + " with:");
+            Iterator itr = json.keys();
+            while (itr.hasNext()) {
+                String key = (String) itr.next();
+                Log.d(TAG, "..." + key + " => " + json.getString(key));
+            }
+            notify(context, intent, json);
         } catch (JSONException e) {
-
+            Log.d(TAG, "JSONException: " + e.getMessage());
         }
+    }
 
-//You can specify sound
+    private void notify(Context ctx, Intent i, JSONObject dataObject)
+            throws JSONException
+    {
         notifySound = RingtoneManager
                 .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        mBuilder = new NotificationCompat.Builder(context);
-        mBuilder.setSmallIcon(R.drawable.notify_icone_arrumae); //You can change your icon
+        mBuilder = new NotificationCompat.Builder(ctx);
+        mBuilder.setSmallIcon(R.drawable.icone_arrumae); //You can change your icon
         mBuilder.setContentText(alert);
         mBuilder.setContentTitle("ArrumAê");
         mBuilder.setSound(notifySound);
         mBuilder.setAutoCancel(true);
+        channel = dataObject.getString("relato");
 
-// this is the activity that we will send the user, change this to anything you want
+        //Let the intent invoke the respond activity
+        final Intent mIntent = new Intent(ctx, DescRelatoActivity.class);
         ParseQuery<Relato> query = Relato.getQuery();
         query.getInBackground(channel, new GetCallback<Relato>() {
             @Override
             public void done(Relato relato, ParseException e) {
+                Log.d(TAG, relato.getDescricao());
                 if (e == null) {
-                    relato.pinInBackground();
-                    Intent intent = new Intent(context, DescRelatoActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("desc", relato.getDescricao());
                     ArrayList<String> apoios = new ArrayList<String>();
@@ -79,7 +102,7 @@ public class ArrumaeBroadcastReceiver extends BroadcastReceiver {
 
                     }
                     bundle.putStringArrayList("apoios", apoios);
-                    bundle.putString("rel_id", channel);
+                    bundle.putString("rel_id", relato.getObjectId());
 
                     if (relato.getStatusRelato() != null) {
                         bundle.putString("status", relato.getStatusRelato().toString());
@@ -98,23 +121,24 @@ public class ArrumaeBroadcastReceiver extends BroadcastReceiver {
                         bundle.putByteArray("image", relato.getImage());
 
                     }
-                    intent.putExtras(bundle);
-                                    }
+                    mIntent.putExtras(bundle);
+                }
             }
         });
-        resultIntent = intent;
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context,
+        resultIntent = mIntent;
+
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(ctx,
                 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        PendingIntent pi = PendingIntent.getActivity(ctx, 0, mIntent, 0);
         mBuilder.setContentIntent(resultPendingIntent);
 
-        NotificationManager notificationManager = (NotificationManager) context
-                .getSystemService(context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) ctx
+                .getSystemService(ctx.NOTIFICATION_SERVICE);
 
         notificationManager.notify(mNotificationId, mBuilder.build());
 
     }
-
 }
 

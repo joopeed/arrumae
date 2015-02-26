@@ -35,6 +35,7 @@ import com.parse.*;
 
 import java.util.*;
 
+@SuppressWarnings("ALL")
 public class InitialActivity extends FragmentActivity implements LocationListener,
         GooglePlayServicesClient.ConnectionCallbacks,
         GooglePlayServicesClient.OnConnectionFailedListener {

@@ -31,9 +31,10 @@ public class Installation {
     public void sendApoioPush(String channel) throws JSONException {
         JSONObject data = new JSONObject();
         try{
-            data = new JSONObject("{\"action\": \"br.edu.ufcg.les142.CUSTOM_NOTIFICATION\"," +
-                   "\"alert\": \"Um relato que você apoia/criou foi apoiado!\"," +
-                    " \"relato\": \"".concat(channel.concat("\"}")));
+            data = new JSONObject();
+            data.put("action", ArrumaeBroadcastReceiver.ACTION);
+            data.put("alet", "Um relato que você apoia/criou foi apoiado!");
+            data.put("relato", channel);
         }catch(JSONException e){
             Log.d("JsonException", e.toString());
         }
@@ -47,9 +48,10 @@ public class Installation {
     public void sendCommentPush(String channel) throws JSONException {
         JSONObject data = new JSONObject();
         try{
-            data = new JSONObject("{\"action\": \"br.edu.ufcg.les142.CUSTOM_NOTIFICATION\"," +
-                    "\"alert\": \"Um relato que você apoia/criou foi comentado!\"," +
-                    " \"relato\": \"".concat(channel.concat("\"}")));
+            data = new JSONObject();
+            data.put("action", ArrumaeBroadcastReceiver.ACTION);
+            data.put("alet", "Um relato que você apoia/criou foi comentado!");
+            data.put("relato", channel);
         }catch(JSONException e){
             Log.d("JsonException", e.toString());
         }ParsePush push = new ParsePush();

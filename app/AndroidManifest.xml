@@ -97,8 +97,11 @@
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".ArrumaeBroadcastReceiver" android:exported="false" android:enabled="true">
+        <receiver android:name="ArrumaeBroadcastReceiver" android:exported="false">
             <intent-filter>
+                <action android:name="com.parse.push.intent.RECEIVE" />
+                <action android:name="com.parse.push.intent.DELETE" />
+                <action android:name="com.parse.push.intent.OPEN" />
                 <action android:name="br.edu.ufcg.les142.CUSTOM_NOTIFICATION" ></action>
             </intent-filter>
         </receiver>
