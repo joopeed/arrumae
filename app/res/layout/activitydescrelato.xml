@@ -39,15 +39,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/descImageView"
-            android:minWidth="250dp" android:minHeight="325dp" android:layout_above="@+id/commentsButton"
-            android:layout_alignLeft="@+id/statusTextView" android:layout_alignStart="@+id/statusTextView"/>
+            android:minWidth="200dp" android:minHeight="200dp"
+            android:layout_below="@+id/status_spinner" android:layout_alignLeft="@+id/statusTextView"
+            android:layout_alignStart="@+id/statusTextView"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Nenhum apoiador"
             android:id="@+id/apoiadoresTextView"
-            android:layout_below="@+id/descImageView" android:layout_alignLeft="@+id/descImageView"/>
+            android:layout_above="@+id/apoiarButton" android:layout_alignLeft="@+id/descImageView"
+            android:layout_alignStart="@+id/descImageView"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,8 +63,9 @@
             android:layout_height="wrap_content"
             android:text="Apoiar"
             android:id="@+id/apoiarButton"
-            android:layout_toStartOf="@+id/commentsButton" android:layout_alignTop="@+id/commentsButton"
-            android:layout_toLeftOf="@+id/commentsButton"/>
+            android:layout_toStartOf="@+id/commentsButton"
+            android:layout_alignParentBottom="true" android:layout_alignLeft="@+id/apoiadoresTextView"
+            android:layout_alignStart="@+id/apoiadoresTextView"/>
      <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
