@@ -28,6 +28,7 @@
     <string name="error_mismatched_passwords">Coloque as duas senhas novamente</string>
     <string name="error_join">" e "</string>
     <string name="error_end">.</string>
+    <string name="invalid_login_credentials">Nome de usuário ou senha incorreto.</string>
     <string name="progress_login">Entrando&#8230;</string>
     <string name="progress_signup">Registrando&#8230;</string>
     <string name="logout">Sair</string>
@@ -47,6 +48,7 @@
     <!--- String para activitycomments -->
     <string name="take_photo">Tirar Foto</string>
     <string name="comment_post">Comentar</string>
+
 
     <string-array name="status_array">
        <item>Aberto</item>
