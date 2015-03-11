@@ -70,7 +70,7 @@ public class LoginActivity extends Activity {
 
         // Validate the log in data
         boolean validationError = false;
-        final StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
         if (username.length() == 0) {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_username));

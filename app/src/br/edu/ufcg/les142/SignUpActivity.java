@@ -89,12 +89,17 @@ public class SignUpActivity extends Activity {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_invalid_cpf));
         }
-        if (password.length() == 0) {
+        if (password.length() < 5) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
             }
+            if(password.length()== 0){
+                validationErrorMessage.append(getString(R.string.error_blank_password));
+            }else{
+                validationErrorMessage.append(getString(R.string.error_size_password));
+            }
             validationError = true;
-            validationErrorMessage.append(getString(R.string.error_blank_password));
+
         }
         if (!password.equals(passwordAgain)) {
             if (validationError) {
@@ -124,11 +129,12 @@ public class SignUpActivity extends Activity {
         user.put("CPF", cpf);
 
         // Call the Parse signup method
+        final boolean finalValidationError = validationError;
         user.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
                 dialog.dismiss();
-                if (e != null) {
+                if (e != null || finalValidationError) {
                     // Show the error message
                     Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 } else {

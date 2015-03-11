@@ -48,6 +48,7 @@
     <!--- String para activitycomments -->
     <string name="take_photo">Tirar Foto</string>
     <string name="comment_post">Comentar</string>
+    <string name="error_size_password">senha deve ter no mínimo 6 caracteres</string>
 
 
     <string-array name="status_array">
