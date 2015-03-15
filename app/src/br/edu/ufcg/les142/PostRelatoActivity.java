@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import br.edu.ufcg.les142.models.StatusRelato;
@@ -84,6 +85,14 @@ public class PostRelatoActivity extends Activity {
 
     public void post() {
         String text = postEditText.getText().toString().trim();
+        if (descricaoEhVazia(text)) {
+            StringBuilder validationErrorMessage = new StringBuilder();
+            validationErrorMessage.append(getString(string.error_empty_description));
+            Toast.makeText(PostRelatoActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
+                .show();
+            return;
+        }
+
        /* // Set up a progress dialog
         final ProgressDialog dialog = new ProgressDialog(PostRelatoActivity.this);
         dialog.setMessage(getString(R.string.relato));
@@ -114,5 +123,9 @@ public class PostRelatoActivity extends Activity {
                 finish();
             }
         });
+    }
+
+    private boolean descricaoEhVazia(String text) {
+        return (text == null || text.isEmpty() || text.length() == 0);
     }
 }

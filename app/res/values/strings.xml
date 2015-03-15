@@ -14,8 +14,6 @@
     <string name="post_relato_activity">Postar Relato</string>
     <string name="initial_activity">ArrumAê</string>
 
-
-
     <!--- String para login e cadastrar -->
     <string name="title_activity_login">Entrar</string>
     <string name="title_activity_signup">Cadastrar</string>
@@ -46,6 +44,9 @@
     <string name="status_report">Estado</string>
     <string name="tipo_report">Tipo</string>
     <string name="comments_report">Comentários</string>
+
+    <!--- String para activitypostrelato -->
+    <string name="error_empty_description">Não é possível postar um relato com descrição vazia.</string>
 
     <!--- String para activitycomments -->
     <string name="take_photo">Tirar Foto</string>
