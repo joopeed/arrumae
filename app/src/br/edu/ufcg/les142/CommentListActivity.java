@@ -18,6 +18,9 @@ import com.parse.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.edu.ufcg.les142.R.*;
+
+
 /**
  * Created by lucasmc on 26/01/15.
  */
@@ -40,16 +43,16 @@ public class CommentListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         myInst = new Installation();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activitycomments);
+        setContentView(layout.activitycomments);
         comentarios = new ArrayList<String>();
         bitmaps = new ArrayList<Bitmap>();
 
 
 
-        listView = (ListView) findViewById(R.id.list);
-        commentButton = (Button) findViewById(R.id.commentButton);
-        commentPhotoButton = (Button) findViewById(R.id.CommentPhotobutton);
-        commentTextView = (TextView) findViewById(R.id.commentTextView);
+        listView = (ListView) findViewById(id.list);
+        commentButton = (Button) findViewById(id.commentButton);
+        commentPhotoButton = (Button) findViewById(id.CommentPhotobutton);
+        commentTextView = (TextView) findViewById(id.commentTextView);
         comentario = new Comentario();
 
         Intent intent = getIntent();
@@ -110,7 +113,7 @@ public class CommentListActivity extends Activity {
 
     private void comment() {
         final ProgressDialog dialog = new ProgressDialog(CommentListActivity.this);
-        dialog.setMessage(getString(R.string.progress_posting));
+        dialog.setMessage(getString(string.progress_posting));
         dialog.show();
         String text = commentTextView.getText().toString().trim();
 

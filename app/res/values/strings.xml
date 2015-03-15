@@ -28,7 +28,8 @@
     <string name="error_mismatched_passwords">Coloque as duas senhas novamente</string>
     <string name="error_join">" e "</string>
     <string name="error_end">.</string>
-    <string name="invalid_login_credentials">Nome de usuário ou senha incorreto.</string>
+    <string name="invalid_login_credentials">Nome de usuário ou senha incorretos.</string>
+    <string name="error_size_password">A senha deve ter no mínimo 6 caracteres</string>
     <string name="progress_login">Entrando&#8230;</string>
     <string name="progress_signup">Registrando&#8230;</string>
     <string name="logout">Sair</string>
@@ -48,8 +49,6 @@
     <!--- String para activitycomments -->
     <string name="take_photo">Tirar Foto</string>
     <string name="comment_post">Comentar</string>
-    <string name="error_size_password">senha deve ter no mínimo 6 caracteres</string>
-
 
     <string-array name="status_array">
        <item>Aberto</item>
@@ -60,7 +59,7 @@
 
     <string-array name="tipo_array">
         <item>Luz</item>
-        <item>Agua</item>
+        <item>Água</item>
         <item>Estrada</item>
         <item>Geral</item>
     </string-array>

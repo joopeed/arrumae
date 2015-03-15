@@ -19,6 +19,8 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+import static br.edu.ufcg.les142.R.*;
+
 /**
  * Created by lucasmc on 10/12/14.
  */
@@ -46,7 +48,7 @@ public class DescRelatoActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         myInst = new Installation();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activitydescrelato);
+        setContentView(layout.activitydescrelato);
 
         this.setTitle("Relato");
 
@@ -61,9 +63,9 @@ public class DescRelatoActivity extends Activity {
         status = "Estado: ";
         tipo = "Tipo: ";
 
-        spinner_status = (Spinner) findViewById(R.id.status_spinner);
+        spinner_status = (Spinner) findViewById(id.status_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.status_array, android.R.layout.simple_spinner_item);
+                array.status_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         int spinnerPosition = adapter.getPosition(bundle.getString("status"));
         boolean ehResponsavel = bundle.getString("author").equals(ParseUser.getCurrentUser().getUsername());
@@ -71,9 +73,9 @@ public class DescRelatoActivity extends Activity {
         spinner_status.setAdapter(adapter);
         spinner_status.setSelection(spinnerPosition, true);
 
-        spinner_tipo = (Spinner) findViewById(R.id.tipo_spinner);
+        spinner_tipo = (Spinner) findViewById(id.tipo_spinner);
         ArrayAdapter<CharSequence> adapter_tipo = ArrayAdapter.createFromResource(this,
-                R.array.tipo_array, android.R.layout.simple_spinner_item);
+                array.tipo_array, android.R.layout.simple_spinner_item);
         adapter_tipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         int spinnerTipoPosition = adapter_tipo.getPosition(bundle.getString("tipo"));
         spinner_tipo.setEnabled(ehResponsavel);
@@ -121,13 +123,13 @@ public class DescRelatoActivity extends Activity {
             }
         });
 
-        descTextView = (TextView) findViewById(R.id.descTextView);
-        statusTextView = (TextView) findViewById(R.id.statusTextView);
-        authorTextView = (TextView) findViewById(R.id.authorTextView);
-        apoiosTextView = (TextView) findViewById(R.id.apoiadoresTextView);
-        imageView = (ImageView) findViewById(R.id.descImageView);
-        commentsButton = (Button) findViewById(R.id.commentsButton);
-        apoiarButton = (Button) findViewById(R.id.apoiarButton);
+        descTextView = (TextView) findViewById(id.descTextView);
+        statusTextView = (TextView) findViewById(id.statusTextView);
+        authorTextView = (TextView) findViewById(id.authorTextView);
+        apoiosTextView = (TextView) findViewById(id.apoiadoresTextView);
+        imageView = (ImageView) findViewById(id.descImageView);
+        commentsButton = (Button) findViewById(id.commentsButton);
+        apoiarButton = (Button) findViewById(id.apoiarButton);
 
         descTextView.setText(descricao);
         authorTextView.setText(author);
