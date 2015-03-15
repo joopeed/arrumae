@@ -15,10 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.parse.ParseException;
-import com.parse.ParseUser;
-import com.parse.SignUpCallback;
-import com.parse.ParseInstallation;
+import br.edu.ufcg.les142.models.Relato;
+import br.edu.ufcg.les142.models.Usuario;
+import com.parse.*;
+
+import java.util.List;
 
 import static br.edu.ufcg.les142.R.*;
 
@@ -32,6 +33,7 @@ public class SignUpActivity extends Activity {
     private EditText passwordAgainEditText;
     private EditText cpfEditText;
     private Installation pInst;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +92,12 @@ public class SignUpActivity extends Activity {
             }
             validationError = true;
             validationErrorMessage.append(getString(string.error_invalid_cpf));
+        } else if (checaSeCPFJaExiste(cpf)) {
+            if (validationError) {
+                validationErrorMessage.append(getString(string.error_join));
+            }
+            validationError = true;
+            validationErrorMessage.append(getString(string.error_cpf_already_registered));
         }
         if (password.length() < 5) {
             if (validationError) {
@@ -188,5 +196,27 @@ public class SignUpActivity extends Activity {
         }
         return cpf.substring(9, 11).equals(
                 new Integer(primeiroDigito).toString() + new Integer(segundoDigito).toString());
+    }
+
+    /**
+     * Verifica se o CPF que está sendo recebido no cadastro já existe no sistema
+     *
+     * @param cpf
+     *      CPF a ser verificado
+     * @return true se o cpf existir no sistema, false caso contrário
+     */
+    private boolean checaSeCPFJaExiste(String cpf) {
+        ParseQuery<ParseUser> mapQuery = ParseUser.getQuery();
+        try {
+            List<ParseUser> parseUsers = mapQuery.find();
+            for (ParseUser user : parseUsers) {
+                if (cpf.equals(user.get("CPF"))) {
+                    return true;
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

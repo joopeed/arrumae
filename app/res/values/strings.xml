@@ -36,6 +36,7 @@
     <string name="prompt_cpf">CPF</string>
     <string name="error_invalid_length_cpf">CPF precisa ter 11 dígitos</string>
     <string name="error_invalid_cpf">CPF inválido</string>
+    <string name="error_cpf_already_registered">Esse CPF já está cadastrado no sistema</string>
     <string name="progress_posting">Obrigado por ajudar! Estamos postando seu relato</string>
     <string name="openning_relate">Carregando Relato</string>
 
