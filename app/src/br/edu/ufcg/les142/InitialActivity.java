@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import br.edu.ufcg.les142.models.Relato;
 import com.google.android.gms.common.ConnectionResult;
@@ -133,7 +134,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
         // Set up the map fragment
         mapa = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-
         // Enable the current location "blue dot"
         mapa.getMap().setMyLocationEnabled(true);
 
@@ -251,7 +251,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 Location myLoc = (currentLocation == null) ? lastLocation : currentLocation;
                 if (myLoc == null) {
                     Toast.makeText(InitialActivity.this,
-                            "Please try again after your location appears on the map.", Toast.LENGTH_LONG).show();
+                            "Por favor tente de novo quando sua localização aparecer no mapa.", Toast.LENGTH_LONG).show();
                     return;
                 }
 

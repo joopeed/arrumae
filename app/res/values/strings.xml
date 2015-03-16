@@ -38,11 +38,14 @@
     <string name="progress_posting">Obrigado por ajudar! Estamos postando seu relato</string>
     <string name="openning_relate">Carregando Relato</string>
 
+    <!--- String para initialactivity -->
+    <string name="hint">Para relatar um problema\r\nna sua localização\r\nclique aqui ⇨</string>
+
     <!--- String para activitydescrelato -->
     <string name="description_report">Descrição</string>
     <string name="author_report">Autor</string>
     <string name="status_report">Estado</string>
-    <string name="tipo_report">Tipo</string>
+    <string name="tipo_report">Tipo:</string>
     <string name="comments_report">Comentários</string>
 
     <!--- String para activitypostrelato -->

@@ -25,8 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
-            android:layout_toEndOf="@+id/statusTextView"
-            android:layout_below="@+id/authorTextView" android:layout_toRightOf="@+id/statusTextView"/>
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@+id/authorTextView"
+            android:layout_toRightOf="@+id/statusTextView"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
-            android:layout_toEndOf="@+id/tipoTextView"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_below="@+id/statusTextView"
             android:layout_toRightOf="@+id/tipoTextView"/>
     <TextView
