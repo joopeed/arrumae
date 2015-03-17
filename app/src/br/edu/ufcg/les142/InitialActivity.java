@@ -9,6 +9,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -112,12 +113,15 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     // Map fragment
     private SupportMapFragment mapa;
 
+    private TextView hintTextView;
+
     /*
      * Initialize the Activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(layout.main);
         ParseInstallation installation =  ParseInstallation.getCurrentInstallation();
         installation.put("Relato", true);
@@ -132,6 +136,21 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         // Create a new location client, using the enclosing class to handle callbacks.
         locationClient = new LocationClient(this, this, this);
 
+        hintTextView = (TextView) findViewById(R.id.hint);
+        hintTextView.setText("Para relatar um problema\r\nna sua localização\r\nclique aqui ▶");
+        final long startTime = 50000;
+        final long interval = 1000;
+        CountDownTimer count = new CountDownTimer(startTime, interval) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+            @Override
+            public void onFinish() {
+                hintTextView = (TextView) findViewById(R.id.hint);
+                hintTextView.setText("");
+            }
+        }.start();
         // Set up the map fragment
         mapa = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         // Enable the current location "blue dot"
@@ -261,6 +280,14 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             }
         });
         this.gcd = new Geocoder(getBaseContext(), Locale.getDefault());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //hintTextView = (TextView) findViewById(R.id.hint);
+        //hintTextView.setText("");
     }
 
     private void mostraRelatos() {

@@ -39,7 +39,7 @@
     <string name="openning_relate">Carregando Relato</string>
 
     <!--- String para initialactivity -->
-    <string name="hint">Para relatar um problema\r\nna sua localização\r\nclique aqui ⇨</string>
+    <string name="hint">Para relatar um problema\r\nna sua localização\r\nclique aqui ▶</string>
 
     <!--- String para activitydescrelato -->
     <string name="description_report">Descrição</string>
