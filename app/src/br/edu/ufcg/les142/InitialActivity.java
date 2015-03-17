@@ -138,13 +138,13 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
         hintTextView = (TextView) findViewById(R.id.hint);
         hintTextView.setText("Para relatar um problema\r\nna sua localização\r\nclique aqui ▶");
-        final long startTime = 50000;
+        final long startTime = 12000;
         final long interval = 1000;
         CountDownTimer count = new CountDownTimer(startTime, interval) {
             @Override
             public void onTick(long millisUntilFinished) {
-
             }
+
             @Override
             public void onFinish() {
                 hintTextView = (TextView) findViewById(R.id.hint);
