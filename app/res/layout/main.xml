@@ -9,33 +9,37 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent" tools:layout="@layout/main"
             />
-    <LinearLayout android:orientation="vertical"
+    <RelativeLayout android:orientation="vertical"
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent">
         <TextView
                 android:layout_width="320sp"
                 android:layout_height="433sp"
                 android:gravity="bottom|center"
+                android:layout_alignParentBottom="true"
                 android:text="@string/hint"
                 android:textColor="#D32F2F"
                 android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                android:layout_toLeftOf="@+id/relatarButton"
+                android:layout_alignEnd="@id/relatarButton"
+                android:textSize="14sp"
+                android:paddingLeft="7sp"/>
+
+        <ImageButton
+                android:id="@+id/relatarButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:paddingLeft="7sp"
-                android:textSize="14sp" />
-    </LinearLayout>
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="bottom|right"
+                android:background="@drawable/new_relato"
+                android:src="@drawable/new_relato"/>
+    </RelativeLayout>
 
-    <ImageButton
-            android:id="@+id/relatarButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="bottom|right"
-            android:background="@drawable/new_relato"
-            android:src="@drawable/new_relato"/>
+
 
 
 </FrameLayout>
