@@ -334,13 +334,13 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     private int iconMakers(Relato relato) {
         if(relato.getTipoRelato().toString().equals("Luz")) {
             if (relato.getImage() == null) {
-                if (relato.getComentarios().size() != 0) {
+                if (relato.getIDComentarios().size() != 0) {
                     return drawable.luzcoment;
                 } else {
                     return drawable.luz;
                 }
             } else {
-                if (relato.getComentarios().size() != 0) {
+                if (relato.getIDComentarios().size() != 0) {
                     return drawable.luzboth;
                 } else {
                     return drawable.luzfoto;
@@ -348,13 +348,13 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             }
         } else if(relato.getTipoRelato().toString().equals("Agua")) {
             if (relato.getImage() == null) {
-                if (relato.getComentarios().size() != 0) {
+                if (relato.getIDComentarios().size() != 0) {
                     return drawable.aguacoment;
                 } else {
                     return drawable.agua;
                 }
             } else {
-                if (relato.getComentarios().size() != 0) {
+                if (relato.getIDComentarios().size() != 0) {
                     return drawable.aguaboth;
                 } else {
                     return drawable.aguafoto;
@@ -362,13 +362,13 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             }
         } else if(relato.getTipoRelato().toString().equals("Estrada")) {
             if (relato.getImage() == null) {
-                if (relato.getComentarios().size() != 0) {
+                if (relato.getIDComentarios().size() != 0) {
                     return drawable.estradacoment;
                 } else {
                     return drawable.estrada;
                 }
             } else {
-                if (relato.getComentarios().size() != 0) {
+                if (relato.getIDComentarios().size() != 0) {
                     return drawable.estradaboth;
                 } else {
                     return drawable.estradafoto;
@@ -376,13 +376,13 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             }
         } else {
             if (relato.getImage() == null) {
-                if (relato.getComentarios().size() != 0) {
+                if (relato.getIDComentarios().size() != 0) {
                     return drawable.martelocoment;
                 } else {
                     return drawable.martelo;
                 }
             } else {
-                if (relato.getComentarios().size() != 0) {
+                if (relato.getIDComentarios().size() != 0) {
                     return drawable.marteloboth;
                 } else {
                     return drawable.martelofoto;

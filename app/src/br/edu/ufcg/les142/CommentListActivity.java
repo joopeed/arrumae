@@ -35,7 +35,7 @@ public class CommentListActivity extends Activity {
     private String rel_id;
     private List<String > comentarios;
     private List<Bitmap > bitmaps;
-    private Bitmap image;
+    private Bitmap image = null;
     private LazyAdapter adapter;
     private Installation myInst;
 
@@ -87,14 +87,30 @@ public class CommentListActivity extends Activity {
     private void loadRelatos() {
         int i = 0;
         ParseQuery<Comentario> query = ParseQuery.getQuery("Comentario");
-        for (Comentario co : relato.getComentarios()) {
+        query.whereEqualTo("relatoID", rel_id);
+        query.findInBackground(new FindCallback<Comentario>() {
+            @Override
+            public void done(List<Comentario> comments, ParseException e) {
+                for (Comentario co : comments) {
+                    try {
+                        ParseUser u = (co.getParseUser("user"));
+                        comentarios.add(u.getUsername() + ": " + co.getText());
+                        try {
+                            byte[] bytes = co.getImage();
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 100, bytes.length);
+                            bitmaps.add(bitmap);
+                        } catch (Exception el) {
+                            el.printStackTrace();
+                        }
+                    } catch (Exception el) {
+                        el.printStackTrace();
+                    }
+                }
+            }
+        });
 
-            comentarios.add("Mopa" + ": "  + co.getText());
-            try{byte[] bytes = co.getImage();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            bitmaps.add(bitmap);}
-            catch(Exception e) {}
-        }
+
+
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -109,21 +125,23 @@ public class CommentListActivity extends Activity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             image = (Bitmap) extras.get("data");
+            comentario.setImage(image);
         }
     }
 
     private void comment() {
+
         ProgressDialog dialog = new ProgressDialog(CommentListActivity.this);
         dialog.setMessage(getString(R.string.progress_posting));
         dialog.show();
         String text = commentTextView.getText().toString().trim();
-        comentario.setImage(image ,text );
+
+
         comentario.setText(text);
         comentario.setUser(ParseUser.getCurrentUser());
-
-        relato.addComentario(comentario);
-
-
+        comentario.setRelatoID(rel_id);
+        comentario.saveInBackground();
+        relato.addComentario(comentario.getObjectId());
 
         // Save the post
         relato.saveInBackground();
