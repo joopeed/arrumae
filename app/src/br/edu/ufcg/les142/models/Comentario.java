@@ -14,14 +14,14 @@ import java.io.ByteArrayOutputStream;
 public class Comentario extends ParseObject{
 
 
-    public void setImage(Bitmap value) {
+    public void setImage(Bitmap value, String imageName) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        value.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        value.compress(Bitmap.CompressFormat.JPEG, 180, stream);
         // get byte array here
         byte[] bytearray = stream.toByteArray();
         if (bytearray != null) {
             //TODO
-            ParseFile file = new ParseFile("teste".toString() + ".jpg", bytearray);
+            ParseFile file = new ParseFile(imageName + ".jpg", bytearray);
             try {
                 file.save();
             } catch (ParseException e) {

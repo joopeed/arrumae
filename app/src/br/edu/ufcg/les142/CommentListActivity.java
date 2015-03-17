@@ -42,7 +42,6 @@ public class CommentListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitycomments);
         comentarios = new ArrayList<String>();
-        bitmaps = new ArrayList<Bitmap>();
 
 
 
@@ -83,8 +82,11 @@ public class CommentListActivity extends Activity {
     }
 
     private void loadRelatos() {
+        int i = 0;
+        ParseQuery<Comentario> query = ParseQuery.getQuery("Comentario");
         for (Comentario co : relato.getComentarios()) {
-            comentarios.add(ParseUser.getCurrentUser().getUsername() + ": "  + co.getText());
+
+            comentarios.add("Mopa" + ": "  + co.getText());
             try{byte[] bytes = co.getImage();
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             bitmaps.add(bitmap);}
@@ -104,16 +106,15 @@ public class CommentListActivity extends Activity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             image = (Bitmap) extras.get("data");
-            comentario.setImage(image);
         }
     }
 
     private void comment() {
-        final ProgressDialog dialog = new ProgressDialog(CommentListActivity.this);
+        ProgressDialog dialog = new ProgressDialog(CommentListActivity.this);
         dialog.setMessage(getString(R.string.progress_posting));
         dialog.show();
         String text = commentTextView.getText().toString().trim();
-
+        comentario.setImage(image ,text );
         comentario.setText(text);
         comentario.setUser(ParseUser.getCurrentUser());
 
