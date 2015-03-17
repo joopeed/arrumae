@@ -14,8 +14,6 @@
     <string name="post_relato_activity">Postar Relato</string>
     <string name="initial_activity">ArrumAê</string>
 
-
-
     <!--- String para login e cadastrar -->
     <string name="title_activity_login">Entrar</string>
     <string name="title_activity_signup">Cadastrar</string>
@@ -28,28 +26,34 @@
     <string name="error_mismatched_passwords">Coloque as duas senhas novamente</string>
     <string name="error_join">" e "</string>
     <string name="error_end">.</string>
-    <string name="invalid_login_credentials">Nome de usuário ou senha incorreto.</string>
+    <string name="invalid_login_credentials">Nome de usuário ou senha incorretos.</string>
+    <string name="error_size_password">A senha deve ter no mínimo 6 caracteres</string>
     <string name="progress_login">Entrando&#8230;</string>
     <string name="progress_signup">Registrando&#8230;</string>
     <string name="logout">Sair</string>
     <string name="prompt_cpf">CPF</string>
     <string name="error_invalid_length_cpf">CPF precisa ter 11 dígitos</string>
     <string name="error_invalid_cpf">CPF inválido</string>
+    <string name="error_cpf_already_registered">Esse CPF já está cadastrado no sistema</string>
     <string name="progress_posting">Obrigado por ajudar! Estamos postando seu relato</string>
     <string name="openning_relate">Carregando Relato</string>
+
+    <!--- String para initialactivity -->
+    <string name="hint">Para relatar um problema\r\nna sua localização\r\nclique aqui ⇨</string>
 
     <!--- String para activitydescrelato -->
     <string name="description_report">Descrição</string>
     <string name="author_report">Autor</string>
     <string name="status_report">Estado</string>
-    <string name="tipo_report">Tipo</string>
+    <string name="tipo_report">Tipo:</string>
     <string name="comments_report">Comentários</string>
+
+    <!--- String para activitypostrelato -->
+    <string name="error_empty_description">Não é possível postar um relato com descrição vazia.</string>
 
     <!--- String para activitycomments -->
     <string name="take_photo">Tirar Foto</string>
     <string name="comment_post">Comentar</string>
-    <string name="error_size_password">senha deve ter no mínimo 6 caracteres</string>
-
 
     <string-array name="status_array">
        <item>Aberto</item>
@@ -60,7 +64,7 @@
 
     <string-array name="tipo_array">
         <item>Luz</item>
-        <item>Agua</item>
+        <item>Água</item>
         <item>Estrada</item>
         <item>Geral</item>
     </string-array>

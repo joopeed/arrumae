@@ -18,6 +18,9 @@ import com.parse.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.edu.ufcg.les142.R.*;
+
+
 /**
  * Created by lucasmc on 26/01/15.
  */
@@ -45,10 +48,10 @@ public class CommentListActivity extends Activity {
 
 
 
-        listView = (ListView) findViewById(R.id.list);
-        commentButton = (Button) findViewById(R.id.commentButton);
-        commentPhotoButton = (Button) findViewById(R.id.CommentPhotobutton);
-        commentTextView = (TextView) findViewById(R.id.commentTextView);
+        listView = (ListView) findViewById(id.list);
+        commentButton = (Button) findViewById(id.commentButton);
+        commentPhotoButton = (Button) findViewById(id.CommentPhotobutton);
+        commentTextView = (TextView) findViewById(id.commentTextView);
         comentario = new Comentario();
 
         Intent intent = getIntent();

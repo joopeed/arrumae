@@ -17,6 +17,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import static br.edu.ufcg.les142.R.*;
+
 public class LazyAdapter extends ArrayAdapter {
 
     private final Activity context;
@@ -25,7 +27,7 @@ public class LazyAdapter extends ArrayAdapter {
 
     public LazyAdapter(Activity context,
                        List<String > comentarios, List<Bitmap> bitmaps) {
-        super(context, R.layout.list_row, comentarios);
+        super(context, layout.list_row, comentarios);
         this.context = context;
         this.comentarios = comentarios;
         this.bitmaps = bitmaps;
@@ -34,9 +36,9 @@ public class LazyAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View rowView= inflater.inflate(R.layout.list_row, null, true);
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.title);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.list_image);
+        View rowView= inflater.inflate(layout.list_row, null, true);
+        TextView txtTitle = (TextView) rowView.findViewById(id.title);
+        ImageView imageView = (ImageView) rowView.findViewById(id.list_image);
         txtTitle.setText(comentarios.get(position));
         try{ imageView.setImageBitmap(bitmaps.get(position));}
         catch (Exception e){}

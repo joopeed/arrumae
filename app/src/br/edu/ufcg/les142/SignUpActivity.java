@@ -15,10 +15,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.parse.ParseException;
-import com.parse.ParseUser;
-import com.parse.SignUpCallback;
-import com.parse.ParseInstallation;
+import br.edu.ufcg.les142.models.Relato;
+import br.edu.ufcg.les142.models.Usuario;
+import com.parse.*;
+
+import java.util.List;
+
+import static br.edu.ufcg.les142.R.*;
 
 /**
  * Activity which displays a login screen to the user.
@@ -30,22 +33,23 @@ public class SignUpActivity extends Activity {
     private EditText passwordAgainEditText;
     private EditText cpfEditText;
     private Installation pInst;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_signup);
+        setContentView(layout.activity_signup);
 
         // Set up the signup form.
-        usernameEditText = (EditText) findViewById(R.id.username_edit_text);
+        usernameEditText = (EditText) findViewById(id.username_edit_text);
 
-        passwordEditText = (EditText) findViewById(R.id.password_edit_text);
-        passwordAgainEditText = (EditText) findViewById(R.id.password_again_edit_text);
-        cpfEditText = (EditText) findViewById(R.id.signup_cpf);
+        passwordEditText = (EditText) findViewById(id.password_edit_text);
+        passwordAgainEditText = (EditText) findViewById(id.password_again_edit_text);
+        cpfEditText = (EditText) findViewById(id.signup_cpf);
         passwordAgainEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == R.id.edittext_action_signup ||
+                if (actionId == id.edittext_action_signup ||
                         actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
                     signup();
                     return true;
@@ -55,7 +59,7 @@ public class SignUpActivity extends Activity {
         });
 
         // Set up the submit button click handler
-        Button mActionButton = (Button) findViewById(R.id.signup_button);
+        Button mActionButton = (Button) findViewById(id.signup_button);
         mActionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 signup();
@@ -74,41 +78,47 @@ public class SignUpActivity extends Activity {
         StringBuilder validationErrorMessage = new StringBuilder();
         if (username.length() == 0) {
             validationError = true;
-            validationErrorMessage.append(getString(R.string.error_blank_username));
+            validationErrorMessage.append(getString(string.error_blank_username));
         }
         if (cpf.length() != 11) {
             if (validationError) {
-                validationErrorMessage.append(getString(R.string.error_join));
+                validationErrorMessage.append(getString(string.error_join));
             }
             validationError = true;
-            validationErrorMessage.append(getString(R.string.error_invalid_length_cpf));
+            validationErrorMessage.append(getString(string.error_invalid_length_cpf));
         } else if (!validaCPF(cpf)) {
             if (validationError) {
-                validationErrorMessage.append(getString(R.string.error_join));
+                validationErrorMessage.append(getString(string.error_join));
             }
             validationError = true;
-            validationErrorMessage.append(getString(R.string.error_invalid_cpf));
+            validationErrorMessage.append(getString(string.error_invalid_cpf));
+        } else if (checaSeCPFJaExiste(cpf)) {
+            if (validationError) {
+                validationErrorMessage.append(getString(string.error_join));
+            }
+            validationError = true;
+            validationErrorMessage.append(getString(string.error_cpf_already_registered));
         }
         if (password.length() < 5) {
             if (validationError) {
-                validationErrorMessage.append(getString(R.string.error_join));
+                validationErrorMessage.append(getString(string.error_join));
             }
             if(password.length()== 0){
-                validationErrorMessage.append(getString(R.string.error_blank_password));
+                validationErrorMessage.append(getString(string.error_blank_password));
             }else{
-                validationErrorMessage.append(getString(R.string.error_size_password));
+                validationErrorMessage.append(getString(string.error_size_password));
             }
             validationError = true;
 
         }
         if (!password.equals(passwordAgain)) {
             if (validationError) {
-                validationErrorMessage.append(getString(R.string.error_join));
+                validationErrorMessage.append(getString(string.error_join));
             }
             validationError = true;
-            validationErrorMessage.append(getString(R.string.error_mismatched_passwords));
+            validationErrorMessage.append(getString(string.error_mismatched_passwords));
         }
-        validationErrorMessage.append(getString(R.string.error_end));
+        validationErrorMessage.append(getString(string.error_end));
 
         // If there is a validation error, display the error
         if (validationError) {
@@ -119,7 +129,7 @@ public class SignUpActivity extends Activity {
 
         // Set up a progress dialog
         final ProgressDialog dialog = new ProgressDialog(SignUpActivity.this);
-        dialog.setMessage(getString(R.string.progress_signup));
+        dialog.setMessage(getString(string.progress_signup));
         dialog.show();
 
         // Set up a new Parse user
@@ -186,5 +196,27 @@ public class SignUpActivity extends Activity {
         }
         return cpf.substring(9, 11).equals(
                 new Integer(primeiroDigito).toString() + new Integer(segundoDigito).toString());
+    }
+
+    /**
+     * Verifica se o CPF que está sendo recebido no cadastro já existe no sistema
+     *
+     * @param cpf
+     *      CPF a ser verificado
+     * @return true se o cpf existir no sistema, false caso contrário
+     */
+    private boolean checaSeCPFJaExiste(String cpf) {
+        ParseQuery<ParseUser> mapQuery = ParseUser.getQuery();
+        try {
+            List<ParseUser> parseUsers = mapQuery.find();
+            for (ParseUser user : parseUsers) {
+                if (cpf.equals(user.get("CPF"))) {
+                    return true;
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

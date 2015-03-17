@@ -25,48 +25,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
-            android:layout_toEndOf="@+id/statusTextView"
-            android:layout_below="@+id/authorTextView" android:layout_toRightOf="@+id/statusTextView"/>
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@+id/descImageView"
+            android:layout_toRightOf="@+id/statusTextView"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/status_report"
             android:id="@+id/statusTextView"
-            android:layout_below="@+id/authorTextView"
-            android:layout_alignLeft="@+id/authorTextView"
-            android:layout_alignStart="@+id/authorTextView"/>
+            android:layout_below="@+id/descImageView"
+            android:layout_alignStart="@+id/descTextView"/>
     <Spinner
             android:id="@+id/tipo_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
-            android:layout_toEndOf="@+id/tipoTextView"
-            android:layout_below="@+id/statusTextView"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@+id/authorTextView"
             android:layout_toRightOf="@+id/tipoTextView"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tipo_report"
             android:id="@+id/tipoTextView"
-            android:layout_below="@+id/statusTextView"
-            android:layout_alignLeft="@+id/statusTextView"
-            android:layout_alignStart="@+id/statusTextView"/>
+            android:layout_below="@+id/authorTextView"
+            android:layout_alignStart="@+id/descTextView"/>
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/descImageView"
             android:minWidth="200dp" android:minHeight="200dp"
             android:layout_below="@+id/tipo_spinner"
-            android:layout_alignLeft="@+id/tipoTextView"
-            android:layout_alignStart="@+id/tipoTextView"/>
+            android:layout_alignStart="@+id/descTextView"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Nenhum apoiador"
             android:id="@+id/apoiadoresTextView"
-            android:layout_above="@+id/apoiarButton" android:layout_alignLeft="@+id/descImageView"
-            android:layout_alignStart="@+id/descImageView"/>
+            android:layout_above="@+id/apoiarButton"
+            android:layout_alignStart="@+id/descTextView"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,10 +81,4 @@
             android:layout_toStartOf="@+id/commentsButton"
             android:layout_alignParentBottom="true" android:layout_alignLeft="@+id/apoiadoresTextView"
             android:layout_alignStart="@+id/apoiadoresTextView"/>
-     <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/textView" android:layout_alignParentTop="true"
-                android:layout_alignRight="@+id/commentsButton" android:layout_alignEnd="@+id/commentsButton"/>
 </RelativeLayout>

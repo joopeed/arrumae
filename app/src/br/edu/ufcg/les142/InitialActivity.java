@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import br.edu.ufcg.les142.models.Relato;
 import com.google.android.gms.common.ConnectionResult;
@@ -34,6 +35,8 @@ import com.google.android.gms.maps.model.*;
 import com.parse.*;
 
 import java.util.*;
+
+import static br.edu.ufcg.les142.R.*;
 
 @SuppressWarnings("ALL")
 public class InitialActivity extends FragmentActivity implements LocationListener,
@@ -115,7 +118,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(layout.main);
         ParseInstallation installation =  ParseInstallation.getCurrentInstallation();
         installation.put("Relato", true);
         installation.saveInBackground();
@@ -131,7 +134,6 @@ public class InitialActivity extends FragmentActivity implements LocationListene
 
         // Set up the map fragment
         mapa = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-
         // Enable the current location "blue dot"
         mapa.getMap().setMyLocationEnabled(true);
 
@@ -141,7 +143,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
             }
         });
         final ProgressDialog dialogShowRelato = new ProgressDialog(InitialActivity.this);
-        dialogShowRelato.setMessage(getString(R.string.openning_relate));
+        dialogShowRelato.setMessage(getString(string.openning_relate));
         mapa.getMap().setOnMarkerClickListener(
                 new GoogleMap.OnMarkerClickListener() {
                     @Override
@@ -249,7 +251,7 @@ public class InitialActivity extends FragmentActivity implements LocationListene
                 Location myLoc = (currentLocation == null) ? lastLocation : currentLocation;
                 if (myLoc == null) {
                     Toast.makeText(InitialActivity.this,
-                            "Please try again after your location appears on the map.", Toast.LENGTH_LONG).show();
+                            "Por favor tente de novo quando sua localização aparecer no mapa.", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -306,57 +308,57 @@ public class InitialActivity extends FragmentActivity implements LocationListene
         if(relato.getTipoRelato().toString().equals("Luz")) {
             if (relato.getImage() == null) {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.luzcoment;
+                    return drawable.luzcoment;
                 } else {
-                    return R.drawable.luz;
+                    return drawable.luz;
                 }
             } else {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.luzboth;
+                    return drawable.luzboth;
                 } else {
-                    return R.drawable.luzfoto;
+                    return drawable.luzfoto;
                 }
             }
         } else if(relato.getTipoRelato().toString().equals("Agua")) {
             if (relato.getImage() == null) {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.aguacoment;
+                    return drawable.aguacoment;
                 } else {
-                    return R.drawable.agua;
+                    return drawable.agua;
                 }
             } else {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.aguaboth;
+                    return drawable.aguaboth;
                 } else {
-                    return R.drawable.aguafoto;
+                    return drawable.aguafoto;
                 }
             }
         } else if(relato.getTipoRelato().toString().equals("Estrada")) {
             if (relato.getImage() == null) {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.estradacoment;
+                    return drawable.estradacoment;
                 } else {
-                    return R.drawable.estrada;
+                    return drawable.estrada;
                 }
             } else {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.estradaboth;
+                    return drawable.estradaboth;
                 } else {
-                    return R.drawable.estradafoto;
+                    return drawable.estradafoto;
                 }
             }
         } else {
             if (relato.getImage() == null) {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.martelocoment;
+                    return drawable.martelocoment;
                 } else {
-                    return R.drawable.martelo;
+                    return drawable.martelo;
                 }
             } else {
                 if (relato.getComentarios().size() != 0) {
-                    return R.drawable.marteloboth;
+                    return drawable.marteloboth;
                 } else {
-                    return R.drawable.martelofoto;
+                    return drawable.martelofoto;
                 }
             }
         }

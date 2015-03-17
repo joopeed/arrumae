@@ -25,6 +25,8 @@ import com.parse.ParseObject;
 import com.parse.RefreshCallback;
 import com.parse.SaveCallback;
 
+import static br.edu.ufcg.les142.R.*;
+
 /**
  * Activity which displays a login screen to the user, offering registration as well.
  */
@@ -38,15 +40,15 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_login);
+        setContentView(layout.activity_login);
 
         // Set up the login form.
-        usernameEditText = (EditText) findViewById(R.id.username);
-        passwordEditText = (EditText) findViewById(R.id.password);
+        usernameEditText = (EditText) findViewById(id.username);
+        passwordEditText = (EditText) findViewById(id.password);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == R.id.edittext_action_login ||
+                if (actionId == id.edittext_action_login ||
                         actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
                     login();
                     return true;
@@ -56,7 +58,7 @@ public class LoginActivity extends Activity {
         });
 
         // Set up the submit button click handler
-        Button actionButton = (Button) findViewById(R.id.login_button);
+        Button actionButton = (Button) findViewById(id.login_button);
         actionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 login();
@@ -70,24 +72,24 @@ public class LoginActivity extends Activity {
 
         // Validate the log in data
         boolean validationError = false;
-        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        StringBuilder validationErrorMessage = new StringBuilder(getString(string.error_intro));
         if (username.length() == 0) {
             validationError = true;
-            validationErrorMessage.append(getString(R.string.error_blank_username));
+            validationErrorMessage.append(getString(string.error_blank_username));
         }
         if (password.length() == 0) {
             if (validationError) {
-                validationErrorMessage.append(getString(R.string.error_join));
+                validationErrorMessage.append(getString(string.error_join));
             }
             validationError = true;
-            validationErrorMessage.append(getString(R.string.error_blank_password));
+            validationErrorMessage.append(getString(string.error_blank_password));
         }
-        validationErrorMessage.append(getString(R.string.error_end));
+        validationErrorMessage.append(getString(string.error_end));
 
 
         // Set up a progress dialog
         final ProgressDialog dialog = new ProgressDialog(LoginActivity.this);
-        dialog.setMessage(getString(R.string.progress_login));
+        dialog.setMessage(getString(string.progress_login));
         dialog.show();
         // Call the Parse login method
         ParseUser.logInInBackground(username, password, new LogInCallback() {
@@ -97,7 +99,7 @@ public class LoginActivity extends Activity {
                 if (e != null) {
                     // Show the error message
                     if (e.getMessage().equals("invalid login credentials")){
-                        Toast.makeText(LoginActivity.this, R.string.invalid_login_credentials, Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, string.invalid_login_credentials, Toast.LENGTH_LONG).show();
                     }
 
                 } else {

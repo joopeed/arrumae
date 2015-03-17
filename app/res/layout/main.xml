@@ -1,29 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
+              android:layout_height="fill_parent">
 
-        >
-    <LinearLayout android:orientation="vertical"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/map"
+              android:name="com.google.android.gms.maps.SupportMapFragment"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent" tools:layout="@layout/main"
+            />
+    <RelativeLayout android:orientation="vertical"
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent">
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/map"
-                  android:name="com.google.android.gms.maps.SupportMapFragment"
-                  android:layout_width="fill_parent"
-                  android:layout_height="fill_parent" tools:layout="@layout/main"/>
-    </LinearLayout>
-    <ImageButton
-            android:id="@+id/relatarButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="bottom|right"
-            android:background="@drawable/new_relato"
-            android:src="@drawable/new_relato"/>
+        <TextView
+                android:layout_width="320sp"
+                android:layout_height="433sp"
+                android:gravity="bottom|center"
+                android:layout_alignParentBottom="true"
+                android:text="@string/hint"
+                android:textColor="#D32F2F"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                android:layout_toLeftOf="@+id/relatarButton"
+                android:layout_alignEnd="@id/relatarButton"
+                android:textSize="14sp"
+                android:paddingLeft="7sp"/>
+
+        <ImageButton
+                android:id="@+id/relatarButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="bottom|right"
+                android:background="@drawable/new_relato"
+                android:src="@drawable/new_relato"/>
+    </RelativeLayout>
+
+
 
 
 </FrameLayout>

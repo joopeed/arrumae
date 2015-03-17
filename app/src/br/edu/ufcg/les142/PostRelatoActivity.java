@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import br.edu.ufcg.les142.models.StatusRelato;
@@ -23,6 +24,8 @@ import com.parse.RefreshCallback;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
+
+import static br.edu.ufcg.les142.R.*;
 
 /**
  * Created by Rodr on 25/11/2014.
@@ -40,13 +43,13 @@ public class PostRelatoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activitypostrelato);
+        setContentView(layout.activitypostrelato);
         Intent intent = getIntent();
         Location location = intent.getParcelableExtra(Application.INTENT_EXTRA_LOCATION);
         geoPoint = new ParseGeoPoint(location.getLatitude(), location.getLongitude());
-        postEditText = (EditText) findViewById(R.id.post_edittext);
-        attachButton = (Button) findViewById(R.id.attach_button);
-        postButton = (Button) findViewById(R.id.post_button);
+        postEditText = (EditText) findViewById(id.post_edittext);
+        attachButton = (Button) findViewById(id.attach_button);
+        postButton = (Button) findViewById(id.post_button);
         post = new Relato();
         postButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -82,6 +85,14 @@ public class PostRelatoActivity extends Activity {
 
     public void post() {
         String text = postEditText.getText().toString().trim();
+        if (descricaoEhVazia(text)) {
+            StringBuilder validationErrorMessage = new StringBuilder();
+            validationErrorMessage.append(getString(string.error_empty_description));
+            Toast.makeText(PostRelatoActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
+                .show();
+            return;
+        }
+
        /* // Set up a progress dialog
         final ProgressDialog dialog = new ProgressDialog(PostRelatoActivity.this);
         dialog.setMessage(getString(R.string.relato));
@@ -90,7 +101,7 @@ public class PostRelatoActivity extends Activity {
         // Create a post.
         // Set the location to the current user's location
         final ProgressDialog dialog = new ProgressDialog(PostRelatoActivity.this);
-        dialog.setMessage(getString(R.string.progress_posting));
+        dialog.setMessage(getString(string.progress_posting));
         dialog.show();
         post.setLocalizacao(geoPoint);
         post.setDescricao(text);
@@ -112,5 +123,9 @@ public class PostRelatoActivity extends Activity {
                 finish();
             }
         });
+    }
+
+    private boolean descricaoEhVazia(String text) {
+        return (text == null || text.isEmpty() || text.length() == 0);
     }
 }
