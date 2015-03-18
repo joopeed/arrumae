@@ -34,7 +34,7 @@ public class CommentListActivity extends Activity {
     private TextView commentTextView;
     private String rel_id;
     private List<String > comentarios;
-    private List<Boolean> hasPhotos;
+    private ArrayList<Integer> hasPhotos;
     private List<Bitmap > bitmaps;
     private Bitmap image = null;
     private LazyAdapter adapter;
@@ -47,8 +47,7 @@ public class CommentListActivity extends Activity {
         setContentView(R.layout.activitycomments);
         comentarios = new ArrayList<String>();
         bitmaps = new ArrayList<Bitmap>();
-        hasPhotos = new ArrayList<Boolean>();
-
+        hasPhotos = new ArrayList<Integer>();
 
         listView = (ListView) findViewById(id.list);
         commentButton = (Button) findViewById(id.commentButton);
@@ -97,17 +96,20 @@ public class CommentListActivity extends Activity {
                     try {
                         ParseUser u = (co.getParseUser("user"));
                         comentarios.add(u.getUsername() + ": " + co.getText());
-                        hasPhotos.add(false);
-                        Bitmap bitmap = null;
+                        hasPhotos.add(0);
+
                         try {
                             byte[] bytes = co.getImage();
-                            Log.d("Tamanho da imagem", ""+bytes.length);
-                            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            hasPhotos.set(hasPhotos.size()-1, true);
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                             bitmaps.add(bitmap);
+                            hasPhotos.remove(hasPhotos.lastIndexOf(0));
+                            hasPhotos.add(1);
+
                         } catch (Exception el) {
-                            el.printStackTrace();
+                            Log.d("ARRUMAE ERROR", "Erro ao tentar pegar imagens");
                         }
+
+
 
                     } catch (Exception el) {
                         el.printStackTrace();

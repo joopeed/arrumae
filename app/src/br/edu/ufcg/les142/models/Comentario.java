@@ -21,7 +21,7 @@ public class Comentario extends ParseObject{
         byte[] bytearray = stream.toByteArray();
         if (bytearray != null) {
             //TODO
-            ParseFile file = new ParseFile("IMAGEMDECOMENTARIO.jpg", bytearray);
+            ParseFile file = new ParseFile("IMAGEMDECOMENTARIO".toString()+ "jpg", bytearray);
             try {
                 file.save();
             } catch (ParseException e) {
