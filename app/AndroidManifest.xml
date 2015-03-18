@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="br.edu.ufcg.arrumae"
+          package="br.edu.ufcg.les142"
           android:versionCode="1"
           android:versionName="1.0">
     <uses-sdk
@@ -29,9 +29,9 @@
 
     <application
             android:label="@string/app_name"
-            android:name="br.edu.ufcg.les142.Application"
+            android:name=".Application"
             android:icon="@drawable/icone_arrumae">
-        <activity android:name="br.edu.ufcg.les142.DispatchActivity"
+        <activity android:name=".DispatchActivity"
                   android:screenOrientation="portrait"
                   android:noHistory="true">
             <intent-filter>
@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="br.edu.ufcg.les142.InitialActivity"
+        <activity android:name="InitialActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppBaseTheme"
                   android:label="@string/initial_activity">
@@ -48,37 +48,37 @@
 
         </activity>
 
-        <activity android:name="br.edu.ufcg.les142.PostRelatoActivity"
+        <activity android:name="PostRelatoActivity"
                   android:label="@string/post_relato_activity"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppBaseTheme"
                   android:parentActivityName="br.edu.ufcg.les142.InitialActivity">
         </activity>
 
-        <activity android:name="br.edu.ufcg.les142.WelcomeActivity"
+        <activity android:name=".WelcomeActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppBaseTheme" >
         </activity>
 
-        <activity android:name="br.edu.ufcg.les142.LoginActivity"
+        <activity android:name=".LoginActivity"
                   android:label="@string/login"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppBaseTheme" >
         </activity>
 
-        <activity android:name="br.edu.ufcg.les142.SignUpActivity"
+        <activity android:name=".SignUpActivity"
                   android:label="@string/signup"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppBaseTheme" >
         </activity>
-        <activity android:name="br.edu.ufcg.les142.DescRelatoActivity"
+        <activity android:name=".DescRelatoActivity"
                   android:label="DescRelatoActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppBaseTheme" >
 
         </activity>
-        <activity android:name="br.edu.ufcg.les142.CommentListActivity"
+        <activity android:name=".CommentListActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppBaseTheme" >
         </activity>
@@ -97,7 +97,7 @@
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
-        <receiver android:name="br.edu.ufcg.les142.ArrumaeBroadcastReceiver" android:exported="false">
+        <receiver android:name="ArrumaeBroadcastReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
