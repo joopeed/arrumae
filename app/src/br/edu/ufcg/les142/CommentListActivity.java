@@ -146,7 +146,9 @@ public class CommentListActivity extends Activity {
         dialog.show();
         String text = commentTextView.getText().toString().trim();
 
-
+        if(descricaoEhVazia(text)){
+            Toast.makeText(this, string.error_empty_description,  Toast.LENGTH_SHORT);
+        }
         comentario.setText(text);
         comentario.setUser(ParseUser.getCurrentUser());
         comentario.setRelatoID(rel_id);
@@ -170,4 +172,7 @@ public class CommentListActivity extends Activity {
 
     }
 
+    private boolean descricaoEhVazia(String text) {
+        return (text == null || text.isEmpty() || text.length() == 0);
+    }
 }
