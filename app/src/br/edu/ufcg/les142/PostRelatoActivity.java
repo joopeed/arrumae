@@ -9,12 +9,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
 import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import br.edu.ufcg.les142.models.StatusRelato;
+import br.edu.ufcg.les142.models.TipoRelato;
 import com.parse.*;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
@@ -39,6 +38,7 @@ public class PostRelatoActivity extends Activity {
     private Bitmap image;
     private Relato post;
     private ParseGeoPoint geoPoint;
+    private Spinner tipoPostSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,27 @@ public class PostRelatoActivity extends Activity {
         attachButton = (Button) findViewById(id.attach_button);
         postButton = (Button) findViewById(id.post_button);
         post = new Relato();
+
+        tipoPostSpinner = (Spinner) findViewById(id.tipo_spinner_post);
+        ArrayAdapter<CharSequence> adapter_tipo = ArrayAdapter.createFromResource(this,
+                array.tipo_array, android.R.layout.simple_spinner_item);
+        adapter_tipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tipoPostSpinner.setAdapter(adapter_tipo);
+        tipoPostSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                String novo = (String) adapterView.getItemAtPosition(pos);
+                System.out.println("%%%%%%%%%%%%%%%%%%% " + novo);
+                if (novo != null) {
+                    TipoRelato novoTipo = TipoRelato.parse(novo);
+                    post.setTipoRelato(novoTipo);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
         postButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 post();

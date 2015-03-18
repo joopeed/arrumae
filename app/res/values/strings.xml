@@ -63,10 +63,10 @@
     </string-array>
 
     <string-array name="tipo_array">
-        <item>Luz</item>
-        <item>Água</item>
-        <item>Estrada</item>
         <item>Geral</item>
+        <item>Luz</item>
+        <item>Agua</item>
+        <item>Estrada</item>
     </string-array>
 </resources>
 

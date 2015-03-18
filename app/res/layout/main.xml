@@ -23,7 +23,6 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="20dp"
                 android:layout_toLeftOf="@+id/relatarButton"
-                android:layout_alignEnd="@id/relatarButton"
                 android:textSize="14sp"
                 android:paddingLeft="7sp"/>
 
