@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -15,8 +16,7 @@ import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import com.parse.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static br.edu.ufcg.les142.R.*;
 
@@ -34,6 +34,7 @@ public class CommentListActivity extends Activity {
     private TextView commentTextView;
     private String rel_id;
     private List<String > comentarios;
+    private List<Boolean> hasPhotos;
     private List<Bitmap > bitmaps;
     private Bitmap image = null;
     private LazyAdapter adapter;
@@ -45,7 +46,8 @@ public class CommentListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitycomments);
         comentarios = new ArrayList<String>();
-
+        bitmaps = new ArrayList<Bitmap>();
+        hasPhotos = new ArrayList<Boolean>();
 
 
         listView = (ListView) findViewById(id.list);
@@ -70,7 +72,7 @@ public class CommentListActivity extends Activity {
             }
         });
 
-        adapter = new LazyAdapter(CommentListActivity.this, comentarios, bitmaps);
+        adapter = new LazyAdapter(CommentListActivity.this, comentarios, bitmaps, hasPhotos);
 
         commentButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -95,13 +97,18 @@ public class CommentListActivity extends Activity {
                     try {
                         ParseUser u = (co.getParseUser("user"));
                         comentarios.add(u.getUsername() + ": " + co.getText());
+                        hasPhotos.add(false);
+                        Bitmap bitmap = null;
                         try {
                             byte[] bytes = co.getImage();
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 100, bytes.length);
+                            Log.d("Tamanho da imagem", ""+bytes.length);
+                            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            hasPhotos.set(hasPhotos.size()-1, true);
                             bitmaps.add(bitmap);
                         } catch (Exception el) {
                             el.printStackTrace();
                         }
+
                     } catch (Exception el) {
                         el.printStackTrace();
                     }
@@ -126,6 +133,7 @@ public class CommentListActivity extends Activity {
             Bundle extras = data.getExtras();
             image = (Bitmap) extras.get("data");
             comentario.setImage(image);
+            comentario.setHasPhoto(true);
         }
     }
 

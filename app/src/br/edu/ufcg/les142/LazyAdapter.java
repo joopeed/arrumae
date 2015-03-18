@@ -24,13 +24,17 @@ public class LazyAdapter extends ArrayAdapter {
     private final Activity context;
     private final List<String > comentarios;
     private final List<Bitmap> bitmaps;
+    private final List<Boolean> hasPhotos;
+    private int idx ;
 
     public LazyAdapter(Activity context,
-                       List<String > comentarios, List<Bitmap> bitmaps) {
+                       List<String > comentarios, List<Bitmap> bitmaps, List<Boolean> hasPhotos) {
         super(context, layout.list_row, comentarios);
+        idx = 0;
         this.context = context;
         this.comentarios = comentarios;
         this.bitmaps = bitmaps;
+        this.hasPhotos = hasPhotos;
     }
 
     @Override
@@ -40,8 +44,11 @@ public class LazyAdapter extends ArrayAdapter {
         TextView txtTitle = (TextView) rowView.findViewById(id.title);
         ImageView imageView = (ImageView) rowView.findViewById(id.list_image);
         txtTitle.setText(comentarios.get(position));
-        try{ imageView.setImageBitmap(bitmaps.get(position));}
-        catch (Exception e){}
+        if(hasPhotos.get(position)){
+            try{ imageView.setImageBitmap(bitmaps.get(idx)); idx++;}
+            catch (Exception e){}
+
+        }
         return rowView;
     }
 }

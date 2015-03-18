@@ -71,6 +71,20 @@ public class Comentario extends ParseObject{
     }
 
 
+    public Boolean hasPhoto() {
+        try {
+            return fetchIfNeeded().getBoolean("hasPhoto");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public void setHasPhoto(Boolean hasPhoto) {
+        put("hasPhoto", hasPhoto);
+    }
+
     public void setUser(ParseUser value) {
         if (value != null) {
             put("user", value);
