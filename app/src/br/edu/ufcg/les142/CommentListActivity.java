@@ -142,14 +142,14 @@ public class CommentListActivity extends Activity {
     private void comment() {
 
         ProgressDialog dialog = new ProgressDialog(CommentListActivity.this);
-        dialog.setMessage(getString(R.string.progress_posting));
-        dialog.show();
         String text = commentTextView.getText().toString().trim();
-
         if(descricaoEhVazia(text)){
             Toast.makeText(this, string.error_empty_description,  Toast.LENGTH_SHORT).show();
             return;
         }
+        dialog.setMessage(getString(R.string.progress_posting));
+        dialog.show();
+
         comentario.setText(text);
         comentario.setUser(ParseUser.getCurrentUser());
         comentario.setRelatoID(rel_id);
