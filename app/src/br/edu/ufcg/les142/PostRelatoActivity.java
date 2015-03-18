@@ -128,7 +128,7 @@ public class PostRelatoActivity extends Activity {
         post.setDescricao(text);
         post.setStatusRelato(StatusRelato.ABERTO);
         post.setUser(ParseUser.getCurrentUser());
-        post.setComentarios(new ArrayList< Comentario>());
+        post.setComentarios(new ArrayList<String>());
 
         ParseACL acl = new ParseACL();
         // Give public read access

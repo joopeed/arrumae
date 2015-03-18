@@ -54,7 +54,6 @@ public class DescRelatoActivity extends Activity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        Log.d("DescRelatoActivity: ", String.valueOf(bundle.size()));
         rel_id = bundle.getString("rel_id");
         descricao = "Descrição: " + bundle.getString("desc");
         author = "Autor: " + bundle.getString("author");
