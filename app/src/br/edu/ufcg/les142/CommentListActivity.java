@@ -147,7 +147,8 @@ public class CommentListActivity extends Activity {
         String text = commentTextView.getText().toString().trim();
 
         if(descricaoEhVazia(text)){
-            Toast.makeText(this, string.error_empty_description,  Toast.LENGTH_SHORT);
+            Toast.makeText(this, string.error_empty_description,  Toast.LENGTH_SHORT).show();
+            return;
         }
         comentario.setText(text);
         comentario.setUser(ParseUser.getCurrentUser());
