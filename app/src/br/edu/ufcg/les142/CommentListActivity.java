@@ -144,7 +144,7 @@ public class CommentListActivity extends Activity {
         ProgressDialog dialog = new ProgressDialog(CommentListActivity.this);
         String text = commentTextView.getText().toString().trim();
         if(descricaoEhVazia(text)){
-            Toast.makeText(this, string.error_empty_descriptionc,  Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, string.error_empty_description,  Toast.LENGTH_SHORT).show();
             return;
         }
         dialog.setMessage(getString(R.string.progress_posting));
