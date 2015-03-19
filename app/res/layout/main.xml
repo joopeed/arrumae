@@ -13,6 +13,7 @@
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent">
         <TextView
+                android:id="@+id/hint"
                 android:layout_width="320sp"
                 android:layout_height="433sp"
                 android:gravity="bottom|center"
@@ -22,7 +23,6 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="20dp"
                 android:layout_toLeftOf="@+id/relatarButton"
-                android:layout_alignEnd="@id/relatarButton"
                 android:textSize="14sp"
                 android:paddingLeft="7sp"/>
 

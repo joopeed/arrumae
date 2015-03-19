@@ -9,6 +9,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +25,17 @@ public class LazyAdapter extends ArrayAdapter {
     private final Activity context;
     private final List<String > comentarios;
     private final List<Bitmap> bitmaps;
+    private final List<Integer> hasPhotos;
+    private int idx ;
 
     public LazyAdapter(Activity context,
-                       List<String > comentarios, List<Bitmap> bitmaps) {
+                       List<String > comentarios, List<Bitmap> bitmaps, List<Integer> hasPhotos) {
         super(context, layout.list_row, comentarios);
+        idx = 0;
         this.context = context;
         this.comentarios = comentarios;
         this.bitmaps = bitmaps;
+        this.hasPhotos = hasPhotos;
     }
 
     @Override
@@ -40,8 +45,19 @@ public class LazyAdapter extends ArrayAdapter {
         TextView txtTitle = (TextView) rowView.findViewById(id.title);
         ImageView imageView = (ImageView) rowView.findViewById(id.list_image);
         txtTitle.setText(comentarios.get(position));
-        try{ imageView.setImageBitmap(bitmaps.get(position));}
-        catch (Exception e){}
+        Log.d("hasPhotos", ""+hasPhotos.get(position));
+        Log.d("position", "" + position);
+        if(hasPhotos.get(position) == 1){
+            try{
+                Log.d("Arrumae bitmap", bitmaps.get(idx).toString());
+                imageView.setImageBitmap(bitmaps.get(idx));
+                idx++;
+                if(idx >= bitmaps.size()) idx =0;
+            } catch (Exception e){
+                Log.d("Arrumae ERROR", "Erro no lazy adapter");
+            }
+
+        }
         return rowView;
     }
 }

@@ -83,20 +83,20 @@ public class Relato extends ParseObject{
         put("tipo", tipo.toString());
     }
 
-    public List<Comentario> getComentarios() {
+    public List<String> getIDComentarios() {
         return getList("comentarios");
     }
 
-    public void setComentarios(List<Comentario> value) {
+    public void setComentarios(List<String> value) {
         put("comentarios", value);
     }
 
-    public void addComentario(Comentario c){
-        List<Comentario> comentarios = getComentarios();
+    public void addComentario(String ID){
+        List<String> comentarios = getIDComentarios();
         if(comentarios == null){
-            setComentarios(new ArrayList<Comentario>());
+            setComentarios(new ArrayList<String>());
         }
-        comentarios.add(c);
+        comentarios.add(ID);
 
     }
 

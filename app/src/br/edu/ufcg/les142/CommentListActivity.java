@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -15,8 +16,7 @@ import br.edu.ufcg.les142.models.Comentario;
 import br.edu.ufcg.les142.models.Relato;
 import com.parse.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static br.edu.ufcg.les142.R.*;
 
@@ -34,8 +34,9 @@ public class CommentListActivity extends Activity {
     private TextView commentTextView;
     private String rel_id;
     private List<String > comentarios;
+    private ArrayList<Integer> hasPhotos;
     private List<Bitmap > bitmaps;
-    private Bitmap image;
+    private Bitmap image = null;
     private LazyAdapter adapter;
     private Installation myInst;
 
@@ -43,11 +44,10 @@ public class CommentListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         myInst = new Installation();
         super.onCreate(savedInstanceState);
-        setContentView(layout.activitycomments);
+        setContentView(R.layout.activitycomments);
         comentarios = new ArrayList<String>();
         bitmaps = new ArrayList<Bitmap>();
-
-
+        hasPhotos = new ArrayList<Integer>();
 
         listView = (ListView) findViewById(id.list);
         commentButton = (Button) findViewById(id.commentButton);
@@ -71,7 +71,7 @@ public class CommentListActivity extends Activity {
             }
         });
 
-        adapter = new LazyAdapter(CommentListActivity.this, comentarios, bitmaps);
+        adapter = new LazyAdapter(CommentListActivity.this, comentarios, bitmaps, hasPhotos);
 
         commentButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -86,13 +86,40 @@ public class CommentListActivity extends Activity {
     }
 
     private void loadRelatos() {
-        for (Comentario co : relato.getComentarios()) {
-            comentarios.add(ParseUser.getCurrentUser().getUsername() + ": "  + co.getText());
-            try{byte[] bytes = co.getImage();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            bitmaps.add(bitmap);}
-            catch(Exception e) {}
-        }
+        int i = 0;
+        ParseQuery<Comentario> query = ParseQuery.getQuery("Comentario");
+        query.whereEqualTo("relatoID", rel_id);
+        query.findInBackground(new FindCallback<Comentario>() {
+            @Override
+            public void done(List<Comentario> comments, ParseException e) {
+                for (Comentario co : comments) {
+                    try {
+                        ParseUser u = (co.getParseUser("user"));
+                        comentarios.add(u.getUsername() + ": " + co.getText());
+                        hasPhotos.add(0);
+
+                        try {
+                            byte[] bytes = co.getImage();
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            bitmaps.add(bitmap);
+                            hasPhotos.remove(hasPhotos.lastIndexOf(0));
+                            hasPhotos.add(1);
+
+                        } catch (Exception el) {
+                            Log.d("ARRUMAE ERROR", "Erro ao tentar pegar imagens");
+                        }
+
+
+
+                    } catch (Exception el) {
+                        el.printStackTrace();
+                    }
+                }
+            }
+        });
+
+
+
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -108,21 +135,26 @@ public class CommentListActivity extends Activity {
             Bundle extras = data.getExtras();
             image = (Bitmap) extras.get("data");
             comentario.setImage(image);
+            comentario.setHasPhoto(true);
         }
     }
 
     private void comment() {
-        final ProgressDialog dialog = new ProgressDialog(CommentListActivity.this);
-        dialog.setMessage(getString(string.progress_posting));
-        dialog.show();
+
+        ProgressDialog dialog = new ProgressDialog(CommentListActivity.this);
         String text = commentTextView.getText().toString().trim();
+        if(descricaoEhVazia(text)){
+            Toast.makeText(this, string.error_empty_description,  Toast.LENGTH_SHORT).show();
+            return;
+        }
+        dialog.setMessage(getString(R.string.progress_posting));
+        dialog.show();
 
         comentario.setText(text);
         comentario.setUser(ParseUser.getCurrentUser());
-
-        relato.addComentario(comentario);
-
-
+        comentario.setRelatoID(rel_id);
+        comentario.saveInBackground();
+        relato.addComentario(comentario.getObjectId());
 
         // Save the post
         relato.saveInBackground();
@@ -141,4 +173,7 @@ public class CommentListActivity extends Activity {
 
     }
 
+    private boolean descricaoEhVazia(String text) {
+        return (text == null || text.isEmpty() || text.length() == 0);
+    }
 }

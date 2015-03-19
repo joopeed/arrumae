@@ -21,7 +21,7 @@ public class Comentario extends ParseObject{
         byte[] bytearray = stream.toByteArray();
         if (bytearray != null) {
             //TODO
-            ParseFile file = new ParseFile("teste".toString() + ".jpg", bytearray);
+            ParseFile file = new ParseFile("IMAGEMDECOMENTARIO".toString()+ "jpg", bytearray);
             try {
                 file.save();
             } catch (ParseException e) {
@@ -54,6 +54,35 @@ public class Comentario extends ParseObject{
 
     public void setText(String value) {
         put("text", value);
+    }
+
+    public String getRelatoID() {
+        try {
+            return fetchIfNeeded().getString("relatoID");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "erro";
+    }
+
+    public void setRelatoID(String value) {
+        put("relatoID", value);
+    }
+
+
+    public Boolean hasPhoto() {
+        try {
+            return fetchIfNeeded().getBoolean("hasPhoto");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public void setHasPhoto(Boolean hasPhoto) {
+        put("hasPhoto", hasPhoto);
     }
 
     public void setUser(ParseUser value) {

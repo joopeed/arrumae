@@ -17,10 +17,26 @@
             android:background="@null"
             android:hint="@string/prompt_post"
             android:inputType="textMultiLine"
-            android:gravity="top" android:layout_above="@+id/attach_button" android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
+            android:gravity="top"
+            android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
         <requestFocus />
     </EditText>
+    <Spinner
+            android:id="@+id/tipo_spinner_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:gravity="top"
+            android:layout_above="@+id/attach_button" android:layout_toRightOf="@+id/tipoPostTextView"
+            android:layout_toEndOf="@+id/tipoPostTextView"/>
+    <TextView
+            android:id="@+id/tipoPostTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tipo_report"
+            android:layout_alignTop="@+id/tipo_spinner_post" android:layout_alignBottom="@+id/tipo_spinner_post"/>
 
     <Button
         android:id="@+id/attach_button"
