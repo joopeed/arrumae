@@ -62,11 +62,10 @@ public class Comentario extends ParseObject{
         }
     }
 
+
     public static ParseQuery<Comentario> getQuery() {
         return ParseQuery.getQuery(Comentario.class);
     }
-
-
 
 
 

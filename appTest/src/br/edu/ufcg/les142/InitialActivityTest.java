@@ -35,17 +35,8 @@ public class InitialActivityTest extends ActivityInstrumentationTestCase2<Initia
         };
     }
 
-    @SmallTest
-    public void testShouldDisconnectLocationClientOnStop(){
-        new Runnable() {
-            @Override
-            public void run() {
-                mActivity.onStart();
-                mActivity.onStop();
-                assertFalse(mActivity.getLocationClient().isConnected());
-            }
-        };
-    }
+
+
 
     @LargeTest
     public void testShouldGetLocation(){
